@@ -28,6 +28,8 @@ public class ManageInfoShelterFragment extends Fragment {
                 ft.commit();
             }
         });
+
+
         return view;
     }
 }

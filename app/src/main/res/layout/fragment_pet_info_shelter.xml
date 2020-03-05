@@ -70,7 +70,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="ชื่อ"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -93,7 +92,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="เพศ"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -114,7 +112,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="อายุ"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -135,7 +132,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="สายพันธุ์"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -156,7 +152,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="สี"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -177,7 +172,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="จุดเด่น"
                         android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
@@ -198,7 +192,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="น้ำหนัก"
                         android:textSize="15dp" />
                     </LinearLayout>
 
@@ -209,19 +202,18 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
-                    <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="ขนาด"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-                    <TextView
-                    android:id="@+id/size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="ขนาด"
-                    android:textSize="15dp" />
+                        <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:text="ขนาด"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                        <TextView
+                        android:id="@+id/size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="15dp" />
                     </LinearLayout>
                     <LinearLayout
                     android:layout_width="wrap_content"
@@ -241,7 +233,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="ลักษณะเฉพาะตัว"
                         android:textSize="15dp" />
                     </LinearLayout>
 
@@ -263,7 +254,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="สถานที่พบ"
                         android:textSize="15dp" />
                     </LinearLayout>
 
@@ -285,7 +275,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="สถานะการอุปการะ"
                         android:textSize="15dp" />
                     </LinearLayout>
             </LinearLayout>

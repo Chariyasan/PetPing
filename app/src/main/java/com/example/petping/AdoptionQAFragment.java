@@ -451,7 +451,7 @@ public class AdoptionQAFragment extends Fragment {
                 data.put("ten", ten);
                 data.put("eleven", eleven);
 
-                db.collection("User")
+                db.collection("RequestAdoption")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .collection("Information")
                         .document("BasicQ")
@@ -490,12 +490,10 @@ public class AdoptionQAFragment extends Fragment {
                     adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
                     adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
                     adop.put("petStory", petProfileList.get(i).getStory());
-                    db.collection("User")
+                    db.collection("RequestAdoption")
                             .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .collection("Information")
                             .document("Adoption")
-                            .collection("PetList")
-                            .document()
                             .set(adop)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

@@ -2,7 +2,6 @@ package com.example.petping;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +28,11 @@ public class PetInfoShelterFragment extends Fragment {
     private Button btnInfo, btnStory;
     private ImageView image;
     private TextView name, sex, breed, age, colour, marking, weight;
-    private  TextView size, character, foundLoc, status, story;
+    private TextView size, character, foundLoc, status, story;
     private Button btnEditInfo, btnDeleteInfo;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int i;
+    private String ID;
     private ArrayList<PetSearch> petItem = new ArrayList<>();
     @Nullable
     @Override
@@ -66,53 +66,47 @@ public class PetInfoShelterFragment extends Fragment {
         btnInfo.setTypeface(null, Typeface.BOLD);
         btnStory.setTypeface(null, Typeface.NORMAL);
 
-
         for (i = 0; i < petInfoList.size(); i++) {
-
-            Glide.with(getContext())
-                    .load(petInfoList.get(i).getUrl())
-                    .into(image);
-            name.setText(petInfoList.get(i).getName());
-            sex.setText(petInfoList.get(i).getSex());
-            breed.setText(petInfoList.get(i).getBreed());
-            colour.setText(petInfoList.get(i).getColour());
-            age.setText(petInfoList.get(i).getAge());
-            marking.setText(petInfoList.get(i).getMarking());
-            weight.setText(petInfoList.get(i).getWeight());
-            size.setText(petInfoList.get(i).getSize());
-            character.setText(petInfoList.get(i).getCharacter());
-            foundLoc.setText(petInfoList.get(i).getFoundLoc());
-            status.setText(petInfoList.get(i).getStatus());
+           ID = petInfoList.get(i).getID();
         }
+
+        db.collection("Pet")
+                .document(ID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Glide.with(getContext())
+                                .load(documentSnapshot.get("Image"))
+                                .into(image);
+                        name.setText(documentSnapshot.get("Name").toString());
+                        sex.setText(documentSnapshot.get("Sex").toString());
+                        breed.setText(documentSnapshot.get("Breed").toString());
+                        colour.setText(documentSnapshot.get("Color").toString());
+                        age.setText(documentSnapshot.get("Age").toString());
+                        marking.setText(documentSnapshot.get("Marking").toString());
+                        weight.setText(documentSnapshot.get("Weight").toString());
+                        size.setText(documentSnapshot.get("Size").toString());
+                        character.setText(documentSnapshot.get("Character").toString());
+                        foundLoc.setText(documentSnapshot.get("OriginalLocation").toString());
+                        status.setText(documentSnapshot.get("Status").toString());
+                        story.setText(documentSnapshot.get("Story").toString());
+
+                        PetSearch petSearch = new PetSearch(documentSnapshot.getId(), documentSnapshot.get("Name").toString(), documentSnapshot.get("Type").toString(),
+                                documentSnapshot.get("Color").toString(), documentSnapshot.get("Sex").toString(), documentSnapshot.get("Age").toString(),
+                                documentSnapshot.get("Breed").toString(), documentSnapshot.get("Size").toString(), documentSnapshot.get("Image").toString(),
+                                documentSnapshot.get("Weight").toString(), documentSnapshot.get("Character").toString(), documentSnapshot.get("Marking").toString(),
+                                documentSnapshot.get("Health").toString(), documentSnapshot.get("OriginalLocation").toString(), documentSnapshot.get("Status").toString(),
+                                documentSnapshot.get("Story").toString());
+                        petItem.add(petSearch);
+                    }
+                });
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
                 btnInfo.setTypeface(null, Typeface.BOLD);
                 btnStory.setTypeface(null, Typeface.NORMAL);
-                for (i = 0; i < petInfoList.size(); i++) {
-                    db.collection("Pet").document(petInfoList.get(i).getID())
-                            .get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    Glide.with(getContext())
-                                            .load(petInfoList.get(i).getUrl())
-                                            .into(image);
-                                    name.setText(petInfoList.get(i).getName());
-                                    sex.setText(petInfoList.get(i).getSex());
-                                    breed.setText(petInfoList.get(i).getBreed());
-                                    colour.setText(petInfoList.get(i).getColour());
-                                    age.setText(petInfoList.get(i).getAge());
-                                    marking.setText(petInfoList.get(i).getMarking());
-                                    weight.setText(petInfoList.get(i).getWeight());
-                                    size.setText(petInfoList.get(i).getSize());
-                                    character.setText(petInfoList.get(i).getCharacter());
-                                    foundLoc.setText(petInfoList.get(i).getFoundLoc());
-                                    status.setText(petInfoList.get(i).getStatus());
-                                }
-                            });
-                }
             }
         });
 
@@ -122,26 +116,15 @@ public class PetInfoShelterFragment extends Fragment {
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
                 btnStory.setTypeface(null, Typeface.BOLD);
                 btnInfo.setTypeface(null, Typeface.NORMAL);
-                for (i = 0; i < petInfoList.size(); i++) {
-                    db.collection("Pet").document(petInfoList.get(i).getID())
-                            .get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    story.setText(petInfoList.get(i).getStory());
-                                }
-                            });
-                }
             }
         });
 
         btnEditInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 EditPetInfoShelterFragment petInfoShelterFragment = new  EditPetInfoShelterFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("petEditInfo", petInfoList);
+                bundle.putSerializable("petEditInfo", petItem);
                 petInfoShelterFragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(),  petInfoShelterFragment);

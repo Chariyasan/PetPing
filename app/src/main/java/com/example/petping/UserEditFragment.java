@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class UserEditFragment extends Fragment {
     private TextView userName, name, tel, job, addr;
     private ImageView btnUserName, btnName, btnTel, btnJob, btnAddr;
-    private Button edit_back_btn;
+    private ImageButton edit_back_btn;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Nullable

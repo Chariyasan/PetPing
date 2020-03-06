@@ -2,10 +2,12 @@ package com.example.petping;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +71,9 @@ public class PetProfileGeneralFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //viewFlipper.showPrevious();
+                btnGeneral.setTypeface(null, Typeface.BOLD);
+                btnStory.setTypeface(null, Typeface.NORMAL);
+                btnShelter.setTypeface(null, Typeface.NORMAL);
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_general)));
             }
         });
@@ -76,6 +82,9 @@ public class PetProfileGeneralFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //viewFlipper.showNext();
+                btnGeneral.setTypeface(null, Typeface.NORMAL);
+                btnStory.setTypeface(null, Typeface.BOLD);
+                btnShelter.setTypeface(null, Typeface.NORMAL);
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_story)));
             }
         });
@@ -84,6 +93,9 @@ public class PetProfileGeneralFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //viewFlipper.showNext();
+                btnGeneral.setTypeface(null, Typeface.NORMAL);
+                btnStory.setTypeface(null, Typeface.NORMAL);
+                btnShelter.setTypeface(null, Typeface.BOLD);
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_shelter)));
             }
         });
@@ -137,7 +149,7 @@ public class PetProfileGeneralFragment extends Fragment {
                         saveIntoLike(petProfileList.get(finalI).getID());
 
                     }
-                     else if (!isChecked){
+                    else if (!isChecked){
                         toggleButtonFav.setChecked(false);
                         toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
                         isStateSaved();

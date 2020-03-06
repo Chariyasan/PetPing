@@ -15,202 +15,214 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/processbar_2" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10px"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="8dp"
-            android:textColor="#000"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            android:text="กรอกข้อมูลเพิ่มเติม"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="50px"
-            android:layout_marginLeft="50px"
-            android:layout_marginBottom="30px"
-            android:padding="10dp"
-            android:orientation="vertical">
-            // NID
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_name"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="ชื่อ-นามสกุล" />
-
-                <EditText
-                    android:id="@+id/edit_info_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:inputType="textPersonName" />
-
-            </LinearLayout>
-            // NID
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_nid"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="รหัสบัตรประชาชน" />
-
-                <EditText
-                    android:id="@+id/edit_info_nid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="13"
-                    android:inputType="number" />
-
-            </LinearLayout>
-
-            // Birth date
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_dob"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="วัน เดือน ปีเกิด" />
-
-                <EditText
-                    android:id="@+id/edit_info_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:inputType="date" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_telNo"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="เบอร์โทรศัพท์" />
-
-                <EditText
-                    android:id="@+id/edit_info_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:inputType="phone" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="กรอกข้อมูลเพิ่มเติม"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="10px"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <TextView
-                    android:id="@+id/txt_address"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="ที่อยู่" />
-
-                <EditText
-                    android:id="@+id/edit_info_addr"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="ชื่อ-นามสกุล" />
 
-                <TextView
-                    android:id="@+id/txt_job"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="อาชีพ" />
+                    <EditText
+                        android:id="@+id/edit_info_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="13"
+                        android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/edit_info_job"
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="20"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_nid"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="รหัสบัตรประชาชน" />
 
-                <TextView
-                    android:id="@+id/txt_salary"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="เงินเดือน" />
+                    <EditText
+                        android:id="@+id/edit_info_nid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="13"
+                        android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/edit_info_salary"
+                </LinearLayout>
+
+                // Birth date
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number" />
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:id="@+id/txt_dob"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="วัน เดือน ปีเกิด" />
+
+                    <EditText
+                        android:id="@+id/edit_info_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="20"
+                        android:inputType="date" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_telNo"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="เบอร์โทรศัพท์" />
+
+                    <EditText
+                        android:id="@+id/edit_info_tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="20"
+                        android:inputType="phone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_address"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="ที่อยู่" />
+
+                    <EditText
+                        android:id="@+id/edit_info_addr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="20"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_job"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="อาชีพ" />
+
+                    <EditText
+                        android:id="@+id/edit_info_job"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="20"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_salary"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="เงินเดือน" />
+
+                    <EditText
+                        android:id="@+id/edit_info_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="number" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:gravity="right"
+                        android:textStyle="bold"
+                        android:text="บาท" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_marginStart="10dp"
-                    android:text="บาท"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/edit_info_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_custom"
+                        android:text="ต่อไป" />
+                </LinearLayout>
+
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/edit_info_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_click"
-                    android:text="ต่อไป" />
-            </LinearLayout>
-
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

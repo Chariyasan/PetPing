@@ -15,23 +15,24 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/processbar_3" />
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10px"
         android:orientation="vertical"
         android:gravity="center_horizontal">
-
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="#000"
+            android:text="คำถามเบื้องต้น"
             android:textSize="17dp"
-            android:textStyle="bold"
-            android:text="คำถามเบื้องต้น"/>
-
+            android:textStyle="bold" />
         <ViewFlipper
             android:id="@+id/flipper_qa_process"
             android:layout_width="match_parent"
@@ -48,169 +49,161 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="1 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_one_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_one_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back_n" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back_n" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_one_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_one_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_one_btn"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_one_btn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-
             // Q2
-
             <LinearLayout
                 android:id="@+id/qa_two"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="2 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_two_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_two_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_two_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_two_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_two_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_two_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_two_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_two_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -221,176 +214,169 @@
             <LinearLayout
                 android:id="@+id/qa_three"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="3 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_three_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_three_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="380dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_three_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_three_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_three_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_three_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_three_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_three_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             // Q4
-
             <LinearLayout
                 android:id="@+id/qa_four"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="4 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_four_q"
+                        android:layout_width="320dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_four_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="380dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_four_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_four_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_four_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_four_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_four_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_four_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -400,86 +386,83 @@
             <LinearLayout
                 android:id="@+id/qa_five"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="5 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_five_q"
+                        android:layout_width="320dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_five_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_five_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_five_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_five_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_five_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_five_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_five_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -489,176 +472,169 @@
             <LinearLayout
                 android:id="@+id/qa_six"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="6 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_six_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_six_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_six_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_six_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_six_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_six_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_six_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_six_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             // Q7
-
             <LinearLayout
                 android:id="@+id/qa_seven"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="7 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_seven_q"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_seven_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_seven_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_seven_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_seven_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_seven_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_seven_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_seven_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -668,86 +644,83 @@
             <LinearLayout
                 android:id="@+id/qa_eight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="8 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_eight_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_eight_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="380dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_eight_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_eight_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_eight_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_eight_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_eight_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_eight_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -757,86 +730,83 @@
             <LinearLayout
                 android:id="@+id/qa_nine"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="9 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_nine_q"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_nine_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_nine_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_nine_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_nine_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_nine_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_nine_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_nine_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
@@ -846,191 +816,169 @@
             <LinearLayout
                 android:id="@+id/qa_ten"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="10 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/qa_ten_q"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/qa_ten_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="370dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ImageButton
+                        android:id="@+id/qa_ten_btnB"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
+
+                    <Button
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/btn_click"
+                        android:text="ต่อไป"
+                        android:textColor="#919191" />
 
-                        <ImageButton
-                            android:id="@+id/qa_ten_btnB"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:id="@+id/qa_ten_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_ten_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_ten_btnA"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/qa_ten_btnA"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-
             // Q11
             <LinearLayout
                 android:id="@+id/qa_eleven"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:text="11 of 11"
-                    android:textSize="15dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/qa_eleven_btn"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_back" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/qa_eleven_q"
                         android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/box_round"
-                        android:orientation="vertical"
-                        android:padding="12dp">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
 
-                        <TextView
-                            android:id="@+id/qa_eleven_q"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:padding="5dp"
-                            android:textAlignment="center"
-                            android:textSize="15dp"
-                            android:textColor="#000"/>
-
-                        <EditText
-                            android:id="@+id/qa_eleven_a"
-                            android:layout_width="260dp"
-                            android:layout_height="280dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:textSize="15dp"
-                            android:textColor="#575757"
-                            android:background="@drawable/edittext_round"
-                            android:gravity="top|left" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/q_next_n" />
-                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/qa_eleven_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="380dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/edittext_round"
+                        android:gravity="top|left"
+                        android:textColor="#575757"
+                        android:textSize="15dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/qa_eleven_btn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_back" />
 
                     <Button
                         android:id="@+id/qa_next_button"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
                         android:text="ต่อไป" />
+
+                    <ImageButton
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/q_next_n" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -1038,4 +986,5 @@
         </ViewFlipper>
 
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class UserLikeFragment extends Fragment {
 
     private ListView listView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Button like_back_btn;
+    private ImageButton like_back_btn;
     private ArrayList<PetSearch> petFavList = new ArrayList<>();
     private UserLikeAdapter likeAdapter;
 

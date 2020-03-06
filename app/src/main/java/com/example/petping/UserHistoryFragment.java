@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ public class UserHistoryFragment extends Fragment {
 
     private ListView listView;
     private UserHistAdapter historyAdapter;
-    private Button hist_back_btn;
+    private ImageButton hist_back_btn;
     public TextView resultFound;
     private ArrayList<PetHistory> petHistoryItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,12 +78,12 @@ public class UserHistoryFragment extends Fragment {
                                     @Override
                                     public void onSuccess(DocumentSnapshot document) {
                                         PetSearch petHist = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-                                                    document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-                                                    document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-                                                    document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-                                                    document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                                    document.get("Story").toString());
-                                            historyList.add(petHist);
+                                                document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+                                                document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+                                                document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+                                                document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+                                                document.get("Story").toString());
+                                        historyList.add(petHist);
                                         historyAdapter = new UserHistAdapter(getContext(),historyList);
                                         listView.setAdapter(historyAdapter);
                                     }

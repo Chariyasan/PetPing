@@ -15,39 +15,33 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/processbar_1" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10px"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="#000"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            android:text="เงื่อนไขและข้อบังคับ"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50px"
-            android:layout_marginRight="50px"
-            android:orientation="vertical">
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="เงื่อนไขและข้อบังคับ"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="330dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -100,26 +94,40 @@
                 </LinearLayout>
             </ScrollView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/reg_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"/>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="#000"
+                    android:text="ข้าพเจ้ารับทราบและยินดีปฏิบัติตามข้อตกลงในเงื่อนไขและข้อบังคับทุกประการ" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/reg_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_custom"
+                android:text="ต่อไป" />
+
         </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/reg_cb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="ข้าพเจ้ารับทราบและยินดีปฏิบัติตามข้อตกลงในเงื่อนไขและข้อบังคับทุกประการ" />
-
-        <Button
-            android:id="@+id/reg_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_click"
-            android:text="ต่อไป" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

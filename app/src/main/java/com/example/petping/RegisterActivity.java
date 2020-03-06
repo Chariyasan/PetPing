@@ -104,8 +104,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     //showMessage("Can!!");
                                 }
                             });
-
-
                 }
             }
         });

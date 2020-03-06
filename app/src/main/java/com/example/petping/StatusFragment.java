@@ -32,24 +32,26 @@ public class StatusFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_status, null);
         listView = view.findViewById(R.id.listView_status);
+
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .collection("Information")
-                .document("Adoption")
+                .collection("Adoption")
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot document) {
-                        if(document.exists()){
-                            PetSearch petSearch = new PetSearch(document.get("petID").toString(), document.get("petName").toString(), document.get("petType").toString(),
-                                    document.get("petColor").toString(), document.get("petSex").toString(), document.get("petAge").toString(),
-                                    document.get("petBreed").toString(), document.get("petSize").toString(), document.get("petURL").toString(),
-                                    document.get("petWeight").toString(), document.get("petCharacter").toString(), document.get("petMarking").toString(),
-                                    document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
-                                    document.get("petStory").toString());
-                            petList.add(petSearch);
-                            petAdapter = new PetStatusAdapter(getContext(), petList);
-                            listView.setAdapter(petAdapter);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if(task.isSuccessful()){
+                                PetSearch petSearch = new PetSearch(document.get("petID").toString(), document.get("petName").toString(), document.get("petType").toString(),
+                                        document.get("petColor").toString(), document.get("petSex").toString(), document.get("petAge").toString(),
+                                        document.get("petBreed").toString(), document.get("petSize").toString(), document.get("petURL").toString(),
+                                        document.get("petWeight").toString(), document.get("petCharacter").toString(), document.get("petMarking").toString(),
+                                        document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
+                                        document.get("petStory").toString());
+                                petList.add(petSearch);
+                                petAdapter = new PetStatusAdapter(getContext(), petList);
+                                listView.setAdapter(petAdapter);
+                            }
                         }
                     }
                 });

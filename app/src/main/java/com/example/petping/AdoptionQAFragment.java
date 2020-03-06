@@ -47,6 +47,7 @@ public class AdoptionQAFragment extends Fragment {
     private EditText eightA, nineA, tenA, elevenA;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petProfileList;
+    private String ID;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_adoption_qa_process, null);
@@ -450,11 +451,13 @@ public class AdoptionQAFragment extends Fragment {
                 data.put("nine", nine);
                 data.put("ten", ten);
                 data.put("eleven", eleven);
-
+                for(int i=0; i<petProfileList.size(); i++) {
+                    ID = petProfileList.get(i).getID();
+                }
                 db.collection("RequestAdoption")
                         .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .collection("Information")
-                        .document("BasicQ")
+                        .collection("BasicQ")
+                        .document(ID)
                         .set(data)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -490,10 +493,11 @@ public class AdoptionQAFragment extends Fragment {
                     adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
                     adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
                     adop.put("petStory", petProfileList.get(i).getStory());
+
                     db.collection("RequestAdoption")
                             .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .collection("Information")
-                            .document("Adoption")
+                            .collection("Adoption")
+                            .document(petProfileList.get(i).getID())
                             .set(adop)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

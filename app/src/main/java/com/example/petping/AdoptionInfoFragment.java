@@ -52,6 +52,7 @@ public class AdoptionInfoFragment extends Fragment {
                 String addr = eAddr.getText().toString();
                 String job = eJob.getText().toString();
                 String  salary = eSalary.getText().toString();
+
                 Map<String, Object> data = new HashMap<>();
                 data.put("Name", name);
                 data.put("NID", nid);
@@ -60,6 +61,7 @@ public class AdoptionInfoFragment extends Fragment {
                 data.put("Address", addr);
                 data.put("Job", job);
                 data.put("Salary", salary);
+
                 db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Information")

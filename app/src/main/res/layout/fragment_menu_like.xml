@@ -10,55 +10,53 @@
     android:layout_marginBottom="40px"
     tools:context=".UserLikeFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40px"
-        android:layout_marginLeft="40px"
         android:layout_marginTop="40px"
-        android:layout_marginBottom="20px"
+        android:layout_marginBottom="10px"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/like_back_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:src="@drawable/q_back" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10px"
+            android:gravity="center"
+            android:text="น้องที่ถูกใจ"
             android:textColor="#000"
-            android:textSize="18sp"
-            android:text="น้องที่ถูกใจ" />
+            android:textSize="17dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listView_like"
         android:layout_width="match_parent"
-        android:layout_height="480dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50px"
+        android:layout_marginBottom="10px"
+        android:columnWidth="120dp"
+        android:dividerHeight="10sp"
+        android:gravity="center">
 
-        <ListView
-            android:id="@+id/listView_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-            android:layout_marginTop="10px"
-            android:layout_marginRight="30px"
-            android:layout_marginBottom="20px"
-            android:columnWidth="100dp"
-            android:dividerHeight="10sp"
-            android:gravity="center">
+    </ListView>
 
-        </ListView>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/like_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/btn_click"
-        android:text="ย้อนกลับ" />
+    <!--    <Button-->
+<!--        android:id="@+id/like_back_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:background="@drawable/btn_click"-->
+<!--        android:text="ย้อนกลับ" />-->
 
 </LinearLayout>

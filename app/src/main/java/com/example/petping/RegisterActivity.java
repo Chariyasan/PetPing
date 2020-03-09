@@ -91,7 +91,6 @@ public class RegisterActivity extends AppCompatActivity {
                     data.put("TelNo","");
                     data.put("Job","");
                     data.put("Address","");
-                    changePage();
                     db.collection("User")
                             .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .collection("Information")
@@ -104,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     //showMessage("Can!!");
                                 }
                             });
+
                 }
             }
         });

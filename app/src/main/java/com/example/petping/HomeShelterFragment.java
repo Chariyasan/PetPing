@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserRecord;
+
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,77 +28,108 @@ import java.util.List;
 
 public class HomeShelterFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private String ID;
+    private ListView listView;
+    private HomeShelterAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_shelter, null);
-        final List<String> petIDList = new ArrayList<>();
-        db.collection("Pet")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ID = document.getId();
-//                                Log.d("IdTest", ID);
-                                petIDList.add(ID);
-                            }
-                            showDetail(petIDList);
-                        } else {
-                            Log.d("Error", "Error getting documents: ", task.getException());
-                        }
-                    }
+        listView = view.findViewById(R.id.listView);
 
+        final List<String> value = new ArrayList<>();
+        db.collection("User1")
+                .document("userID")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        for ( Object key : documentSnapshot.getData().values() ) {
+                            value.add(key.toString());
+
+                        }
+                      showDetail(value);
+                    }
                 });
 
-
-
-//        db.collection("Pet")
-//                .whereEqualTo("Status", "อยู่ระหว่างดำเนินการ")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        db.collection("User")
-//                                .document()
-//                                .collection("Information")
-//                                .document("Adoption")
-//                                .collection("PetList")
-//                                .get()
-//                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                        for (QueryDocumentSnapshot document : task.getResult()) {
-//                                            Log.d("Name", document.get("petName").toString());
-//                                        }
-//                                    }
-//                                });
-//                    }
-//                });
         return view;
     }
 
-    private void showDetail(List<String> petIDList) {
-//        UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
-        for (int i=0; i<petIDList.size(); i++){
-//            Log.d("pet", petIDList.get(i));
+    private void showDetail(final List<String> value) {
+        final List<HomeShelter> homeList = new ArrayList<>();
+        for (int i=0; i<value.size(); i++){
+            Log.d("uid", value.get(i));
+            final int finalI = i;
             db.collection("RequestAdoption")
-                .document()
-                .collection("Adoption")
-                .whereEqualTo("petID", petIDList.get(i))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
+                    .document(value.get(i))
+                    .collection("Adoption")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("Name", document.get("petName").toString());
+                                Log.d("name", document.get("UserName").toString());
+                                HomeShelter homeShelter = new HomeShelter(document.getId(), document.get("++++++").toString(),
+                                        document.get("petName").toString(), document.get("petStatus").toString());
+                                homeList.add(homeShelter);
+                                adapter = new HomeShelterAdapter(getContext(), homeList);
+                                listView.setAdapter(adapter);
                             }
                         }
-                    }
-                });
+                    });
         }
+
+//        db.collection("Pet")
+//        .get()
+//        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        ID = document.getId();
+//                        Log.d("IdTest", ID);
+//                        petIDList.add(ID);
+//                    }
+//                    for(int j=0; j<value.size(); j++){
+//                        for (int i=0; i<petIDList.size(); i++){
+//
+//                            db.collection("RequestAdoption")
+//                                    .document()
+//                                    .collection("Adoption")
+//                                    .document()
+//                                    .get()
+//                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                                        @Override
+//                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                            if(documentSnapshot.exists()){
+//                                                Log.d("Test", documentSnapshot.get("petName").toString());
+//                                            }
+//
+//                                        }
+//                                    });
+////                            db.collection("RequestAdoption")
+////                                    .document(value.get(j))
+////                                    .collection("Adoption")
+////                                    .get()
+////                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+////                                        @Override
+////                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+////                                            if(!queryDocumentSnapshots.isEmpty()){
+////                                                Log.d("Test", queryDocumentSnapshots.getDocuments().toString());
+////                                            }
+////
+////                                        }
+////                                    });
+//                        }
+//                        Log.d("Key", value.get(j));
+//
+////           }
+//
+//                    }
+//                } else {
+//                    Log.d("Error", "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
+
     }
 }

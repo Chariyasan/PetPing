@@ -48,6 +48,7 @@ public class AdoptionQAFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petProfileList;
     private String ID;
+    private Map<String, Object> adop = new HashMap<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_adoption_qa_process, null);
@@ -466,52 +467,125 @@ public class AdoptionQAFragment extends Fragment {
                             }
                         });
 
-                for(int i=0; i<petProfileList.size(); i++) {
-                    db.collection("Pet")
-                            .document(petProfileList.get(i).getID())
-                            .update("Status", "อยู่ระหว่างดำเนินการ")
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("update status", "DocumentSnapshot successfully updated!");
-                                }
-                            });
-                    Map<String, Object> adop = new HashMap<>();
-                    adop.put("petID", petProfileList.get(i).getID());
-                    adop.put("petName", petProfileList.get(i).getName());
-                    adop.put("petType", petProfileList.get(i).getType());
-                    adop.put("petColor", petProfileList.get(i).getColour());
-                    adop.put("petSex", petProfileList.get(i).getSex());
-                    adop.put("petAge", petProfileList.get(i).getAge());
-                    adop.put("petBreed", petProfileList.get(i).getBreed());
-                    adop.put("petSize", petProfileList.get(i).getSize());
-                    adop.put("petURL", petProfileList.get(i).getUrl());
-                    adop.put("petWeight", petProfileList.get(i).getWeight());
-                    adop.put("petCharacter", petProfileList.get(i).getCharacter());
-                    adop.put("petMarking", petProfileList.get(i).getMarking());
-                    adop.put("petHealth", petProfileList.get(i).getHealth());
-                    adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
-                    adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
-                    adop.put("petStory", petProfileList.get(i).getStory());
+                db.collection("User")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .collection("Information")
+                        .document("Information")
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                adopProcess(documentSnapshot);
 
-                    db.collection("RequestAdoption")
-                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .collection("Adoption")
-                            .document(petProfileList.get(i).getID())
-                            .set(adop)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("Writing", "DocumentSnapshot successfully written!");
-                                }
-                            });
-                }
+                            }
+                        });
 
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new AdoptionWaitingFragment());
-                ft.commit();
+//                for(int i=0; i<petProfileList.size(); i++) {
+//                    db.collection("Pet")
+//                            .document(petProfileList.get(i).getID())
+//                            .update("Status", "อยู่ระหว่างดำเนินการ")
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d("update status", "DocumentSnapshot successfully updated!");
+//                                }
+//                            });
+//
+//                    adop.put("petID", petProfileList.get(i).getID());
+//                    adop.put("petName", petProfileList.get(i).getName());
+//                    adop.put("petType", petProfileList.get(i).getType());
+//                    adop.put("petColor", petProfileList.get(i).getColour());
+//                    adop.put("petSex", petProfileList.get(i).getSex());
+//                    adop.put("petAge", petProfileList.get(i).getAge());
+//                    adop.put("petBreed", petProfileList.get(i).getBreed());
+//                    adop.put("petSize", petProfileList.get(i).getSize());
+//                    adop.put("petURL", petProfileList.get(i).getUrl());
+//                    adop.put("petWeight", petProfileList.get(i).getWeight());
+//                    adop.put("petCharacter", petProfileList.get(i).getCharacter());
+//                    adop.put("petMarking", petProfileList.get(i).getMarking());
+//                    adop.put("petHealth", petProfileList.get(i).getHealth());
+//                    adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
+//                    adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
+//                    adop.put("petStory", petProfileList.get(i).getStory());
+//
+//                    db.collection("RequestAdoption")
+//                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                            .collection("Adoption")
+//                            .document(petProfileList.get(i).getID())
+//                            .set(adop)
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d("Writing", "DocumentSnapshot successfully written!");
+//                                }
+//                            });
+//                }
+//
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.replace(getId(), new AdoptionWaitingFragment());
+//                ft.commit();
             }
         });
         return view;
+    }
+
+    private void adopProcess(DocumentSnapshot documentSnapshot) {
+        for(int i=0; i<petProfileList.size(); i++) {
+            db.collection("Pet")
+                    .document(petProfileList.get(i).getID())
+                    .update("Status", "อยู่ระหว่างดำเนินการ")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("update status", "DocumentSnapshot successfully updated!");
+                        }
+                    });
+            adop.put("UserName", documentSnapshot.get("UserName").toString());
+            adop.put("petID", petProfileList.get(i).getID());
+            adop.put("petName", petProfileList.get(i).getName());
+            adop.put("petType", petProfileList.get(i).getType());
+            adop.put("petColor", petProfileList.get(i).getColour());
+            adop.put("petSex", petProfileList.get(i).getSex());
+            adop.put("petAge", petProfileList.get(i).getAge());
+            adop.put("petBreed", petProfileList.get(i).getBreed());
+            adop.put("petSize", petProfileList.get(i).getSize());
+            adop.put("petURL", petProfileList.get(i).getUrl());
+            adop.put("petWeight", petProfileList.get(i).getWeight());
+            adop.put("petCharacter", petProfileList.get(i).getCharacter());
+            adop.put("petMarking", petProfileList.get(i).getMarking());
+            adop.put("petHealth", petProfileList.get(i).getHealth());
+            adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
+            adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
+            adop.put("petStory", petProfileList.get(i).getStory());
+
+            db.collection("RequestAdoption")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .collection("Adoption")
+                    .document(petProfileList.get(i).getID())
+                    .set(adop)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Writing", "DocumentSnapshot successfully written!");
+                        }
+                    });
+        }
+
+        HashMap<String, Object> data1 = new HashMap<>();
+        String ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        data1.put(documentSnapshot.get("UserName").toString(), ID);
+        db.collection("User1")
+                .document("userID")
+                .update(data1)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Writing", "DocumentSnapshot successfully written!");
+                    }
+                });
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(getId(), new AdoptionWaitingFragment());
+        ft.commit();
     }
 }

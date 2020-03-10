@@ -2,15 +2,25 @@ package com.example.petping;
 
 public class HomeShelter {
     String uID;
+    String petID;
     String userName;
     String petName;
     String petStatus;
 
-    public HomeShelter(String uID, String userName, String petName, String petStatus) {
+    public HomeShelter(String uID, String petID, String userName, String petName, String petStatus) {
         this.uID = uID;
+        this.petID = petID;
         this.userName = userName;
         this.petName = petName;
         this.petStatus = petStatus;
+    }
+
+    public String getPetID() {
+        return petID;
+    }
+
+    public void setPetID(String petID) {
+        this.petID = petID;
     }
 
     public String getUserName() {

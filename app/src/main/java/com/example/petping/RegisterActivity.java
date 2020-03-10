@@ -82,31 +82,31 @@ public class RegisterActivity extends AppCompatActivity {
     private void CreateUserAccount(final String name, final String email, final String password, final String confirmPass) {
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    HashMap<String, Object> data = new HashMap<>();
-                    data.put("UserName", name);
-                    data.put("Name","");
-                    data.put("TelNo","");
-                    data.put("Job","");
-                    data.put("Address","");
-                    db.collection("User")
-                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .collection("Information")
-                            .document("Information")
-                            .set(data)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    changePage();
-                                    //showMessage("Can!!");
-                                }
-                            });
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            HashMap<String, Object> data = new HashMap<>();
+                            data.put("UserName", name);
+                            data.put("Name","");
+                            data.put("TelNo","");
+                            data.put("Job","");
+                            data.put("Address","");
+                            db.collection("User")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .collection("Information")
+                                    .document("Information")
+                                    .set(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            changePage();
+                                            //showMessage("Can!!");
+                                        }
+                                    });
 
-                }
-            }
-        });
+                        }
+                    }
+                });
 
     }
 

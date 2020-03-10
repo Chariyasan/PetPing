@@ -3,12 +3,14 @@ package com.example.petping;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -58,7 +60,7 @@ public class HomeShelterFragment extends Fragment {
         final List<HomeShelter> homeList = new ArrayList<>();
         for (int i=0; i<value.size(); i++){
             Log.d("uid", value.get(i));
-            final int finalI = i;
+            final int finalI1 = i;
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
@@ -66,9 +68,10 @@ public class HomeShelterFragment extends Fragment {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("name", document.get("UserName").toString());
-                                HomeShelter homeShelter = new HomeShelter(document.getId(), document.get("++++++").toString(),
+                                HomeShelter homeShelter = new HomeShelter(value.get(finalI1), document.getId(), document.get("UserName").toString(),
                                         document.get("petName").toString(), document.get("petStatus").toString());
                                 homeList.add(homeShelter);
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
@@ -76,6 +79,21 @@ public class HomeShelterFragment extends Fragment {
                             }
                         }
                     });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ArrayList<HomeShelter> homeShelter = new ArrayList<>();
+                    ViewRequestShelterFragment viewRequest = new ViewRequestShelterFragment();
+                    Bundle bundle = new Bundle();
+                    homeShelter.add(homeList.get(position));
+                    bundle.putSerializable("homeShelter", homeShelter);
+
+                    viewRequest.setArguments(bundle);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(getId(), viewRequest);
+                    ft.commit();
+                }
+            });
         }
 
 //        db.collection("Pet")
@@ -106,19 +124,19 @@ public class HomeShelterFragment extends Fragment {
 //
 //                                        }
 //                                    });
-////                            db.collection("RequestAdoption")
-////                                    .document(value.get(j))
-////                                    .collection("Adoption")
-////                                    .get()
-////                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-////                                        @Override
-////                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-////                                            if(!queryDocumentSnapshots.isEmpty()){
-////                                                Log.d("Test", queryDocumentSnapshots.getDocuments().toString());
-////                                            }
-////
-////                                        }
-////                                    });
+//                            db.collection("RequestAdoption")
+//                                    .document(value.get(j))
+//                                    .collection("Adoption")
+//                                    .get()
+//                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                                        @Override
+//                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                                            if(!queryDocumentSnapshots.isEmpty()){
+//                                                Log.d("Test", queryDocumentSnapshots.getDocuments().toString());
+//                                            }
+//
+//                                        }
+//                                    });
 //                        }
 //                        Log.d("Key", value.get(j));
 //

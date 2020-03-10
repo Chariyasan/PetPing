@@ -20,8 +20,7 @@ import java.util.Set;
 public class HomeShelterAdapter extends BaseAdapter {
     private Context context;
     private List<HomeShelter> homeList;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    List<String> uidList = new ArrayList<>();
+
     public HomeShelterAdapter(Context context, List<HomeShelter> homeList) {
         this.context = context;
         this.homeList = homeList;

@@ -68,15 +68,16 @@ public class HomeShelterFragment extends Fragment {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
+                        if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("name", document.get("UserName").toString());
+//                                Log.d("name", document.get("UserName").toString());
                                 HomeShelter homeShelter = new HomeShelter(value.get(finalI1), document.getId(), document.get("UserName").toString(),
                                         document.get("petName").toString(), document.get("petStatus").toString());
                                 homeList.add(homeShelter);
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
                                 listView.setAdapter(adapter);
                             }
+                        }
                         }
                     });
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,59 +96,6 @@ public class HomeShelterFragment extends Fragment {
                 }
             });
         }
-
-//        db.collection("Pet")
-//        .get()
-//        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        ID = document.getId();
-//                        Log.d("IdTest", ID);
-//                        petIDList.add(ID);
-//                    }
-//                    for(int j=0; j<value.size(); j++){
-//                        for (int i=0; i<petIDList.size(); i++){
-//
-//                            db.collection("RequestAdoption")
-//                                    .document()
-//                                    .collection("Adoption")
-//                                    .document()
-//                                    .get()
-//                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                                        @Override
-//                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                                            if(documentSnapshot.exists()){
-//                                                Log.d("Test", documentSnapshot.get("petName").toString());
-//                                            }
-//
-//                                        }
-//                                    });
-//                            db.collection("RequestAdoption")
-//                                    .document(value.get(j))
-//                                    .collection("Adoption")
-//                                    .get()
-//                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                                        @Override
-//                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                            if(!queryDocumentSnapshots.isEmpty()){
-//                                                Log.d("Test", queryDocumentSnapshots.getDocuments().toString());
-//                                            }
-//
-//                                        }
-//                                    });
-//                        }
-//                        Log.d("Key", value.get(j));
-//
-////           }
-//
-//                    }
-//                } else {
-//                    Log.d("Error", "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
 
     }
 }

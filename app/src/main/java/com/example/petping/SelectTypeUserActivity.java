@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class SelectTypeUserActivity extends AppCompatActivity {
-    private Button btnShelter, btnAdopter;
+    private ImageButton btnShelter, btnAdopter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +21,8 @@ public class SelectTypeUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //ใช้อันที่ comment
-//                Intent intent = new Intent(SelectTypeUserActivity.this, LogInShelterActivity.class);
-                Intent intent = new Intent(SelectTypeUserActivity.this, MainShelterActivity.class);
+                Intent intent = new Intent(SelectTypeUserActivity.this, LogInShelterActivity.class);
+//                Intent intent = new Intent(SelectTypeUserActivity.this, MainShelterActivity.class);
                 startActivity(intent);
                 finish();
             }

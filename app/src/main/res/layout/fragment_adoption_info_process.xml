@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:srcCompat="@drawable/processbar_2" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,12 +40,10 @@
                 android:layout_marginBottom="10px"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <TextView
                         android:id="@+id/txt_name"
                         android:layout_width="110dp"
@@ -54,21 +51,20 @@
                         android:layout_marginEnd="8dp"
                         android:textStyle="bold"
                         android:text="ชื่อ-นามสกุล" />
-
                     <EditText
                         android:id="@+id/edit_info_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="13"
                         android:inputType="textPersonName" />
-
                 </LinearLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <TextView
                         android:id="@+id/txt_nid"
                         android:layout_width="110dp"
@@ -76,14 +72,12 @@
                         android:layout_marginEnd="8dp"
                         android:textStyle="bold"
                         android:text="รหัสบัตรประชาชน" />
-
                     <EditText
                         android:id="@+id/edit_info_nid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="13"
                         android:inputType="number" />
-
                 </LinearLayout>
 
                 // Birth date
@@ -204,7 +198,33 @@
                         android:textStyle="bold"
                         android:text="บาท" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_image"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+                        android:text="รูปของคุณ" />
+                    <Button
+                        android:id="@+id/btn_adopt_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="อัพโหลดรูปภาพ" />
 
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/image_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -219,6 +239,7 @@
                         android:background="@drawable/btn_custom"
                         android:text="ต่อไป" />
                 </LinearLayout>
+
 
             </LinearLayout>
         </LinearLayout>

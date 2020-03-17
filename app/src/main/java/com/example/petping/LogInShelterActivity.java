@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LogInShelterActivity extends AppCompatActivity {
     private Button btn;
+    private TextView regist;
     private EditText emailL, passL;
     private FirebaseAuth Auth;
     @Override
@@ -26,6 +28,16 @@ public class LogInShelterActivity extends AppCompatActivity {
         btn = findViewById(R.id.log_btn);
         emailL = findViewById(R.id.log_email);
         passL = findViewById(R.id.log_pass);
+        regist = findViewById(R.id.register);
+
+        regist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogInShelterActivity.this, RegisterShelterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,7 @@ public class LogInShelterActivity extends AppCompatActivity {
                             Intent Menu = new Intent(LogInShelterActivity.this, MainShelterActivity.class);
                             startActivity(Menu);
                             finish();
-                            showMessage("Can LogIn");
+//                            showMessage("Can LogIn");
                         }
                         else{
                             showMessage("Log In failed");

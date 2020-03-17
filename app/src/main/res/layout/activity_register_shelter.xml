@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="50px"
+    android:layout_marginLeft="50px"
+    tools:context=".RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ลงทะเบียน"
+            android:textColor="#000"
+            android:textSize="20dp"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="อีเมล"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="รหัสผ่าน"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/confirmPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="ยืนยันรหัสผ่าน"
+                android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/shelter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="ชื่อศูนย์พักพิง"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/shelter_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="ชื่อเจ้าของศูนย์พักพิง"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="หมายเลขใบอนุญาต"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="ที่อยู่ศูนย์พักพิง"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/tel_no"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="12"
+                android:padding="20dp"
+                android:textSize="16dp"
+                android:textColor="#ABABAB"
+                android:hint="เบอร์ติดต่อ"
+                android:inputType="phone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:background="@drawable/btn_custom"
+                    android:text="ลงทะเบียน" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="มีบัญชีแล้ว?"
+                    android:textAlignment="textEnd"
+                    android:textColor="#9C9C9C" />
+
+                <TextView
+                    android:id="@+id/regTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="20dp"
+                    android:text="เข้าสู่ระบบ"
+                    tools:ignore="MissingConstraints" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -192,7 +192,7 @@ public class ViewRequestShelterFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("Answer", document.getData().toString());
+//                                Log.d("Answer", document.getData().toString());
                                 aOne.setText(document.get("one").toString());
                                 aTwo.setText(document.get("two").toString());
                                 aThree.setText(document.get("three").toString());
@@ -219,38 +219,6 @@ public class ViewRequestShelterFragment extends Fragment {
                 btnBasicQ.setTypeface(null, Typeface.NORMAL);
                 btnPet.setTypeface(null, Typeface.NORMAL);
 
-//                db.collection("User")
-//                        .document(uID)
-//                        .collection("Information")
-//                        .document("Information")
-//                        .get()
-//                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                                Log.d("Flipper", documentSnapshot.getData().toString());
-//                                adoptName.setText(documentSnapshot.get("Name").toString());
-//                                adoptNid.setText(documentSnapshot.get("NID").toString());
-//                                adoptDOB.setText(documentSnapshot.get("DOB").toString());
-//                                adoptTel.setText(documentSnapshot.get("TelNo").toString());
-//                                adoptAddr.setText(documentSnapshot.get("Address").toString());
-//                                adoptJob.setText(documentSnapshot.get("Job").toString());
-//                                adoptSalary.setText(documentSnapshot.get("Salary").toString());
-//                            }
-//                        });
-//                db.collection("RequestAdoption")
-//                        .document(uID)
-//                        .collection("Adoption")
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if(task.isSuccessful()){
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                       adoptStatus.setText(document.get("petStatus").toString());
-//                                    }
-//                                }
-//                            }
-//                        });
             }
         });
 
@@ -262,53 +230,6 @@ public class ViewRequestShelterFragment extends Fragment {
                 btnBasicQ.setTypeface(null, Typeface.BOLD);
                 btnPet.setTypeface(null, Typeface.NORMAL);
 
-//                db.collection("Information")
-//                        .document("BasicQ")
-//                        .get()
-//                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                                qOne.setText(String.valueOf(documentSnapshot.get("one")));
-//                                qTwo.setText(String.valueOf(documentSnapshot.get("two")));
-//                                qThree.setText(String.valueOf(documentSnapshot.get("three")));
-//                                qFour.setText(String.valueOf(documentSnapshot.get("four")));
-//                                qFive.setText(String.valueOf(documentSnapshot.get("five")));
-//
-//                                qSix.setText(String.valueOf(documentSnapshot.get("six")));
-//                                qSeven.setText(String.valueOf(documentSnapshot.get("seven")));
-//                                qEight.setText(String.valueOf(documentSnapshot.get("eight")));
-//                                qNine.setText(String.valueOf(documentSnapshot.get("nine")));
-//                                qTen.setText(String.valueOf(documentSnapshot.get("ten")));
-//                                qEleven.setText(String.valueOf(documentSnapshot.get("eleven")));
-//                            }
-//                        });
-//
-//                db.collection("RequestAdoption")
-//                        .document(uID)
-//                        .collection("BasicQ")
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if(task.isSuccessful()){
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                        Log.d("Answer", document.getData().toString());
-//                                        aOne.setText(document.get("one").toString());
-//                                        aTwo.setText(document.get("two").toString());
-//                                        aThree.setText(document.get("three").toString());
-//                                        aFour.setText(document.get("four").toString());
-//                                        aFive.setText(document.get("five").toString());
-//
-//                                        aSix.setText(document.get("six").toString());
-//                                        aSeven.setText(document.get("seven").toString());
-//                                        aEight.setText(document.get("eight").toString());
-//                                        aNine.setText(document.get("nine").toString());
-//                                        aTen.setText(document.get("ten").toString());
-//                                        aEleven.setText(document.get("eleven").toString());
-//                                    }
-//                                }
-//                            }
-//                        });
             }
         });
 
@@ -319,32 +240,6 @@ public class ViewRequestShelterFragment extends Fragment {
                 btnAdopter.setTypeface(null, Typeface.NORMAL);
                 btnBasicQ.setTypeface(null, Typeface.NORMAL);
                 btnPet.setTypeface(null, Typeface.BOLD);
-//                db.collection("RequestAdoption")
-//                        .document(uID)
-//                        .collection("Adoption")
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                if(task.isSuccessful()){
-//                                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                                        Glide.with(getContext())
-//                                                .load(document.get("petURL"))
-//                                                .into(petImage);
-//                                        petName.setText(document.get("petName").toString());
-//                                        petBreed.setText(document.get("petBreed").toString());
-//                                        petAge.setText(document.get("petAge").toString());
-//                                        petSex.setText(document.get("petSex").toString());
-//                                        petColour.setText(document.get("petColor").toString());
-//                                        petMarking.setText(document.get("petMarking").toString());
-//                                        petWeight.setText(document.get("petWeight").toString());
-//                                        petSize.setText(document.get("petSize").toString());
-//                                        petCharacter.setText(document.get("petCharacter").toString());
-//                                        petFoundLoc.setText(document.get("petFoundLoc").toString());
-//                                    }
-//                                }
-//                            }
-//                        });
             }
         });
 

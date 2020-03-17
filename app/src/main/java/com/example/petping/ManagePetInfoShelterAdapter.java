@@ -74,9 +74,6 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter {
                 ft.commit();
 
 
-//                Intent intent = new Intent(context ,PetInfoShelterFragment.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(intent);
-
             }
         });
 

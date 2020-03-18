@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso;
 import static android.app.Activity.RESULT_OK;
 
 public class AddPetShelterFragment extends Fragment {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private RadioGroup typeRdGroup, sexRdGroup, statusRdGroup;
     private RadioButton typeRd, dogRd, catRd, sexRd, maleRd, femaleRd, statusRd, homeRd, waitRd;
     private EditText name, breed, color, marking, age, weight, foundLoc;
@@ -44,13 +44,15 @@ public class AddPetShelterFragment extends Fragment {
     private Button btn;
     private String sex, type, status, size1;
     private Map<String, Object> data = new HashMap<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private StorageReference storageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btnChooseImg;
     private ImageView imgView;
     private Uri imageUri;
     private String url;
 
-    private StorageReference storageRef;
+
 
     @Nullable
     @Override
@@ -201,4 +203,4 @@ public class AddPetShelterFragment extends Fragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-   }
+}

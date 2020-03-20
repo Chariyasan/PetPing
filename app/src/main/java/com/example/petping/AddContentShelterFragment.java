@@ -28,11 +28,12 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import static android.app.Activity.RESULT_OK;
 
 public class AddContentShelterFragment extends Fragment {
-    private EditText topic, story;
+    private EditText topic, story, tag;
     private Button btnSave, btnImage;
     private ImageView image;
 
@@ -48,8 +49,10 @@ public class AddContentShelterFragment extends Fragment {
         topic = view.findViewById(R.id.topic);
         story = view.findViewById(R.id.story);
         image = view.findViewById(R.id.img_view);
+        tag = view.findViewById(R.id.tag);
         btnSave = view.findViewById(R.id.button);
         btnImage = view.findViewById(R.id.btn_choose_image);
+
         storageRef = FirebaseStorage.getInstance().getReference();
 
         btnImage.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +74,29 @@ public class AddContentShelterFragment extends Fragment {
                                 fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
                                     @Override
                                     public void onSuccess(android.net.Uri uri) {
-                                        data.put("Topic", topic);
-                                        data.put("Story", story);
-                                        data.put("Image", uri.toString());
-                                        data.put("AuthorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+                                        data.put("Topic", topic.getText().toString());
+                                        data.put("Story", story.getText().toString());
+                                        data.put("URL", uri.toString());
+                                        data.put("AuthorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        data.put("Tag", tag.getText().toString());
+                                        data.put("AuthorName", "Thailand Adopter Club");
+                                        db.collection("Content")
+                                                .document()
+                                                .set(data)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                        ft.replace(getId(), new ManageContentShelterFragment());
+                                                        ft.commit();
+                                                    }
+                                                });
                                     }
                                 });
                             }
                         });
-                Log.d("URI", fileReference.getPath());
+//                Log.d("URI", fileReference.getPath());
             }
         });
         return view;

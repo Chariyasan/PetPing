@@ -62,6 +62,7 @@ public class ManageContentShelterFragment extends Fragment {
                 ft.commit();
             }
         });
+
         return view;
     }
 }

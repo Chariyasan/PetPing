@@ -1,8 +1,11 @@
 package com.example.petping;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Content {
+public class Content implements Parcelable {
     private String ID;
     private String topic;
     private String story;
@@ -10,6 +13,23 @@ public class Content {
     private String tag;
     private String authorID;
     private String authorName;
+
+    public Content(Parcel in) {
+        super();
+        readFromParcel(in);
+    }
+
+    public static final Parcelable.Creator<Content> CREATOR = new Parcelable.Creator<Content>() {
+        public Content createFromParcel(Parcel in) {
+            return new Content(in);
+        }
+
+        public Content[] newArray(int size) {
+
+            return new Content[size];
+        }
+
+    };
 
     public Content(String ID, String topic, String story, String url, String tag, String authorID, String authorName) {
         this.ID = ID;
@@ -20,6 +40,18 @@ public class Content {
         this.authorID = authorID;
         this.authorName = authorName;
     }
+
+    public void readFromParcel(Parcel in) {
+        ID = in.readString();
+        topic = in.readString();
+        story = in.readString();
+        url = in.readString();
+        tag = in.readString();
+        authorID = in.readString();
+        authorName = in.readString();
+    }
+
+
 
     public String getID() {
         return ID;
@@ -75,5 +107,21 @@ public class Content {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ID);
+        dest.writeString(topic);
+        dest.writeString(story);
+        dest.writeString(url);
+        dest.writeString(tag);
+        dest.writeString(authorID);
+        dest.writeString(authorName);
     }
 }

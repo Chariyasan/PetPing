@@ -1,6 +1,7 @@
 package com.example.petping;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ContentShelterFragment extends Fragment {
     private ArrayList<Content> contentList;
+    private ArrayList<Content> contentL = new ArrayList<>();
     private ImageView image;
     private String ID;
     private TextView topic, story;
@@ -44,6 +47,7 @@ public class ContentShelterFragment extends Fragment {
             ID = contentList.get(i).getID();
         }
 
+
         db.collection("Content")
                 .document(ID)
                 .get()
@@ -55,8 +59,28 @@ public class ContentShelterFragment extends Fragment {
                                 .into(image);
                         topic.setText(documentSnapshot.get("Topic").toString());
                         story.setText(documentSnapshot.get("Story").toString());
+                        Content content = new Content(documentSnapshot.getId(), documentSnapshot.get("Topic").toString(),
+                                documentSnapshot.get("Story").toString(), documentSnapshot.get("URL").toString(),
+                                documentSnapshot.get("Tag").toString(), documentSnapshot.get("AuthorID").toString(),
+                                documentSnapshot.get("AuthorName").toString());
+                        contentL.add(content);
                     }
                 });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("content1", contentL.toString());
+                EditContentShelterFragment editContentShelterFragment = new  EditContentShelterFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("contentEdit", contentL);
+                editContentShelterFragment.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(),  editContentShelterFragment);
+                ft.commit();
+            }
+        });
+
         return view;
     }
 }

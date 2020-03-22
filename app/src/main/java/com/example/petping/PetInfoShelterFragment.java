@@ -39,7 +39,7 @@ public class PetInfoShelterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pet_info_shelter, null);
         if(getArguments() != null){
-            petInfoList = (ArrayList<PetSearch>)getArguments().getSerializable("petInfo");
+            petInfoList = getArguments().getParcelableArrayList("petInfo");
         }
 
         image = view.findViewById(R.id.image);
@@ -124,7 +124,7 @@ public class PetInfoShelterFragment extends Fragment {
             public void onClick(View v) {
                 EditPetInfoShelterFragment petInfoShelterFragment = new  EditPetInfoShelterFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("petEditInfo", petItem);
+                bundle.putParcelableArrayList("petEditInfo", petItem);
                 petInfoShelterFragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(),  petInfoShelterFragment);

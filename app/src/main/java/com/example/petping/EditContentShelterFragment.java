@@ -35,6 +35,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class EditContentShelterFragment extends Fragment{
     private ArrayList<Content> contentList = new ArrayList<>();
+    private ArrayList<Content> contentL = new ArrayList<>();
     private Button btnImage, btn;
     private ImageView image;
     private EditText topic, story;
@@ -43,7 +44,7 @@ public class EditContentShelterFragment extends Fragment{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private Map<String, Object> data = new HashMap<>();
-    private String ID;
+    private String ID, tag, author, authorName;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,11 +67,14 @@ public class EditContentShelterFragment extends Fragment{
         image = view.findViewById(R.id.image);
         for(int i=0; i<contentList.size(); i++){
             Glide.with(getContext())
-                    .load(contentList.get(i))
+                    .load(contentList.get(i).getUrl())
                     .into(image);
             topic.setText(contentList.get(i).getTopic());
             story.setText(contentList.get(i).getStory());
             ID = contentList.get(i).getID();
+            tag = contentList.get(i).getTag();
+            author = contentList.get(i).getAuthorID();
+            authorName = contentList.get(i).getAuthorName();
         }
 
         btnImage.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +94,7 @@ public class EditContentShelterFragment extends Fragment{
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
                                     @Override
-                                    public void onSuccess(android.net.Uri uri) {
+                                    public void onSuccess(final android.net.Uri uri) {
                                         data.put("Topic", topic.getText().toString());
                                         data.put("Story", story.getText().toString());
                                         data.put("URL", uri.toString());
@@ -100,8 +104,16 @@ public class EditContentShelterFragment extends Fragment{
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
+                                                        Content content = new Content(ID, topic.getText().toString(),
+                                                                story.getText().toString(), uri.toString(), tag, author, authorName);
+                                                        contentL.add(content);
+
+                                                        ContentShelterFragment contentShelterFragment = new  ContentShelterFragment();
+                                                        Bundle bundle = new Bundle();
+                                                        bundle.putParcelableArrayList("contentInfo", contentL);
+                                                        contentShelterFragment.setArguments(bundle);
                                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                        ft.replace(getId(),  new ContentShelterFragment());
+                                                        ft.replace(getId(),  contentShelterFragment);
                                                         ft.commit();
                                                     }
                                                 });
@@ -136,4 +148,5 @@ public class EditContentShelterFragment extends Fragment{
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
 }

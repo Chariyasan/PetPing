@@ -66,7 +66,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter {
                 PetInfoShelterFragment petInfo = new PetInfoShelterFragment();
                 Bundle bundle = new Bundle();
                 petItem.add(petList.get(position));
-                bundle.putSerializable("petInfo", petItem);
+                bundle.putParcelableArrayList("petInfo", petItem);
                 petInfo.setArguments(bundle);
 
                 FragmentTransaction ft = fragment.beginTransaction();

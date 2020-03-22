@@ -21,7 +21,9 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class EditPetInfoShelterFragment extends Fragment {
     private ArrayList<PetSearch> petInfoList;
     private ArrayList<PetSearch> petList = new ArrayList<>();
     private TextView changeImage;
+    private static final int PICK_IMAGE_REQUEST = 1;
     private EditText name, sex, breed, age, colour, marking, weight;
     private EditText size, character, foundLoc, status, story;
     private RadioGroup sexRdGroup;
@@ -48,14 +51,16 @@ public class EditPetInfoShelterFragment extends Fragment {
     private Button btnInfo, btnStory, btnSaveInfo;
     private String ID, type, size1, url, health;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private Map<String, Object> data = new HashMap<>();
+    private Uri Uri;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_edit_pet_info_shelter, null);
 
         if(getArguments() != null){
-            petInfoList = (ArrayList<PetSearch>)getArguments().getSerializable("petEditInfo");
+            petInfoList = getArguments().getParcelableArrayList("petEditInfo");
         }
 
         changeImage = view.findViewById(R.id.change_img);
@@ -144,9 +149,17 @@ public class EditPetInfoShelterFragment extends Fragment {
             }
         });
 
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+
         btnSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String sex = null;
                 int radioSex = sexRdGroup.getCheckedRadioButtonId();
                 sexRd = view.findViewById(radioSex);
@@ -157,50 +170,84 @@ public class EditPetInfoShelterFragment extends Fragment {
                     sex = femaleRd.getText().toString();
                 }
                 
-                data.put("Name", name.getText().toString());
-                data.put("Breed", breed.getText().toString());
-                data.put("Color", colour.getText().toString());
-                data.put("Sex", sex);
-                data.put("Age", age.getText().toString());
-                data.put("Marking", marking.getText().toString());
-                data.put("Weight", weight.getText().toString());
-                data.put("Character", character.getText().toString());
-                data.put("OriginalLocation", foundLoc.getText().toString());
-                data.put("Status", status.getText().toString());
-                data.put("Story", story.getText().toString());
-                
+
 //                sex.setText(documentSnapshot.get("Sex").toString());
 //                size.setText(documentSnapshot.get("Size").toString());
-
-
                 final String finalSex = sex;
-                db.collection("Pet")
-                        .document(ID)
-                        .update(data)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
+
+                fileReference.putFile(Uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("Update", "Success");
-                                PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
-                                        colour.getText().toString(), finalSex, age.getText().toString(),
-                                        breed.getText().toString(), size1, url, weight.getText().toString(),
-                                        character.getText().toString(), marking.getText().toString(),
-                                        health, foundLoc.getText().toString(), status.getText().toString(),
-                                        story.getText().toString());
-                                petList.add(pet);
-                                PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("petInfo", petList);
-                                petInfoShelterFragment.setArguments(bundle);
-                                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                ft.replace(getId(), petInfoShelterFragment);
-                                ft.commit();
+                            public void onSuccess(final android.net.Uri uri) {
+                                data.put("Name", name.getText().toString());
+                                data.put("Breed", breed.getText().toString());
+                                data.put("Color", colour.getText().toString());
+                                data.put("Sex", finalSex);
+                                data.put("Age", age.getText().toString());
+                                data.put("Marking", marking.getText().toString());
+                                data.put("Weight", weight.getText().toString());
+                                data.put("Character", character.getText().toString());
+                                data.put("OriginalLocation", foundLoc.getText().toString());
+                                data.put("Status", status.getText().toString());
+                                data.put("Story", story.getText().toString());
+                                data.put("Image", uri.toString());
+
+                                db.collection("Pet")
+                                        .document(ID)
+                                        .update(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Update", "Success");
+                                                PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
+                                                        colour.getText().toString(), finalSex, age.getText().toString(),
+                                                        breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
+                                                        character.getText().toString(), marking.getText().toString(),
+                                                        health, foundLoc.getText().toString(), status.getText().toString(),
+                                                        story.getText().toString());
+                                                petList.add(pet);
+
+                                                PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                                Bundle bundle = new Bundle();
+                                                bundle.putParcelableArrayList("petInfo", petList);
+                                                petInfoShelterFragment.setArguments(bundle);
+                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                ft.replace(getId(), petInfoShelterFragment);
+                                                ft.commit();
+                                            }
+                                        });
                             }
                         });
+                    }
+                });
+
             }
         });
         return view;
     }
 
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null){
+            Uri = data.getData();
+            Picasso.with(getContext()).load(Uri).into(image);
+        }
+    }
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
 
 }

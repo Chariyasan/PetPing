@@ -62,7 +62,7 @@ public class ManageContentShelterAdapter extends BaseAdapter {
                 ContentShelterFragment content = new ContentShelterFragment();
                 Bundle bundle = new Bundle();
                 contentList1.add(contentList.get(position));
-                bundle.putSerializable("contentInfo", contentList1);
+                bundle.putParcelableArrayList("contentInfo", contentList1);
                 content.setArguments(bundle);
 
                 FragmentTransaction ft = fragment.beginTransaction();

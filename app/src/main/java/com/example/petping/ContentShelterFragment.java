@@ -35,7 +35,7 @@ public class ContentShelterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_content_shelter, null);
         if(getArguments() != null){
-            contentList = (ArrayList<Content>)getArguments().getSerializable("contentInfo");
+            contentList = getArguments().getParcelableArrayList("contentInfo");
         }
 
         image = view.findViewById(R.id.image);
@@ -46,7 +46,6 @@ public class ContentShelterFragment extends Fragment {
         for (int i=0; i<contentList.size(); i++){
             ID = contentList.get(i).getID();
         }
-
 
         db.collection("Content")
                 .document(ID)
@@ -80,7 +79,6 @@ public class ContentShelterFragment extends Fragment {
                 ft.commit();
             }
         });
-
         return view;
     }
 }

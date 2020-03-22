@@ -1,6 +1,9 @@
 package com.example.petping;
 
-public class PetSearch {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PetSearch implements Parcelable {
     private String ID;
     private String name;
     private String type;
@@ -38,6 +41,37 @@ public class PetSearch {
         this.status = status;
         this.story = story;
     }
+
+    protected PetSearch(Parcel in) {
+        ID = in.readString();
+        name = in.readString();
+        type = in.readString();
+        colour = in.readString();
+        sex = in.readString();
+        age = in.readString();
+        breed = in.readString();
+        size = in.readString();
+        url = in.readString();
+        weight = in.readString();
+        character = in.readString();
+        marking = in.readString();
+        health = in.readString();
+        foundLoc = in.readString();
+        status = in.readString();
+        story = in.readString();
+    }
+
+    public static final Creator<PetSearch> CREATOR = new Creator<PetSearch>() {
+        @Override
+        public PetSearch createFromParcel(Parcel in) {
+            return new PetSearch(in);
+        }
+
+        @Override
+        public PetSearch[] newArray(int size) {
+            return new PetSearch[size];
+        }
+    };
 
     public String getWeight() {
         return weight;
@@ -167,4 +201,28 @@ public class PetSearch {
         this.age = age;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(ID);
+        dest.writeString(name);
+        dest.writeString(type);
+        dest.writeString(colour);
+        dest.writeString(sex);
+        dest.writeString(age);
+        dest.writeString(breed);
+        dest.writeString(size);
+        dest.writeString(url);
+        dest.writeString(weight);
+        dest.writeString(character);
+        dest.writeString(marking);
+        dest.writeString(health);
+        dest.writeString(foundLoc);
+        dest.writeString(status);
+        dest.writeString(story);
+    }
 }

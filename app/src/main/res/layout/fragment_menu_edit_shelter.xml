@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="32px"
+    android:layout_marginVertical="32px">
+    <RelativeLayout
+        android:id="@+id/RelativeLayout02"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/shelter_img_profile"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/user" />
+
+            <Button
+                android:id="@+id/btn_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="เปลี่ยนรูปภาพ" />
+
+            <!--        <TableRow-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="0.5dp"-->
+            <!--        android:layout_marginVertical="8dp"-->
+            <!--        android:background="#444" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20px"
+                android:layout_marginVertical="20px"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="ชื่อศูนย์พักพิง"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_name"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="ชื่อเจ้าของศูนย์พักพิง"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_owner"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="หมายเลขใบอนุญาต"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_id"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="ที่อยู่"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_addr"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="เบอร์ติดต่อ"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_tel"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/edit_shelter_email"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Facebook"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_fb"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Instagram"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_ig"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Line ID"
+                        android:textSize="16dp" />
+
+                    <EditText
+                        android:id="@+id/edit_shelter_line"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--        <TableRow-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="0.5dp"-->
+            <!--            android:layout_marginVertical="16dp"-->
+            <!--            android:background="#444" />-->
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_custom"
+                android:text="บันทึกข้อมูล"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

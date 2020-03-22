@@ -34,7 +34,7 @@
 
                     <TextView
                         android:id="@+id/textView_name"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="16dp"
@@ -57,7 +57,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="16dp"
@@ -90,7 +90,7 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="รูปปก"
+                            android:text="รูปหน้าปก"
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
@@ -116,12 +116,12 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:text="แท็กที่เกี่ยวข้อง" />
+                        android:text="แท็ก" />
 
                     <EditText
                         android:id="@+id/tag"
@@ -137,7 +137,7 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"

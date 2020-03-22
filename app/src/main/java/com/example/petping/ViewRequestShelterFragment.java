@@ -28,7 +28,7 @@ import androidx.fragment.app.Fragment;
 
 public class ViewRequestShelterFragment extends Fragment {
     private ArrayList<HomeShelter> adoptionList = new ArrayList<>();
-    private ImageView petImage, petImageQA, adoptImageQA;
+    private ImageView petImageQA, adoptImageQA;
     private Button btnAdopter, btnBasicQ, btnPet, btnSaveInfo;
     private ViewFlipper viewFlipper;
     private String uID, petID;
@@ -67,7 +67,6 @@ public class ViewRequestShelterFragment extends Fragment {
         adoptSalary = view.findViewById(R.id.adopter_salary);
         adoptStatus = view.findViewById(R.id.adopter_status);
 
-        petImage = view.findViewById(R.id.pet_image);
         petName = view.findViewById(R.id.pet_name);
         petBreed = view.findViewById(R.id.pet_breed);
         petAge = view.findViewById(R.id.pet_age);
@@ -137,9 +136,7 @@ public class ViewRequestShelterFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Glide.with(getContext())
-                                        .load(document.get("petURL"))
-                                        .into(petImage);
+
                                 Glide.with(getContext())
                                         .load(document.get("petURL"))
                                         .into(petImageQA);

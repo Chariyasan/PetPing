@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +45,10 @@ public class EditMenuShelterFragment extends Fragment {
     private Uri Uri;
     private StorageReference storageRef;
     private Map<String, Object> data = new HashMap<>();
+    private Map<String, Object> data1 = new HashMap<>();
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -93,38 +99,95 @@ public class EditMenuShelterFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
-                fileReference.putFile(Uri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
-                                    @Override
-                                    public void onSuccess(android.net.Uri uri) {
-                                        data.put("Name", name.getText().toString());
-                                        data.put("Owner", owner.getText().toString());
-                                        data.put("Address", address.getText().toString());
-                                        data.put("TelNo", telNo.getText().toString());
-                                        data.put("License", license.getText().toString());
-                                        data.put("Facebook", facebook.getText().toString());
-                                        data.put("Instagram", ig.getText().toString());
-                                        data.put("LineID", lineID.getText().toString());
-                                        data.put("Image", uri.toString());
-                                        db.collection("Shelter")
-                                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                .update(data)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                        ft.replace(getId(), new MenuShelterFragment());
-                                                        ft.commit();
-                                                    }
-                                                });
-                                    }
-                                });
-                            }
-                        });
+                if(Uri != null){
+                    final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
+                    fileReference.putFile(Uri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
+                                        @Override
+                                        public void onSuccess(android.net.Uri uri) {
+                                            data.put("Name", name.getText().toString());
+                                            data.put("Owner", owner.getText().toString());
+                                            data.put("Address", address.getText().toString());
+                                            data.put("TelNo", telNo.getText().toString());
+                                            data.put("License", license.getText().toString());
+                                            data.put("Facebook", facebook.getText().toString());
+                                            data.put("Instagram", ig.getText().toString());
+                                            data.put("LineID", lineID.getText().toString());
+                                            data.put("Image", uri.toString());
+
+                                            db.collection("Shelter")
+                                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .update(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            builder = new AlertDialog.Builder(getContext());
+                                                            builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                    ft.replace(getId(), new MenuShelterFragment());
+                                                                    ft.commit();
+                                                                }
+                                                            });
+                                                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                }
+                                                            });
+                                                            dialog = builder.create();
+                                                            dialog.show();
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            });
+
+                }
+                else {
+                    data1.put("Name", name.getText().toString());
+                    data1.put("Owner", owner.getText().toString());
+                    data1.put("Address", address.getText().toString());
+                    data1.put("TelNo", telNo.getText().toString());
+                    data1.put("License", license.getText().toString());
+                    data1.put("Facebook", facebook.getText().toString());
+                    data1.put("Instagram", ig.getText().toString());
+                    data1.put("LineID", lineID.getText().toString());
+
+                    db.collection("Shelter")
+                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .update(data1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                            ft.replace(getId(), new MenuShelterFragment());
+                                            ft.commit();
+                                        }
+                                    });
+                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
+
+                }
 
             }
         });

@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,20 +46,19 @@ public class EditContentShelterFragment extends Fragment{
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private Map<String, Object> data = new HashMap<>();
-    private String ID, tag, author, authorName;
+    private Map<String, Object> data1 = new HashMap<>();
+    private String ID, tag, author, authorName, imageUrl;
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_content_shelter, null);
-//        if(getArguments() != null){
-//            contentList = <ArrayList<? extends Parcelable> getArguments().getParcelableArrayList("contentEdit");
-//        }
-//        Bundle bundle = getActivity().getIntent().getExtras();
-
         if (getArguments() != null) {
             contentList  = getArguments().getParcelableArrayList("contentEdit");
         }
-
 
         btnImage = view.findViewById(R.id.btn_img);
         btn = view.findViewById(R.id.button);
@@ -75,6 +76,7 @@ public class EditContentShelterFragment extends Fragment{
             tag = contentList.get(i).getTag();
             author = contentList.get(i).getAuthorID();
             authorName = contentList.get(i).getAuthorName();
+            imageUrl = contentList.get(i).getUrl();
         }
 
         btnImage.setOnClickListener(new View.OnClickListener() {
@@ -87,40 +89,98 @@ public class EditContentShelterFragment extends Fragment{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(Uri));
-                fileReference.putFile(Uri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
-                                    @Override
-                                    public void onSuccess(final android.net.Uri uri) {
-                                        data.put("Topic", topic.getText().toString());
-                                        data.put("Story", story.getText().toString());
-                                        data.put("URL", uri.toString());
-                                        db.collection("Content")
-                                                .document(ID)
-                                                .update(data)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Content content = new Content(ID, topic.getText().toString(),
-                                                                story.getText().toString(), uri.toString(), tag, author, authorName);
-                                                        contentL.add(content);
+                if(Uri != null){
+                    final StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(Uri));
+                    fileReference.putFile(Uri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
+                                        @Override
+                                        public void onSuccess(final android.net.Uri uri) {
+                                            data.put("Topic", topic.getText().toString());
+                                            data.put("Story", story.getText().toString());
+                                            data.put("URL", uri.toString());
+                                            db.collection("Content")
+                                                    .document(ID)
+                                                    .update(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Content content = new Content(ID, topic.getText().toString(),
+                                                                    story.getText().toString(), uri.toString(), tag, author, authorName);
+                                                            contentL.add(content);
 
-                                                        ContentShelterFragment contentShelterFragment = new  ContentShelterFragment();
-                                                        Bundle bundle = new Bundle();
-                                                        bundle.putParcelableArrayList("contentInfo", contentL);
-                                                        contentShelterFragment.setArguments(bundle);
-                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                        ft.replace(getId(),  contentShelterFragment);
-                                                        ft.commit();
-                                                    }
-                                                });
-                                    }
-                                });
-                            }
-                        });
+                                                            builder = new AlertDialog.Builder(getContext());
+                                                            builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+
+                                                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    ContentShelterFragment contentShelterFragment = new  ContentShelterFragment();
+                                                                    Bundle bundle = new Bundle();
+                                                                    bundle.putParcelableArrayList("contentInfo", contentL);
+                                                                    contentShelterFragment.setArguments(bundle);
+                                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                    ft.replace(getId(),  contentShelterFragment);
+                                                                    ft.commit();
+                                                                }
+                                                            });
+                                                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                }
+                                                            });
+                                                            dialog = builder.create();
+                                                            dialog.show();
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            });
+                }
+                else{
+                    data1.put("Topic", topic.getText().toString());
+                    data1.put("Story", story.getText().toString());
+
+                    db.collection("Content")
+                            .document(ID)
+                            .update(data1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Content content = new Content(ID, topic.getText().toString(),
+                                            story.getText().toString(), imageUrl, tag, author, authorName);
+                                    contentL.add(content);
+
+                                    builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+
+                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ContentShelterFragment contentShelterFragment = new  ContentShelterFragment();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putParcelableArrayList("contentInfo", contentL);
+                                            contentShelterFragment.setArguments(bundle);
+                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                            ft.replace(getId(),  contentShelterFragment);
+                                            ft.commit();
+                                        }
+                                    });
+                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
+                }
             }
         });
         return view;

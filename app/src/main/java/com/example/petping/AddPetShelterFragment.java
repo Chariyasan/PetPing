@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,8 +55,8 @@ public class AddPetShelterFragment extends Fragment {
     private Uri imageUri;
     private String url;
 
-
-
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,22 +90,22 @@ public class AddPetShelterFragment extends Fragment {
         imgView = view.findViewById(R.id.img_view);
         storageRef = FirebaseStorage.getInstance().getReference();
 
-        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
-                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
-                weight.getText().toString().equals("5")){
-            size.setText("S");
-            size1 = "S";
-        }
-        if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
-                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
-                weight.getText().toString().equals("10")){
-            size.setText("M");
-            size1 = "M";
-        }
-       if(weight.getText().toString().compareTo("11") > 0){
-            size.setText("L");
-            size1 = "L";
-        }
+//        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
+//                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
+//                weight.getText().toString().equals("5")){
+//            size.setText("S");
+//            size1 = "S";
+//        }
+//        if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
+//                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
+//                weight.getText().toString().equals("10")){
+//            size.setText("M");
+//            size1 = "M";
+//        }
+//       if(weight.getText().toString().compareTo("11") > 0){
+//            size.setText("L");
+//            size1 = "L";
+//        }
 
         btnChooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +171,32 @@ public class AddPetShelterFragment extends Fragment {
                                 data.put("Type", type);
                                 data.put("Weight", weight.getText().toString());
                                 data.put("Image", uri.toString());
-                                db.collection("Pet").document().set(data);
+                                db.collection("Pet")
+                                        .document()
+                                        .set(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                builder = new AlertDialog.Builder(getContext());
+                                                builder.setTitle("คุณต้องการเพิ่มข้อมูลสัตว์เลี้ยงใช่หรือไม่");
+                                                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                        ft.replace(getId(), new ManagePetInfoShelterFragment());
+                                                        ft.commit();
+                                                    }
+                                                });
+                                                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                });
+                                                dialog = builder.create();
+                                                dialog.show();
+                                            }
+                                        });
                             }
                         });
                     }

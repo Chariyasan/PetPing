@@ -46,7 +46,6 @@ public class MenuFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         name.setText(documentSnapshot.get("UserName").toString());
-
                     }
                 });
         btnEditUser.setOnClickListener(new View.OnClickListener() {

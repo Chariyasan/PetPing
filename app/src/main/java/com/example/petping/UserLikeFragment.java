@@ -41,9 +41,7 @@ public class UserLikeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_like, container, false);
         listView = view.findViewById(R.id.listView_like);
-
         like_back_btn = view.findViewById(R.id.like_back_btn);
-
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")

@@ -53,7 +53,7 @@ public class AdoptionQAFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_adoption_qa_process, null);
         if(getArguments() != null){
-            petProfileList = (ArrayList<PetSearch>)getArguments().getSerializable("petProfile");
+            petProfileList = getArguments().getParcelableArrayList("petProfile");
         }
         flipper = view.findViewById(R.id.flipper_qa_process);
         oneQ = view.findViewById(R.id.qa_one_q);
@@ -541,6 +541,7 @@ public class AdoptionQAFragment extends Fragment {
                         }
                     });
             adop.put("UserName", documentSnapshot.get("UserName").toString());
+            adop.put("UserImage", documentSnapshot.get("Image").toString());
             adop.put("petID", petProfileList.get(i).getID());
             adop.put("petName", petProfileList.get(i).getName());
             adop.put("petType", petProfileList.get(i).getType());

@@ -58,7 +58,7 @@ public class PetProfileGeneralFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_pet_profile_general, null);
         if(getArguments() != null){
-            petProfileList = (ArrayList<PetSearch>)getArguments().getSerializable("petProfile");
+            petProfileList = getArguments().getParcelableArrayList("petProfile");
         }
 
         viewFlipper = view.findViewById(R.id.view_flipper_info);
@@ -184,7 +184,7 @@ public class PetProfileGeneralFragment extends Fragment {
             public void onClick(View v) {
                 AdoptionRegulationFragment adoptionRegulation = new AdoptionRegulationFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("petProfile", petItem);
+                bundle.putParcelableArrayList("petProfile", petItem);
 
                 adoptionRegulation.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();

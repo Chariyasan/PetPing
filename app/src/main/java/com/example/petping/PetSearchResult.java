@@ -49,7 +49,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         final View temp = inflater.inflate(R.layout.fragment_pet_search_result, null);
 
         if(getArguments() != null){
-            petSearchList = (ArrayList<PetSearch>)getArguments().getSerializable("petL");
+            petSearchList = getArguments().getParcelableArrayList("petL");
         }
 
         resultFound = temp.findViewById(R.id.result_found);
@@ -71,7 +71,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
                 Bundle bundle = new Bundle();
                 petItem.add(petSearchList.get(position));
-                bundle.putSerializable("petProfile", petItem);
+                bundle.putParcelableArrayList("petProfile", petItem);
 
                 for (int i = 0; i < petItem.size(); i++) {
                     saveIntoHistory("petID", petItem.get(i).getID());

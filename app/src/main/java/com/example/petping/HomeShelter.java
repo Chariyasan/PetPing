@@ -4,17 +4,27 @@ public class HomeShelter {
     String uID;
     String petID;
     String userName;
+    String userImage;
     String petName;
     String petStatus;
     String URL;
 
-    public HomeShelter(String uID, String petID, String userName, String petName, String petStatus, String URL) {
+    public HomeShelter(String uID, String petID, String userName, String userImage, String petName, String petStatus, String URL) {
         this.uID = uID;
         this.petID = petID;
         this.userName = userName;
+        this.userImage = userImage;
         this.petName = petName;
         this.petStatus = petStatus;
         this.URL = URL;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public String getURL() {

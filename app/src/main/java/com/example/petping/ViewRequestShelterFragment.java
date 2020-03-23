@@ -141,7 +141,7 @@ public class ViewRequestShelterFragment extends Fragment {
                                         .load(document.get("petURL"))
                                         .into(petImageQA);
                                 Glide.with(getContext())
-                                        .load(document.get("petURL"))
+                                        .load(document.get("UserImage"))
                                         .into(adoptImageQA);
                                 petName.setText(document.get("petName").toString());
                                 petBreed.setText(document.get("petBreed").toString());

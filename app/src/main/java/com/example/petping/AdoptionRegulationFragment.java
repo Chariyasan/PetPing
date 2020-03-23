@@ -32,7 +32,7 @@ public class AdoptionRegulationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_adoption_reg_process, null);
         if(getArguments() != null){
-            petProfileList = (ArrayList<PetSearch>)getArguments().getSerializable("petProfile");
+            petProfileList = getArguments().getParcelableArrayList("petProfile");
         }
        one = view.findViewById(R.id.reg_one);
        two = view.findViewById(R.id.reg_two);
@@ -74,7 +74,7 @@ public class AdoptionRegulationFragment extends Fragment {
                        public void onClick(View v) {
                            AdoptionInfoFragment adoptionInfo = new AdoptionInfoFragment();
                            Bundle bundle = new Bundle();
-                           bundle.putSerializable("petProfile", petProfileList);
+                           bundle.putParcelableArrayList("petProfile", petProfileList);
 
                            adoptionInfo.setArguments(bundle);
                            FragmentTransaction ft = getFragmentManager().beginTransaction();

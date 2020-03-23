@@ -61,6 +61,10 @@ public class HomeShelterAdapter extends BaseAdapter {
                 .load(homeList.get(position).getURL())
                 .into(imgPet);
 
+        Glide.with(context)
+                .load(homeList.get(position).getUserImage())
+                .into(imgUser);
+
         return view;
     }
 }

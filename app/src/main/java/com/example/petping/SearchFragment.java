@@ -101,7 +101,7 @@ public class SearchFragment extends Fragment {
 
         PetSearchResult petSearchResult = new PetSearchResult();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("petL", petList);
+        bundle.putParcelableArrayList("petL", petList);
         petSearchResult.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(getId(), petSearchResult);

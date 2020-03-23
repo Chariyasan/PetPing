@@ -37,6 +37,7 @@ public class MenuFragment extends Fragment {
         btnHistory = view.findViewById(R.id.btn_history);
         btnRule = view.findViewById(R.id.btn_rule);
         btnFAQ = view.findViewById(R.id.btn_faq);
+
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Information")
@@ -45,7 +46,9 @@ public class MenuFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        name.setText(documentSnapshot.get("UserName").toString());
+                        if(documentSnapshot.exists()){
+                            name.setText(documentSnapshot.get("UserName").toString());
+                        }
                     }
                 });
         btnEditUser.setOnClickListener(new View.OnClickListener() {

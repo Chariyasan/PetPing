@@ -1,10 +1,13 @@
 package com.example.petping;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class HomeFragment extends Fragment {
     private ViewFlipper flipper, flipperPet;
@@ -33,7 +37,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<PetSearch> petList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private GridView gridDog, gridCat, gridAll;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -124,6 +127,21 @@ public class HomeFragment extends Fragment {
                 homeAdapter = new HomeAdapter(getContext(), petListDog);
                 gridDog.setAdapter(homeAdapter);
                 homeAdapter.notifyDataSetChanged();
+
+                gridDog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                        Bundle bundle = new Bundle();
+                        ArrayList<PetSearch> list = new ArrayList<>();
+                        list.add(petListDog.get(position));
+                        bundle.putParcelableArrayList("petProfile", list);
+                        petProfile.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), petProfile);
+                        ft.commit();
+                    }
+                });
             }
         });
 
@@ -134,6 +152,20 @@ public class HomeFragment extends Fragment {
                 homeAdapter = new HomeAdapter(getContext(), petListCat);
                 gridCat.setAdapter(homeAdapter);
                 homeAdapter.notifyDataSetChanged();
+                gridCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                        Bundle bundle = new Bundle();
+                        ArrayList<PetSearch> list = new ArrayList<>();
+                        list.add(petListCat.get(position));
+                        bundle.putParcelableArrayList("petProfile", list);
+                        petProfile.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), petProfile);
+                        ft.commit();
+                    }
+                });
             }
         });
         return view;

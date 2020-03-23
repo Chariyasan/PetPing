@@ -36,6 +36,7 @@ public class UserHistoryFragment extends Fragment {
     private PetSearch petHistory;
 
     private ArrayList<PetSearch> historyList = new ArrayList<>();
+    private ArrayList<PetSearch> arrayList = new ArrayList<>();
 
     private ListView listView;
     private UserHistAdapter historyAdapter;
@@ -45,10 +46,6 @@ public class UserHistoryFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private DocumentReference userDocRef = FirebaseFirestore.getInstance().document("/User/RPF67EzLXyEJlOk1Yzm6/History/PetHistory");
-
-    public UserHistoryFragment() {
-    }
-//    private CollectionReference userColRef = FirebaseFirestore.getInstance().collection("/User/RPF67EzLXyEJlOk1Yzm6/History");
 
 
     @Nullable
@@ -77,7 +74,7 @@ public class UserHistoryFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot document) {
-                                        PetSearch petHist = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                        final PetSearch petHist = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                                 document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
                                                 document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                                                 document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
@@ -86,10 +83,22 @@ public class UserHistoryFragment extends Fragment {
                                         historyList.add(petHist);
                                         historyAdapter = new UserHistAdapter(getContext(),historyList);
                                         listView.setAdapter(historyAdapter);
+
+                                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                                                Bundle bundle = new Bundle();
+                                                arrayList.add(historyList.get(position));
+                                                bundle.putParcelableArrayList("petProfile", arrayList);
+                                                petProfile.setArguments(bundle);
+                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                ft.replace(getId(), petProfile);
+                                                ft.commit();
+                                            }
+                                        });
                                     }
                                 });
-
-
                     }
                 }
             }

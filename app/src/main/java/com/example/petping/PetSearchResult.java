@@ -72,15 +72,15 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 Bundle bundle = new Bundle();
                 petItem.add(petSearchList.get(position));
                 bundle.putParcelableArrayList("petProfile", petItem);
-
-                for (int i = 0; i < petItem.size(); i++) {
-                    saveIntoHistory("petID", petItem.get(i).getID());
-                }
-
                 petProfile.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), petProfile);
                 ft.commit();
+                for (int i = 0; i < petItem.size(); i++) {
+                    saveIntoHistory("petID", petItem.get(i).getID());
+                }
+
+
             }
         });
 

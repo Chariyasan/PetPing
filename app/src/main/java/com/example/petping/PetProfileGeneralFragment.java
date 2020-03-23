@@ -66,6 +66,9 @@ public class PetProfileGeneralFragment extends Fragment {
         btnStory = view.findViewById(R.id.button_story);
         btnShelter = view.findViewById(R.id.button_shelter);
         btnAdopt = view.findViewById(R.id.btn_adopt);
+        btnGeneral.setTypeface(null, Typeface.BOLD);
+        btnStory.setTypeface(null, Typeface.NORMAL);
+        btnShelter.setTypeface(null, Typeface.NORMAL);
 
         btnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override

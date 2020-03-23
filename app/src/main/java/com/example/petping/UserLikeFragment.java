@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -32,6 +33,7 @@ public class UserLikeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageButton like_back_btn;
     private ArrayList<PetSearch> petFavList = new ArrayList<>();
+    private ArrayList<PetSearch> petList = new ArrayList<>();
     private UserLikeAdapter likeAdapter;
 
 
@@ -68,10 +70,22 @@ public class UserLikeFragment extends Fragment {
                                         petFavList.add(petHist);
                                         likeAdapter = new UserLikeAdapter(getContext(),petFavList);
                                         listView.setAdapter(likeAdapter);
+
+                                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                                                Bundle bundle = new Bundle();
+                                                petList.add(petFavList.get(position));
+                                                bundle.putParcelableArrayList("petProfile", petList);
+                                                petProfile.setArguments(bundle);
+                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                ft.replace(getId(), petProfile);
+                                                ft.commit();
+                                            }
+                                        });
                                     }
                                 });
-
-
                     }
                 }
             }

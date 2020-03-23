@@ -60,8 +60,7 @@ public class UserLikeAdapter extends BaseAdapter {
         }
 
         textViewName.setText(petLike.get(i).getName());
-//        textViewAge.setText(petLike.get(i).getAge());
-//        textViewBreed.setText(petLike.get(i).getBreed());
+//
 
         return view;
     }

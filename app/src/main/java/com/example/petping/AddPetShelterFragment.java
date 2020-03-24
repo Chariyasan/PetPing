@@ -1,8 +1,6 @@
 package com.example.petping;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,7 +28,6 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -50,13 +48,11 @@ public class AddPetShelterFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Button btnChooseImg;
+    private ImageButton btnChooseImg;
     private ImageView imgView;
     private Uri imageUri;
     private String url;
 
-    private AlertDialog dialog;
-    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,22 +86,22 @@ public class AddPetShelterFragment extends Fragment {
         imgView = view.findViewById(R.id.img_view);
         storageRef = FirebaseStorage.getInstance().getReference();
 
-//        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
-//                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
-//                weight.getText().toString().equals("5")){
-//            size.setText("S");
-//            size1 = "S";
-//        }
-//        if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
-//                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
-//                weight.getText().toString().equals("10")){
-//            size.setText("M");
-//            size1 = "M";
-//        }
-//       if(weight.getText().toString().compareTo("11") > 0){
-//            size.setText("L");
-//            size1 = "L";
-//        }
+        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
+                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
+                weight.getText().toString().equals("5")){
+            size.setText("S");
+            size1 = "S";
+        }
+        if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
+                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
+                weight.getText().toString().equals("10")){
+            size.setText("M");
+            size1 = "M";
+        }
+        if(weight.getText().toString().compareTo("11") > 0){
+            size.setText("L");
+            size1 = "L";
+        }
 
         btnChooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,57 +146,32 @@ public class AddPetShelterFragment extends Fragment {
                 Log.d("URI", fileReference.getPath());
 
                 fileReference.putFile(imageUri)
-                  .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                data.put("Age", age.getText().toString());
-                                data.put("Breed", breed.getText().toString());
-                                data.put("Character", character.getText().toString());
-                                data.put("Color", color.getText().toString());
-                                data.put("Health", health.getText().toString());
-                                data.put("Marking", marking.getText().toString());
-                                data.put("Name", name.getText().toString());
-                                data.put("OriginalLocation", foundLoc.getText().toString());
-                                data.put("Sex", sex);
-                                data.put("Size", size.getText().toString());
-                                data.put("Status", status);
-                                data.put("Story", story.getText().toString());
-                                data.put("Type", type);
-                                data.put("Weight", weight.getText().toString());
-                                data.put("Image", uri.toString());
-                                db.collection("Pet")
-                                        .document()
-                                        .set(data)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                builder = new AlertDialog.Builder(getContext());
-                                                builder.setTitle("คุณต้องการเพิ่มข้อมูลสัตว์เลี้ยงใช่หรือไม่");
-                                                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                        ft.replace(getId(), new ManagePetInfoShelterFragment());
-                                                        ft.commit();
-                                                    }
-                                                });
-                                                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                    }
-                                                });
-                                                dialog = builder.create();
-                                                dialog.show();
-                                            }
-                                        });
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        data.put("Age", age.getText().toString());
+                                        data.put("Breed", breed.getText().toString());
+                                        data.put("Character", character.getText().toString());
+                                        data.put("Color", color.getText().toString());
+                                        data.put("Health", health.getText().toString());
+                                        data.put("Marking", marking.getText().toString());
+                                        data.put("Name", name.getText().toString());
+                                        data.put("OriginalLocation", foundLoc.getText().toString());
+                                        data.put("Sex", sex);
+                                        data.put("Size", size.getText().toString());
+                                        data.put("Status", status);
+                                        data.put("Story", story.getText().toString());
+                                        data.put("Type", type);
+                                        data.put("Weight", weight.getText().toString());
+                                        data.put("Image", uri.toString());
+                                        db.collection("Pet").document().set(data);
+                                    }
+                                });
                             }
                         });
-                    }
-                });
             }
         });
         return view;
@@ -221,7 +192,7 @@ public class AddPetShelterFragment extends Fragment {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null){
             imageUri = data.getData();
-            Picasso.with(getContext()).load(imageUri).into(imgView);
+            Picasso.with(getContext()).load(imageUri).resize(500, 500).centerCrop().into(imgView);
         }
     }
 

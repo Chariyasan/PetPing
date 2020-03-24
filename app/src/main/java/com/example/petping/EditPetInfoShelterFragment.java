@@ -1,8 +1,6 @@
 package com.example.petping;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,25 +41,21 @@ import static android.app.Activity.RESULT_OK;
 public class EditPetInfoShelterFragment extends Fragment {
     private ArrayList<PetSearch> petInfoList;
     private ArrayList<PetSearch> petList = new ArrayList<>();
-    private TextView changeImage;
+    private ImageButton changeImage;
     private static final int PICK_IMAGE_REQUEST = 1;
     private EditText name, sex, breed, age, colour, marking, weight;
     private EditText size, character, foundLoc, status, story;
     private RadioGroup sexRdGroup;
     private RadioButton sexRd, maleRd, femaleRd;
     private ImageView image;
-    private ViewFlipper viewFlipper;
-    private Button btnInfo, btnStory, btnSaveInfo;
-    private String ID, type, size1, url, health, url2;
+    private Button btnSaveInfo;
+    private String ID, type, size1, url, health;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private Map<String, Object> data = new HashMap<>();
     private Map<String, Object> data1 = new HashMap<>();
     private Uri Uri;
-
-    private AlertDialog dialog;
-    private AlertDialog.Builder builder;
-
+    private String url1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,13 +83,13 @@ public class EditPetInfoShelterFragment extends Fragment {
         maleRd = view.findViewById(R.id.rd_male);
         femaleRd = view.findViewById(R.id.rd_female);
 
-        viewFlipper = view.findViewById(R.id.view_flipper_shelter);
-        btnInfo = view.findViewById(R.id.btn_info);
-        btnStory = view.findViewById(R.id.btn_story);
+//        viewFlipper = view.findViewById(R.id.view_flipper_shelter);
+//        btnInfo = view.findViewById(R.id.btn_info);
+//        btnStory = view.findViewById(R.id.btn_story);
         btnSaveInfo = view.findViewById(R.id.save_info);
 
-        btnInfo.setTypeface(null, Typeface.BOLD);
-        btnStory.setTypeface(null, Typeface.NORMAL);
+//        btnInfo.setTypeface(null, Typeface.BOLD);
+//        btnStory.setTypeface(null, Typeface.NORMAL);
 
         for (int i=0; i<petInfoList.size(); i++){
             ID = petInfoList.get(i).getID();
@@ -105,7 +100,8 @@ public class EditPetInfoShelterFragment extends Fragment {
             Glide.with(getContext())
                     .load(petInfoList.get(i).getUrl())
                     .into(image);
-            url2 = petInfoList.get(i).getUrl();
+            url1 = petInfoList.get(i).getUrl();
+
             name.setText(petInfoList.get(i).getName());
             breed.setText(petInfoList.get(i).getBreed());
             colour.setText(petInfoList.get(i).getColour());
@@ -128,26 +124,34 @@ public class EditPetInfoShelterFragment extends Fragment {
                 maleRd.setChecked(false);
                 femaleRd.setChecked(true);
             }
+
+//            int radioSex = sexRdGroup.getCheckedRadioButtonId();
+//            sexRd = view.findViewById(radioSex);
+//            if(sexRd == view.findViewById(R.id.rd_male)){
+//                sex = maleRd.getText().toString();
+//            }
+//            else if(sexRd == view.findViewById(R.id.rd_female)){
+//                sex = femaleRd.getText().toString();
+//            }
         }
 
-        btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
-                btnInfo.setTypeface(null, Typeface.BOLD);
-                btnStory.setTypeface(null, Typeface.NORMAL);
-            }
-        });
-
-        btnStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
-                btnStory.setTypeface(null, Typeface.BOLD);
-                btnInfo.setTypeface(null, Typeface.NORMAL);
-            }
-        });
-
+//        btnInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
+//                btnInfo.setTypeface(null, Typeface.BOLD);
+//                btnStory.setTypeface(null, Typeface.NORMAL);
+//            }
+//        });
+//
+//        btnStory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
+//                btnStory.setTypeface(null, Typeface.BOLD);
+//                btnInfo.setTypeface(null, Typeface.NORMAL);
+//            }
+//        });
 
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,10 +160,10 @@ public class EditPetInfoShelterFragment extends Fragment {
             }
         });
 
-
         btnSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String sex = null;
                 int radioSex = sexRdGroup.getCheckedRadioButtonId();
                 sexRd = view.findViewById(radioSex);
@@ -169,6 +173,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                 else if(sexRd == view.findViewById(R.id.rd_female)){
                     sex = femaleRd.getText().toString();
                 }
+
                 final String finalSex = sex;
                 if(Uri != null){
                     final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
@@ -206,44 +211,21 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                             story.getText().toString());
                                                     petList.add(pet);
 
-                                                    builder = new AlertDialog.Builder(getContext());
-                                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
-                                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putParcelableArrayList("petInfo", petList);
-                                                            petInfoShelterFragment.setArguments(bundle);
-                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), petInfoShelterFragment);
-                                                            ft.commit();
-                                                        }
-                                                    });
-                                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putParcelableArrayList("petInfo", petList);
-                                                            petInfoShelterFragment.setArguments(bundle);
-                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), petInfoShelterFragment);
-                                                            ft.commit();
-                                                        }
-                                                    });
-                                                    dialog = builder.create();
-                                                    dialog.show();
-
+                                                    PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putParcelableArrayList("petInfo", petList);
+                                                    petInfoShelterFragment.setArguments(bundle);
+                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                    ft.replace(getId(), petInfoShelterFragment);
+                                                    ft.commit();
                                                 }
                                             });
                                 }
                             });
                         }
                     });
-
                 }
-                else {
+                else{
                     data1.put("Name", name.getText().toString());
                     data1.put("Breed", breed.getText().toString());
                     data1.put("Color", colour.getText().toString());
@@ -262,48 +244,29 @@ public class EditPetInfoShelterFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    Log.d("Update", "Success");
                                     PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
                                             colour.getText().toString(), finalSex, age.getText().toString(),
-                                            breed.getText().toString(), size1, url2, weight.getText().toString(),
+                                            breed.getText().toString(), size1, url1, weight.getText().toString(),
                                             character.getText().toString(), marking.getText().toString(),
                                             health, foundLoc.getText().toString(), status.getText().toString(),
                                             story.getText().toString());
                                     petList.add(pet);
 
-                                    builder = new AlertDialog.Builder(getContext());
-                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
-                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                            Bundle bundle = new Bundle();
-                                            bundle.putParcelableArrayList("petInfo", petList);
-                                            petInfoShelterFragment.setArguments(bundle);
-                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                            ft.replace(getId(), petInfoShelterFragment);
-                                            ft.commit();
-                                        }
-                                    });
-                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                            Bundle bundle = new Bundle();
-                                            bundle.putParcelableArrayList("petInfo", petList);
-                                            petInfoShelterFragment.setArguments(bundle);
-                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                            ft.replace(getId(), petInfoShelterFragment);
-                                            ft.commit();
-                                        }
-                                    });
-                                    dialog = builder.create();
-                                    dialog.show();
+                                    PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelableArrayList("petInfo", petList);
+                                    petInfoShelterFragment.setArguments(bundle);
+                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    ft.replace(getId(), petInfoShelterFragment);
+                                    ft.commit();
                                 }
                             });
                 }
+
+
             }
         });
-
         return view;
     }
 
@@ -327,4 +290,5 @@ public class EditPetInfoShelterFragment extends Fragment {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
 }

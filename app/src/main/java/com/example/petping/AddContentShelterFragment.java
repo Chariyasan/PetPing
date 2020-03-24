@@ -1,8 +1,6 @@
 package com.example.petping;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +35,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddContentShelterFragment extends Fragment {
     private EditText topic, story, tag;
-    private Button btnSave, btnImage;
+    private Button btnSave;
+    private ImageButton btnImage;
     private ImageView image;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -44,8 +44,6 @@ public class AddContentShelterFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Map<String, Object> data = new HashMap<>();
     private Uri Uri;
-    private AlertDialog dialog;
-    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,24 +89,9 @@ public class AddContentShelterFragment extends Fragment {
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        builder = new AlertDialog.Builder(getContext());
-                                                        builder.setTitle("คุณต้องการเพิ่มข้อมูลสัตว์เลี้ยงใช่หรือไม่");
-                                                        builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                                ft.replace(getId(), new ManageContentShelterFragment());
-                                                                ft.commit();
-                                                            }
-                                                        });
-                                                        builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-
-                                                            }
-                                                        });
-                                                        dialog = builder.create();
-                                                        dialog.show();
+                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                        ft.replace(getId(), new ManageContentShelterFragment());
+                                                        ft.commit();
                                                     }
                                                 });
                                     }
@@ -134,7 +117,7 @@ public class AddContentShelterFragment extends Fragment {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null){
             Uri = data.getData();
-            Picasso.with(getContext()).load(Uri).into(image);
+            Picasso.with(getContext()).load(Uri).resize(500, 500).centerCrop().into(image);
         }
     }
 

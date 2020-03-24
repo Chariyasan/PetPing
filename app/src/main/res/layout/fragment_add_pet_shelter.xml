@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginRight="30px"
     android:layout_marginLeft="30px"
     android:layout_marginTop="30px"
-    android:layout_marginBottom="24px" >
+    android:layout_marginBottom="24px">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,14 +21,65 @@
             android:layout_marginBottom="10px"
             android:orientation="vertical" >
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="เพิ่มข้อมูลสัตว์"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_photo_black_24dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_choose_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_edit_black_24dp" />
+            </RelativeLayout>
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="15dp"-->
+<!--                android:text="เพิ่มข้อมูลสัตว์"-->
+<!--                android:textSize="18dp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:padding="5dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/img_view"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    app:srcCompat="@drawable/pet" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_gravity="center_horizontal">-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_choose_image"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:text="แก้ไขรูปภาพ"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,26 +90,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/textView_name"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:text="ชื่อ"
                         android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:text="ชื่อ" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
                         android:ems="11"
                         android:hint="ชื่อ"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textSize="16dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -68,9 +120,8 @@
 
                     <TextView
                         android:id="@+id/textView_type"
-                        android:layout_width="110dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:text="ประเภทสัตว์" />
@@ -109,9 +160,8 @@
 
                     <TextView
                         android:id="@+id/textView_sex"
-                        android:layout_width="110dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="เพศ"
                         android:textSize="16dp"
                         android:textStyle="bold" />
@@ -150,9 +200,8 @@
 
                     <TextView
                         android:id="@+id/textView_status"
-                        android:layout_width="110dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="สถานะ"
                         android:textSize="16dp"
                         android:textStyle="bold" />
@@ -194,14 +243,13 @@
                         android:id="@+id/textView_breed"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="สายพันธุ์"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/breed"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="สายพันธุ์"
@@ -220,14 +268,13 @@
                         android:id="@+id/textView_color"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="สี"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/color"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="สี"
@@ -244,20 +291,19 @@
 
                     <TextView
                         android:id="@+id/textView_marking"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="จุดเด่น"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/marking"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="จุดเด่น"
-                        android:inputType="textPersonName"
+                        android:inputType="textMultiLine"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
                 </LinearLayout>
@@ -270,16 +316,15 @@
 
                     <TextView
                         android:id="@+id/textView_age"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="อายุ"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/age"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="อายุ"
@@ -296,16 +341,15 @@
 
                     <TextView
                         android:id="@+id/textView_weight"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="น้ำหนัก"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/weight"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="น้ำหนัก"
@@ -322,16 +366,15 @@
 
                     <TextView
                         android:id="@+id/textView_size"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="ขนาด"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/size"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="ขนาด"
@@ -348,20 +391,19 @@
 
                     <TextView
                         android:id="@+id/textView_health"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="สุขภาพ"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/health"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="สุขภาพ"
-                        android:inputType="textPersonName"
+                        android:inputType="textMultiLine"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
                 </LinearLayout>
@@ -374,20 +416,19 @@
 
                     <TextView
                         android:id="@+id/textView_found_loc"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="สถานที่พบ"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/found_loc"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="สถานที่พบ"
-                        android:inputType="textPersonName"
+                        android:inputType="textMultiLine"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
                 </LinearLayout>
@@ -400,20 +441,19 @@
 
                     <TextView
                         android:id="@+id/textView_character"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="ลักษณะเฉพาะ"
                         android:textSize="16dp"
                         android:textStyle="bold"  />
 
                     <EditText
                         android:id="@+id/character"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="ลักษณะเฉพาะ"
-                        android:inputType="textPersonName"
+                        android:inputType="textMultiLine"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
                 </LinearLayout>
@@ -426,61 +466,21 @@
 
                     <TextView
                         android:id="@+id/textView_story"
-                        android:layout_width="90dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="เรื่องราว"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/story"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="11"
                         android:hint="เรื่องราว"
-                        android:inputType="textPersonName"
+                        android:inputType="textMultiLine"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView_image"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="รูปภาพ"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/btn_choose_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เลือกรูปภาพ"
-                            android:textSize="16dp"
-                            android:textColor="#808080"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/img_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_above="@+id/button"
-                        android:layout_below="@+id/btn_choose_image" />
                 </LinearLayout>
 
             </LinearLayout>

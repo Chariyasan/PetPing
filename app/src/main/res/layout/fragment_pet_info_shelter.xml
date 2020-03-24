@@ -15,31 +15,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
-            <Button
-                android:id="@+id/btn_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@android:color/transparent"
-                android:textSize="16dp"
-                android:text="ข้อมูลทั่วไป" />
 
-            <Button
-                android:id="@+id/btn_story"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@android:color/transparent"
-                android:textSize="16dp"
-                android:text="เรื่องราวของน้อง" />
-        </LinearLayout>
-        <ViewFlipper
+        <LinearLayout
             android:id="@+id/view_flipper_shelter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -49,13 +26,16 @@
                 android:id="@+id/view_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:dividerHeight="10sp"
                     android:orientation="horizontal">
                     <TextView
@@ -71,8 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:text="ชื่อ" />
+                        android:text="ชื่อ"
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,6 +60,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -104,6 +85,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -126,6 +108,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -148,6 +131,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -170,6 +154,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -192,6 +177,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -217,6 +203,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -241,6 +228,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -248,14 +236,14 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:text="ลักษณะเฉพาะตัว" />
+                        android:text="ลักษณะเฉพาะ" />
                     <TextView
                         android:id="@+id/character"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:textSize="16dp"
-                        android:text="ลักษณะเฉพาะตัว" />
+                        android:text="ลักษณะเฉพาะ" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,6 +252,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -287,6 +276,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="130dp"
@@ -303,19 +293,33 @@
                         android:textSize="16dp"
                         android:text="สถานะการอุปการะ" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/view_story"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/story"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:padding="5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="เรื่องราวของน้อง" />
+                    <TextView
+                        android:id="@+id/story"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:text="เรื่องราวของน้อง" />
+                </LinearLayout>
+
             </LinearLayout>
-        </ViewFlipper>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -323,6 +327,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:orientation="horizontal">
             <Button

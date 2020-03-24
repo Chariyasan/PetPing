@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginRight="30px"
     android:layout_marginLeft="30px"
     android:layout_marginTop="30px"
-    android:layout_marginBottom="24px" >
+    android:layout_marginBottom="24px">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,8 +24,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10px"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/img_view"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_horizontal"
+                            app:srcCompat="@drawable/ic_photo_black_24dp"/>
+
+                        <ImageButton
+                            android:id="@+id/btn_choose_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="120dp"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -34,16 +59,15 @@
 
                     <TextView
                         android:id="@+id/textView_name"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:text="หัวข้อ" />
 
                     <EditText
                         android:id="@+id/topic"
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
                         android:ems="11"
@@ -54,60 +78,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginBottom="5dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:text="เนื้อหา" />
 
                     <EditText
                         android:id="@+id/story"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
                         android:textSize="16dp"
                         android:ems="11"
-                        android:hint="เนื้อหา"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView_image"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="รูปหน้าปก"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/btn_choose_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="เลือกรูปภาพ"
-                            android:textSize="16dp"
-                            android:textColor="#808080"/>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/img_view"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="10dp" />
+                        android:gravity="top|left"
+                        android:inputType="textMultiLine"
+                        android:background="@drawable/edittext_round"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,16 +105,15 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:text="แท็ก" />
 
                     <EditText
                         android:id="@+id/tag"
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
                         android:ems="11"

@@ -22,6 +22,28 @@ public class HomeShelter implements Parcelable {
         this.URL = URL;
     }
 
+    protected HomeShelter(Parcel in) {
+        uID = in.readString();
+        petID = in.readString();
+        userName = in.readString();
+        userImage = in.readString();
+        petName = in.readString();
+        petStatus = in.readString();
+        URL = in.readString();
+    }
+
+    public static final Creator<HomeShelter> CREATOR = new Creator<HomeShelter>() {
+        @Override
+        public HomeShelter createFromParcel(Parcel in) {
+            return new HomeShelter(in);
+        }
+
+        @Override
+        public HomeShelter[] newArray(int size) {
+            return new HomeShelter[size];
+        }
+    };
+
     public String getUserImage() {
         return userImage;
     }
@@ -85,6 +107,12 @@ public class HomeShelter implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(uID);
+        dest.writeString(petID);
+        dest.writeString(userName);
+        dest.writeString(userImage);
+        dest.writeString(petName);
+        dest.writeString(petStatus);
+        dest.writeString(URL);
     }
 }

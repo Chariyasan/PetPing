@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class ManageContentShelterAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = View.inflate(context, R.layout.manage_content_shelter_adapter, null);
         TextView contentId, author, topic;
-        Button btn;
+        ImageButton btn;
 
         contentId = view.findViewById(R.id.contentID);
         author = view.findViewById(R.id.author);

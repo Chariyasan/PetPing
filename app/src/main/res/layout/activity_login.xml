@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:textSize="20dp"
-            android:text="เข้าสู่ระบบผู้รับอุปการะ"/>
+            android:text="เข้าสู่ระบบผู้อุปการะ"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

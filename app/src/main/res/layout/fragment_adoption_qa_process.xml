@@ -15,7 +15,7 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/processbar_3" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
@@ -31,7 +31,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="คำถามเบื้องต้น"
-            android:textSize="17dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
         <ViewFlipper
             android:id="@+id/flipper_qa_process"
@@ -51,7 +51,7 @@
                     android:layout_gravity="center"
                     android:text="1 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -70,20 +70,21 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_one_a"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="380dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
+                        android:inputType="textMultiLine"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -91,7 +92,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -103,12 +103,12 @@
                         android:src="@drawable/q_back_n" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -136,7 +136,7 @@
                     android:layout_gravity="center"
                     android:text="2 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_two_a"
@@ -168,7 +168,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -189,12 +190,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -223,7 +224,7 @@
                     android:layout_gravity="center"
                     android:text="3 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +243,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_three_a"
@@ -255,7 +256,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -276,12 +278,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -309,7 +311,7 @@
                     android:layout_gravity="center"
                     android:text="4 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -321,14 +323,14 @@
 
                     <TextView
                         android:id="@+id/qa_four_q"
-                        android:layout_width="320dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_four_a"
@@ -341,7 +343,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -362,12 +365,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -395,7 +398,7 @@
                     android:layout_gravity="center"
                     android:text="5 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -407,14 +410,14 @@
 
                     <TextView
                         android:id="@+id/qa_five_q"
-                        android:layout_width="320dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_five_a"
@@ -427,7 +430,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -448,12 +452,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -481,7 +485,7 @@
                     android:layout_gravity="center"
                     android:text="6 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -500,7 +504,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_six_a"
@@ -513,7 +517,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -534,12 +539,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -567,7 +572,7 @@
                     android:layout_gravity="center"
                     android:text="7 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -586,7 +591,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_seven_a"
@@ -599,7 +604,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -620,12 +626,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -653,7 +659,7 @@
                     android:layout_gravity="center"
                     android:text="8 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -672,7 +678,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_eight_a"
@@ -685,7 +691,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -706,12 +713,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -739,7 +746,7 @@
                     android:layout_gravity="center"
                     android:text="9 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -758,7 +765,7 @@
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_nine_a"
@@ -771,7 +778,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -792,12 +800,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -825,7 +833,7 @@
                     android:layout_gravity="center"
                     android:text="10 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -837,14 +845,14 @@
 
                     <TextView
                         android:id="@+id/qa_ten_q"
-                        android:layout_width="300dp"
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_ten_a"
@@ -857,7 +865,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -878,12 +887,12 @@
                         android:src="@drawable/q_back" />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป"
+                        android:text="ขั้นตอนถัดไป"
                         android:textColor="#919191" />
 
                     <ImageButton
@@ -911,7 +920,7 @@
                     android:layout_gravity="center"
                     android:text="11 of 11"
                     android:textColor="#000"
-                    android:textSize="15dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -923,14 +932,14 @@
 
                     <TextView
                         android:id="@+id/qa_eleven_q"
-                        android:layout_width="300dp"
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:padding="5dp"
                         android:textAlignment="center"
                         android:textColor="#000"
-                        android:textSize="15dp" />
+                        android:textSize="16dp" />
 
                     <EditText
                         android:id="@+id/qa_eleven_a"
@@ -943,7 +952,8 @@
                         android:background="@drawable/edittext_round"
                         android:gravity="top|left"
                         android:textColor="#575757"
-                        android:textSize="15dp" />
+                        android:inputType="textMultiLine"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -965,12 +975,12 @@
 
                     <Button
                         android:id="@+id/qa_next_button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/btn_click"
-                        android:text="ต่อไป" />
+                        android:text="ขั้นตอนถัดไป"/>
 
                     <ImageButton
                         android:layout_width="25dp"

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginRight="40px"
     android:layout_marginLeft="40px"
@@ -28,7 +29,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10px"
                 android:text="จำนวนน้องที่พบ"
                 android:textColor="#000"
@@ -46,7 +47,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10px"
                 android:text="ผลลัพธ์"
                 android:textColor="#000"
@@ -59,13 +60,12 @@
                 android:gravity="end"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/adapter_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/btn_custom"
-                    android:textColor="#000"
-                    android:text="Filter" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_filter_list_black_24dp" />
             </LinearLayout>
 
         </LinearLayout>

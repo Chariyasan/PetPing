@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = View.inflate(context, R.layout.manage_pet_info_adapter, null);
         TextView textName, textType, textBreed;
-        Button btn;
+        ImageButton btn;
         textName = view.findViewById(R.id.name);
         textType = view.findViewById(R.id.type);
         textBreed = view.findViewById(R.id.breed);

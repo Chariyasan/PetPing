@@ -59,15 +59,15 @@ public class PetInfoShelterFragment extends Fragment {
         btnEditInfo = view.findViewById(R.id.edit_info);
         btnDeleteInfo = view.findViewById(R.id.delete_info);
 
-        viewFlipper = view.findViewById(R.id.view_flipper_shelter);
-        btnInfo = view.findViewById(R.id.btn_info);
-        btnStory = view.findViewById(R.id.btn_story);
+//        viewFlipper = view.findViewById(R.id.view_flipper_shelter);
+//        btnInfo = view.findViewById(R.id.btn_info);
+//        btnStory = view.findViewById(R.id.btn_story);
 
-        btnInfo.setTypeface(null, Typeface.BOLD);
-        btnStory.setTypeface(null, Typeface.NORMAL);
+//        btnInfo.setTypeface(null, Typeface.BOLD);
+//        btnStory.setTypeface(null, Typeface.NORMAL);
 
         for (i = 0; i < petInfoList.size(); i++) {
-           ID = petInfoList.get(i).getID();
+            ID = petInfoList.get(i).getID();
         }
 
         db.collection("Pet")
@@ -101,23 +101,23 @@ public class PetInfoShelterFragment extends Fragment {
                         petItem.add(petSearch);
                     }
                 });
-        btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
-                btnInfo.setTypeface(null, Typeface.BOLD);
-                btnStory.setTypeface(null, Typeface.NORMAL);
-            }
-        });
-
-        btnStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
-                btnStory.setTypeface(null, Typeface.BOLD);
-                btnInfo.setTypeface(null, Typeface.NORMAL);
-            }
-        });
+//        btnInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
+//                btnInfo.setTypeface(null, Typeface.BOLD);
+//                btnStory.setTypeface(null, Typeface.NORMAL);
+//            }
+//        });
+//
+//        btnStory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
+//                btnStory.setTypeface(null, Typeface.BOLD);
+//                btnInfo.setTypeface(null, Typeface.NORMAL);
+//            }
+//        });
 
         btnEditInfo.setOnClickListener(new View.OnClickListener() {
             @Override

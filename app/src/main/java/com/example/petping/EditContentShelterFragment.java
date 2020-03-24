@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -38,7 +39,8 @@ import static android.app.Activity.RESULT_OK;
 public class EditContentShelterFragment extends Fragment{
     private ArrayList<Content> contentList = new ArrayList<>();
     private ArrayList<Content> contentL = new ArrayList<>();
-    private Button btnImage, btn;
+    private ImageButton btnImage;
+    private Button btn;
     private ImageView image;
     private EditText topic, story;
     private static final int PICK_IMAGE_REQUEST = 1;

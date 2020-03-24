@@ -24,16 +24,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="หัวข้อ"
-                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/topic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:padding="10dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -41,33 +42,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="เนื้อหา"
-                    android:textStyle="bold" />
-                <TextView
                     android:id="@+id/story"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:padding="5dp"
+                    android:textSize="16dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/edit_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="แก้ไขข้อมูล"/>
                 <Button
                     android:id="@+id/delete_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ลบข้อมูล"/>
-
+                    android:layout_marginEnd="10dp"
+                    android:text="ลบข้อมูล"
+                    android:background="@drawable/btn_cancel_custom"/>
+                <Button
+                    android:id="@+id/edit_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="แก้ไขข้อมูล"
+                    android:background="@drawable/btn_custom"/>
             </LinearLayout>
 
         </LinearLayout>

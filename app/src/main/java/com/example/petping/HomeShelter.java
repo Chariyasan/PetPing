@@ -1,6 +1,9 @@
 package com.example.petping;
 
-public class HomeShelter {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class HomeShelter implements Parcelable {
     String uID;
     String petID;
     String userName;
@@ -9,7 +12,7 @@ public class HomeShelter {
     String petStatus;
     String URL;
 
-    public HomeShelter(String uID, String petID, String userName, String userImage, String petName, String petStatus, String URL) {
+    public HomeShelter(String petID, String uID, String userName, String userImage, String petName, String petStatus, String URL) {
         this.uID = uID;
         this.petID = petID;
         this.userName = userName;
@@ -73,5 +76,15 @@ public class HomeShelter {
 
     public void setPetStatus(String petStatus) {
         this.petStatus = petStatus;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

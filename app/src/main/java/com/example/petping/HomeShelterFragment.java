@@ -26,12 +26,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeShelterFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ListView listView;
     private HomeShelterAdapter adapter;
+    private ArrayList<HomeShelter> homeShelter = new ArrayList<>();
+    private List<HomeShelter> homeList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +53,10 @@ public class HomeShelterFragment extends Fragment {
                             value.add(key.toString());
 
                         }
-                      showDetail(value);
+                        Set<String> set = new HashSet<String>(value);
+                        value.clear();
+                        value.addAll(set);
+                        showDetail(value);
                     }
                 });
 
@@ -57,10 +64,10 @@ public class HomeShelterFragment extends Fragment {
     }
 
     private void showDetail(final List<String> value) {
-        final List<HomeShelter> homeList = new ArrayList<>();
         for (int i=0; i<value.size(); i++){
-            Log.d("uid", value.get(i));
+//            Log.d("uid", value.get(i));
             final int finalI1 = i;
+            final int finalI = i;
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
@@ -68,34 +75,40 @@ public class HomeShelterFragment extends Fragment {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            if(task.isSuccessful()){
+                                for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d("name", document.get("UserName").toString());
-                                HomeShelter homeShelter = new HomeShelter(value.get(finalI1), document.getId(), document.get("UserName").toString(), document.get("UserImage").toString(),
-                                        document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString());
-                                homeList.add(homeShelter);
+                                    HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
+                                            document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString());
+                                   homeList.add(homeShelter);
+                                }
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
                                 listView.setAdapter(adapter);
                             }
-                        }
+
                         }
                     });
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ArrayList<HomeShelter> homeShelter = new ArrayList<>();
-                    ViewRequestShelterFragment viewRequest = new ViewRequestShelterFragment();
-                    Bundle bundle = new Bundle();
-                    homeShelter.add(homeList.get(position));
-                    bundle.putSerializable("homeShelter", homeShelter);
 
-                    viewRequest.setArguments(bundle);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(getId(), viewRequest);
-                    ft.commit();
-                }
-            });
         }
+
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ViewRequestShelterFragment viewRequest = new ViewRequestShelterFragment();
+                Bundle bundle = new Bundle();
+                homeShelter.add(homeList.get(position));
+//                for(int i=0; i<homeShelter.size(); i++){
+//                    Log.d("homeShelter", homeShelter.get(i).getuID());
+//                }
+                bundle.putParcelableArrayList("homeShelter", homeShelter);
+                viewRequest.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(), viewRequest);
+                ft.commit();
+            }
+        });
 
     }
 }

@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -56,6 +58,9 @@ public class EditPetInfoShelterFragment extends Fragment {
     private Map<String, Object> data1 = new HashMap<>();
     private Uri Uri;
     private String url1;
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,13 +88,7 @@ public class EditPetInfoShelterFragment extends Fragment {
         maleRd = view.findViewById(R.id.rd_male);
         femaleRd = view.findViewById(R.id.rd_female);
 
-//        viewFlipper = view.findViewById(R.id.view_flipper_shelter);
-//        btnInfo = view.findViewById(R.id.btn_info);
-//        btnStory = view.findViewById(R.id.btn_story);
         btnSaveInfo = view.findViewById(R.id.save_info);
-
-//        btnInfo.setTypeface(null, Typeface.BOLD);
-//        btnStory.setTypeface(null, Typeface.NORMAL);
 
         for (int i=0; i<petInfoList.size(); i++){
             ID = petInfoList.get(i).getID();
@@ -211,13 +210,28 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                             story.getText().toString());
                                                     petList.add(pet);
 
-                                                    PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                                    Bundle bundle = new Bundle();
-                                                    bundle.putParcelableArrayList("petInfo", petList);
-                                                    petInfoShelterFragment.setArguments(bundle);
-                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                    ft.replace(getId(), petInfoShelterFragment);
-                                                    ft.commit();
+                                                    builder = new AlertDialog.Builder(getContext());
+                                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                                            Bundle bundle = new Bundle();
+                                                            bundle.putParcelableArrayList("petInfo", petList);
+                                                            petInfoShelterFragment.setArguments(bundle);
+                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                            ft.replace(getId(), petInfoShelterFragment);
+                                                            ft.commit();
+                                                        }
+                                                    });
+                                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+
+                                                        }
+                                                    });
+                                                    dialog = builder.create();
+                                                    dialog.show();
                                                 }
                                             });
                                 }
@@ -253,13 +267,28 @@ public class EditPetInfoShelterFragment extends Fragment {
                                             story.getText().toString());
                                     petList.add(pet);
 
-                                    PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putParcelableArrayList("petInfo", petList);
-                                    petInfoShelterFragment.setArguments(bundle);
-                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                    ft.replace(getId(), petInfoShelterFragment);
-                                    ft.commit();
+                                    builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putParcelableArrayList("petInfo", petList);
+                                            petInfoShelterFragment.setArguments(bundle);
+                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                            ft.replace(getId(), petInfoShelterFragment);
+                                            ft.commit();
+                                        }
+                                    });
+                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    dialog = builder.create();
+                                    dialog.show();
                                 }
                             });
                 }

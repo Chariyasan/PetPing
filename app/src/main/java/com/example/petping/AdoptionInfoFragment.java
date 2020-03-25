@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,46 +95,55 @@ public class AdoptionInfoFragment extends Fragment {
                     sex = femaleRd.getText().toString();
                 }
 
-                final StorageReference fileReference = storageRef.child(name + "." + getFileExtension(imageUri));
-                fileReference.putFile(imageUri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                               fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                   @Override
-                                   public void onSuccess(Uri uri) {
-                                       data.put("Name", name);
-                                       data.put("NID", nid);
-                                       data.put("DOB", DOB);
-                                       data.put("TelNo", tel);
-                                       data.put("Sex", sex);
-                                       data.put("Address", addr);
-                                       data.put("Job", job);
-                                       data.put("Salary", salary);
-                                       data.put("Image", uri.toString());
+                if(name.isEmpty() || nid.isEmpty() || DOB.isEmpty() || tel.isEmpty() || sex.isEmpty() || addr.isEmpty() || job.isEmpty() || salary.isEmpty()){
+                    showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
+                }
+                if(imageUri != null){
+                    final StorageReference fileReference = storageRef.child(name + "." + getFileExtension(imageUri));
+                    fileReference.putFile(imageUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            data.put("Name", name);
+                                            data.put("NID", nid);
+                                            data.put("DOB", DOB);
+                                            data.put("TelNo", tel);
+                                            data.put("Sex", sex);
+                                            data.put("Address", addr);
+                                            data.put("Job", job);
+                                            data.put("Salary", salary);
+                                            data.put("Image", uri.toString());
 
-                                       db.collection("User")
-                                               .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                               .collection("Information")
-                                               .document("Information")
-                                               .update(data)
-                                               .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                   @Override
-                                                   public void onSuccess(Void aVoid) {
-                                                       AdoptionQAFragment adoptionQA = new AdoptionQAFragment();
-                                                       Bundle bundle = new Bundle();
-                                                       bundle.putParcelableArrayList("petProfile", petProfileList);
+                                            db.collection("User")
+                                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .collection("Information")
+                                                    .document("Information")
+                                                    .update(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            AdoptionQAFragment adoptionQA = new AdoptionQAFragment();
+                                                            Bundle bundle = new Bundle();
+                                                            bundle.putParcelableArrayList("petProfile", petProfileList);
 
-                                                       adoptionQA.setArguments(bundle);
-                                                       FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                       ft.replace(getId(), adoptionQA);
-                                                       ft.commit();
-                                                   }
-                                               });
-                                   }
-                               });
-                            }
-                        });
+                                                            adoptionQA.setArguments(bundle);
+                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                            ft.replace(getId(), adoptionQA);
+                                                            ft.commit();
+                                                        }
+                                                    });
+                                        }
+                                    });
+                                }
+                            });
+                }
+                else{
+                    showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
+                }
+
             }
         });
 
@@ -168,5 +178,7 @@ public class AdoptionInfoFragment extends Fragment {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
+    private void showMessage(String show) {
+        Toast.makeText(getContext(), show, Toast.LENGTH_LONG).show();
+    }
 }

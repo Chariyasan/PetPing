@@ -307,7 +307,6 @@ public class AdoptionQAFragment extends Fragment {
         btnEleven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 flipper.setDisplayedChild(flipper.indexOfChild(view.findViewById(R.id.qa_ten)));
             }
         });

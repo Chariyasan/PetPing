@@ -143,7 +143,6 @@ public class AdoptionInfoFragment extends Fragment {
                 else{
                     showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
                 }
-
             }
         });
 

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            app:srcCompat="@drawable/ic_sync_black_24dp" />-->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,8 +37,17 @@
                 android:layout_height="160dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="14dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_sync_black_24dp" />
 
             <ImageView
                 android:id="@+id/pet_image_qa"
@@ -39,6 +61,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_alignParentStart="true"
@@ -73,7 +97,7 @@
         <ViewFlipper
             android:id="@+id/view_flipper_request"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp">
@@ -98,14 +122,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="ชื่อ-นามสกุล" />
 
                     <TextView
                         android:id="@+id/adopter_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -121,6 +145,7 @@
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
                         android:textSize="16dp"
                         android:text="รหัสบัตรประชาชน" />
 
@@ -128,8 +153,7 @@
                         android:id="@+id/adopter_nid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -148,14 +172,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="วัน เดือน ปีเกิด" />
 
                     <TextView
                         android:id="@+id/adopter_dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -172,13 +196,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="เบอร์โทรศัพท์" />
                     <TextView
                         android:id="@+id/adopter_tel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -194,14 +218,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="ที่อยู่" />
 
                     <TextView
                         android:id="@+id/adopter_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -217,14 +241,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="อาชีพ" />
 
                     <TextView
                         android:id="@+id/adopter_job"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -240,13 +264,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="เงินเดือน" />
                     <TextView
                         android:id="@+id/adopter_salary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -267,13 +291,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="สถานะ" />
                     <TextView
                         android:id="@+id/adopter_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -288,296 +312,408 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 1"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 1"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 2"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 2"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 3"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 3"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 4"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_four"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 4"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 5"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_five"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 5"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_five"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 6"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_six"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 6"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_six"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_six"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 7"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_seven"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 7"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_seven"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_seven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 8"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_eight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 8"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_eight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_eight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 9"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_nine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 9"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_nine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_nine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 10"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_ten"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 10"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_ten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_ten"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="100dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="ข้อที่ 11"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/q_eleven"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp" />
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:text="ข้อที่ 11"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/q_eleven"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/a_eleven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
 
             //Pet Info
+
             <LinearLayout
                 android:id="@+id/pet_info"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:orientation="horizontal">-->
-                <!--                    <ImageView-->
-                <!--                        android:id="@+id/pet_image"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="190dp"-->
-                <!--                        android:layout_alignParentTop="true"-->
-                <!--                        android:layout_centerHorizontal="true"-->
-                <!--                        android:scaleType="centerCrop"/>-->
-                <!--                </LinearLayout>-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="ชื่อ"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -585,20 +721,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="สายพันธุ์"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_breed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -606,20 +743,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="อายุ"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_age"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -627,20 +765,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="เพศ"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_sex"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -649,20 +788,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="สี"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_colour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -670,20 +810,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="จุดเด่น"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_marking"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -691,20 +832,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="น้ำหนัก"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_weight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -713,20 +855,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="ขนาด"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -734,20 +877,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:text="ลักษณะเฉพาะตัว"
-                        android:textSize="16dp" />
+                        android:layout_marginEnd="10dp"
+                        android:text="ลักษณะเฉพาะ"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_character"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -756,20 +900,21 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
                         android:text="สถานที่พบ"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/pet_found_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
-                        android:textColor="#000"/>
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
         </ViewFlipper>
@@ -784,4 +929,5 @@
             android:background="@drawable/btn_custom"
             android:text="บันทึกข้อมูล" />
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>

@@ -28,36 +28,40 @@
                 android:gravity="right|center_vertical"
                 android:text="สี"
                 android:textStyle="bold"
-                android:textColor="#000"/>
+                android:textSize="16dp"/>
 
             <Spinner
                 android:id="@+id/color_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:textSize="16dp"/>
             //ยังไม่มีปุ่ม + กับ tag ที่ user เลือก
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txt_sex"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="right|center_vertical"
                 android:text="เพศ"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="16dp"/>
 
             <RadioGroup
                 android:id="@+id/rd_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="vertical">
@@ -67,6 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:textSize="16dp"
+                android:textColor="#808080"
                 android:text="ผู้" />
 
             <RadioButton
@@ -74,6 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:textSize="16dp"
+                android:textColor="#808080"
                 android:text="เมีย" />
             </RadioGroup>
         </LinearLayout>
@@ -87,35 +95,44 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_marginEnd="20dp"
+                android:gravity="right|center_vertical"
                 android:text="อายุ"
                 android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_marginEnd="20dp"/>
+                android:textSize="16dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="vertical">
                 <CheckBox
                     android:id="@+id/cb_age_least1y"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#808080"
                     android:text="น้อยกว่า 1 ปี" />
                 <CheckBox
                     android:id="@+id/cb_age_1to5y"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#808080"
                     android:text="1-5 ปี" />
                 <CheckBox
                     android:id="@+id/cb_age_5to10y"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#808080"
                     android:text="5-10 ปี" />
                 <CheckBox
                     android:id="@+id/cb_age_10_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#808080"
                     android:text="10 ปีขึ้นไป" />
             </LinearLayout>
         </LinearLayout>
@@ -128,14 +145,15 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_marginEnd="20dp"
+                android:gravity="right|center_vertical"
                 android:text="ขนาด"
                 android:textStyle="bold"
-                android:textColor="#000"
-                android:layout_marginEnd="20dp"/>
+                android:textSize="16dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -147,6 +165,8 @@
                         android:id="@+id/cb_size_s"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
                         android:text="S" />
 
                     <TextView
@@ -165,6 +185,8 @@
                         android:id="@+id/cb_size_m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
                         android:text="M" />
 
                     <TextView
@@ -183,6 +205,8 @@
                         android:id="@+id/cb_size_l"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
                         android:text="L" />
 
                     <TextView

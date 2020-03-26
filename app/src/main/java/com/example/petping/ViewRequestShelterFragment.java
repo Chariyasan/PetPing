@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,7 +30,7 @@ import androidx.fragment.app.Fragment;
 public class ViewRequestShelterFragment extends Fragment {
     private ArrayList<HomeShelter> adoptionList = new ArrayList<>();
     private ImageView petImageQA, adoptImageQA;
-    private Button btnAdopter, btnBasicQ, btnPet, btnSaveInfo;
+    private Button btnAdopter, btnBasicQ, btnPet,btnSaveInfo;
     private ViewFlipper viewFlipper;
     private String uID, petID;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -45,7 +46,7 @@ public class ViewRequestShelterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_view_request_shelter, null);
         if(getArguments() != null){
-            adoptionList = getArguments().getParcelableArrayList("homeShelter");
+            adoptionList = (ArrayList<HomeShelter>)getArguments().getSerializable("homeShelter");
         }
         for(int i=0; i<adoptionList.size(); i++){
             uID = adoptionList.get(i).getuID();
@@ -135,52 +136,26 @@ public class ViewRequestShelterFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot document) {
-                             Glide.with(getContext())
-                                        .load(document.get("petURL"))
-                                        .into(petImageQA);
-                                Glide.with(getContext())
-                                        .load(document.get("UserImage"))
-                                        .into(adoptImageQA);
-                                petName.setText(document.get("petName").toString());
-                                petBreed.setText(document.get("petBreed").toString());
-                                petAge.setText(document.get("petAge").toString());
-                                petSex.setText(document.get("petSex").toString());
-                                petColour.setText(document.get("petColor").toString());
-                                petMarking.setText(document.get("petMarking").toString());
-                                petWeight.setText(document.get("petWeight").toString());
-                                petSize.setText(document.get("petSize").toString());
-                                petCharacter.setText(document.get("petCharacter").toString());
-                                petFoundLoc.setText(document.get("petFoundLoc").toString());
-                                adoptStatus.setText(document.get("petStatus").toString());
+                        Glide.with(getContext())
+                                .load(document.get("petURL"))
+                                .into(petImageQA);
+                        Glide.with(getContext())
+                                .load(document.get("UserImage"))
+                                .into(adoptImageQA);
+                        petName.setText(document.get("petName").toString());
+                        petBreed.setText(document.get("petBreed").toString());
+                        petAge.setText(document.get("petAge").toString());
+                        petSex.setText(document.get("petSex").toString());
+                        petColour.setText(document.get("petColor").toString());
+                        petMarking.setText(document.get("petMarking").toString());
+                        petWeight.setText(document.get("petWeight").toString());
+                        petSize.setText(document.get("petSize").toString());
+                        petCharacter.setText(document.get("petCharacter").toString());
+                        petFoundLoc.setText(document.get("petFoundLoc").toString());
+                        adoptStatus.setText(document.get("petStatus").toString());
                     }
                 });
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                Glide.with(getContext())
-//                                        .load(document.get("petURL"))
-//                                        .into(petImageQA);
-//                                Glide.with(getContext())
-//                                        .load(document.get("UserImage"))
-//                                        .into(adoptImageQA);
-//                                petName.setText(document.get("petName").toString());
-//                                petBreed.setText(document.get("petBreed").toString());
-//                                petAge.setText(document.get("petAge").toString());
-//                                petSex.setText(document.get("petSex").toString());
-//                                petColour.setText(document.get("petColor").toString());
-//                                petMarking.setText(document.get("petMarking").toString());
-//                                petWeight.setText(document.get("petWeight").toString());
-//                                petSize.setText(document.get("petSize").toString());
-//                                petCharacter.setText(document.get("petCharacter").toString());
-//                                petFoundLoc.setText(document.get("petFoundLoc").toString());
-//                                adoptStatus.setText(document.get("petStatus").toString());
-//                            }
-//                        }
-//                    }
-//                });
+
 
         db.collection("Information")
                 .document("BasicQ")

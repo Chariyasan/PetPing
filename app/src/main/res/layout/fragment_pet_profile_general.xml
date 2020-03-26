@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".PetProfileGeneralFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_adopt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/ic_pets_black_24dp"
+        app:backgroundTint="#FFFDD835" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="24px"
         android:layout_marginBottom="24px" >
 
 
@@ -20,7 +32,7 @@
         <ImageView
             android:id="@+id/img_pet_profile"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="200dp"
             tools:srcCompat="@tools:sample/avatars"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -79,7 +91,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
                         android:text="test"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        android:textSize="18dp"/>
 
                     <TextView
                         android:id="@+id/info_breed"
@@ -88,7 +101,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:text="test"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        android:textSize="18dp"/>
 
                 </LinearLayout>
 
@@ -103,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="220dp"
+                android:layout_marginEnd="10dp"
                 android:background="#F8F9FF"
                 android:textOff=""
                 android:textOn="" />
@@ -123,31 +138,28 @@
                 android:id="@+id/button_general"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/prompt"
                 android:text="ข้อมูลทั่วไป"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/button_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/prompt"
                 android:text="เรื่องราวของน้อง"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/button_shelter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/prompt"
                 android:text="ข้อมูลศูนย์พักพิง"
-                android:textSize="16dp" />
+                android:textSize="18dp" />
         </LinearLayout>
 
         // Info
@@ -168,7 +180,7 @@
 
                     //Pet's profile
 
-                    <ScrollView
+                    <RelativeLayout
                         android:id="@+id/scrollView_pet_general"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -188,23 +200,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_colour"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="สี"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_colour"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="สี"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -213,23 +227,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_marking"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="จุดเด่น"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_marking"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="จุดเด่น"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -238,23 +254,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_character"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="ลักษณะเฉพาะ"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_character"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="ลักษณะเฉพาะตัว"
-                                    android:textSize="15dp" />
+                                    android:text="ลักษณะเฉพาะ"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -263,23 +281,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_weight"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="น้ำหนัก"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_weight"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="น้ำหนัก"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -288,23 +308,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_size"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="ขนาด"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_size"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="ขนาด"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -313,23 +335,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_location"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="สถานที่พบ"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_location"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="สถานที่พบ"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -338,23 +362,25 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_microchip"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="หมายเลขไมโครชิป"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_microchip"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="-"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -363,30 +389,32 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/text_status"
                                     android:layout_width="125dp"
                                     android:layout_height="match_parent"
+                                    android:layout_marginEnd="10dp"
                                     android:text="สถานภาพน้อง"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/info_status"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
                                     android:text="สถานภาพน้อง"
-                                    android:textSize="15dp" />
+                                    android:textSize="16dp" />
                             </LinearLayout>
                         </LinearLayout>
-                    </ScrollView>
+                    </RelativeLayout>
 
                     // Story
 
-                    <ScrollView
+                    <RelativeLayout
                         android:id="@+id/scrollView_pet_story"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -407,15 +435,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
-                                android:textSize="15dp"
+                                android:textSize="16dp"
                                 android:text="บลาๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆ" />
 
                         </LinearLayout>
-                    </ScrollView>
+                    </RelativeLayout>
 
                     // Shelter
 
-                    <ScrollView
+                    <RelativeLayout
                         android:id="@+id/scrollView_pet_shelter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -434,6 +462,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -448,7 +477,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="ที่อยู่" />
                             </LinearLayout>
 
@@ -458,6 +487,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -472,7 +502,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="อีเมล" />
                             </LinearLayout>
 
@@ -482,6 +512,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -496,7 +527,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="เฟซบุ๊ก" />
                             </LinearLayout>
 
@@ -506,6 +537,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -520,7 +552,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="อินสตาแกรม" />
                             </LinearLayout>
 
@@ -530,6 +562,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -544,7 +577,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="ไลน์" />
                             </LinearLayout>
 
@@ -554,6 +587,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -568,7 +602,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="เบอร์โทรศัพท์" />
                             </LinearLayout>
 
@@ -578,6 +612,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="8dp"
+                                android:padding="5dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -592,7 +627,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
-                                    android:textSize="15dp"
+                                    android:textSize="16dp"
                                     android:text="แผนที่" />
                             </LinearLayout>
 
@@ -603,27 +638,28 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="5dp"
-                                android:textSize="15dp"
+                                android:textSize="16dp"
                                 android:text="Thailand Adopter Club"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
-                    </ScrollView>
+                    </RelativeLayout>
                 </ViewFlipper>
 
-                <Button
-                    android:id="@+id/btn_adopt"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/btn_custom"
-                    android:text="สนใจรับเลี้ยง" />
+<!--                <Button-->
+<!--                    android:id="@+id/btn_adopt"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:background="@drawable/btn_custom"-->
+<!--                    android:text="สนใจรับเลี้ยง" />-->
 
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
+    </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

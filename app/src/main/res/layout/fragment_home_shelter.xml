@@ -6,10 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginRight="40px"
+    android:layout_marginLeft="40px"
+    android:layout_marginTop="40px"
+    android:layout_marginBottom="40px"
     tools:context=".HomeShelterFragment">
-    <ListView
-        android:id="@+id/listView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="30px"
+            android:layout_marginBottom="20px"
+            android:columnWidth="100dp"
+            android:dividerHeight="2sp">
+        </ListView>
+    </LinearLayout>
+
 </LinearLayout>

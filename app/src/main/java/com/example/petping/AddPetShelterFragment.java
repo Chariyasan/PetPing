@@ -141,37 +141,43 @@ public class AddPetShelterFragment extends Fragment {
                     status = waitRd.getText().toString();
                 }
 
-
-                final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(imageUri));
-                Log.d("URI", fileReference.getPath());
-
-                fileReference.putFile(imageUri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        data.put("Age", age.getText().toString());
-                                        data.put("Breed", breed.getText().toString());
-                                        data.put("Character", character.getText().toString());
-                                        data.put("Color", color.getText().toString());
-                                        data.put("Health", health.getText().toString());
-                                        data.put("Marking", marking.getText().toString());
-                                        data.put("Name", name.getText().toString());
-                                        data.put("OriginalLocation", foundLoc.getText().toString());
-                                        data.put("Sex", sex);
-                                        data.put("Size", size.getText().toString());
-                                        data.put("Status", status);
-                                        data.put("Story", story.getText().toString());
-                                        data.put("Type", type);
-                                        data.put("Weight", weight.getText().toString());
-                                        data.put("Image", uri.toString());
-                                        db.collection("Pet").document().set(data);
-                                    }
-                                });
-                            }
-                        });
+                if(age.getText().toString().isEmpty() || breed.getText().toString().isEmpty() || character.getText().toString().isEmpty() ||
+                        color.getText().toString().isEmpty() ||  health.getText().toString().isEmpty() || marking.getText().toString().isEmpty() ||
+                        name.getText().toString().isEmpty() || foundLoc.getText().toString().isEmpty() || sex.isEmpty() || status.isEmpty() ||
+                        story.getText().toString().isEmpty() || type.isEmpty() || imageUri == null || weight.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "กรุณากรอกข้อมูลให้ครบถ้วนค่ะ", Toast.LENGTH_LONG).show();
+                }
+                if(imageUri != null){
+                    final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(imageUri));
+//                    Log.d("URI", fileReference.getPath());
+                    fileReference.putFile(imageUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            data.put("Age", age.getText().toString());
+                                            data.put("Breed", breed.getText().toString());
+                                            data.put("Character", character.getText().toString());
+                                            data.put("Color", color.getText().toString());
+                                            data.put("Health", health.getText().toString());
+                                            data.put("Marking", marking.getText().toString());
+                                            data.put("Name", name.getText().toString());
+                                            data.put("OriginalLocation", foundLoc.getText().toString());
+                                            data.put("Sex", sex);
+                                            data.put("Size", size.getText().toString());
+                                            data.put("Status", status);
+                                            data.put("Story", story.getText().toString());
+                                            data.put("Type", type);
+                                            data.put("Weight", weight.getText().toString());
+                                            data.put("Image", uri.toString());
+                                            db.collection("Pet").document().set(data);
+                                        }
+                                    });
+                                }
+                            });
+                }
             }
         });
         return view;

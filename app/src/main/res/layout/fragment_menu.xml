@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_menu_custom"
                     android:drawableLeft="@drawable/menu_info"
-                    android:text="    น้องที่ถูกใจ"
+                    android:text="    แก้ไขข้อมูล"
                     android:textAlignment="textStart"
                     android:padding="16dp" />
 

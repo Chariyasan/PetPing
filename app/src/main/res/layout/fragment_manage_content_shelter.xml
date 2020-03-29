@@ -14,7 +14,23 @@
         android:layout_marginRight="40px"
         android:layout_marginBottom="40px"
         android:orientation="vertical">
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="จำนวนสัตว์พบ"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+        </LinearLayout>
 <!--        <Button-->
 <!--            android:id="@+id/btn_add_content"-->
 <!--            android:layout_width="wrap_content"-->

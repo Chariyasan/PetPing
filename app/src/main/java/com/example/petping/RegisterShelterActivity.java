@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
     private Button btn;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private TextView logIn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,17 @@ public class RegisterShelterActivity extends AppCompatActivity {
         addr = findViewById(R.id.address);
         tel = findViewById(R.id.tel_no);
         btn = findViewById(R.id.button);
-        
+        logIn = findViewById(R.id.regTxt);
+
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterShelterActivity.this, LogInShelterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -25,6 +25,7 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -43,7 +44,7 @@ public class PetProfileGeneralFragment extends Fragment {
     private TextView infoWeight, infoFoundLoc, infoStatus, infoMap;
     private ViewFlipper viewFlipper;
     private Button btnGeneral, btnStory, btnShelter;
-    private Button btnAdopt;
+    private FloatingActionButton btnAdopt;
     private ArrayList<PetSearch> petItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petFavList = new ArrayList<>();

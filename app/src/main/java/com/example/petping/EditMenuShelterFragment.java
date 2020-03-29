@@ -118,32 +118,33 @@ public class EditMenuShelterFragment extends Fragment {
                                             data.put("LineID", lineID.getText().toString());
                                             data.put("Image", uri.toString());
 
-                                            db.collection("Shelter")
-                                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                    .update(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            builder = new AlertDialog.Builder(getContext());
-                                                            builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
-                                                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                            builder = new AlertDialog.Builder(getContext());
+                                            builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    db.collection("Shelter")
+                                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                            .update(data)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                public void onSuccess(Void aVoid) {
                                                                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                                     ft.replace(getId(), new MenuShelterFragment());
                                                                     ft.commit();
                                                                 }
                                                             });
-                                                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
+                                                }
+                                            });
+                                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
 
-                                                                }
-                                                            });
-                                                            dialog = builder.create();
-                                                            dialog.show();
-                                                        }
-                                                    });
+                                                }
+                                            });
+                                            dialog = builder.create();
+                                            dialog.show();
+
                                         }
                                     });
                                 }
@@ -160,32 +161,34 @@ public class EditMenuShelterFragment extends Fragment {
                     data1.put("Instagram", ig.getText().toString());
                     data1.put("LineID", lineID.getText().toString());
 
-                    db.collection("Shelter")
-                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .update(data1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    builder = new AlertDialog.Builder(getContext());
-                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
-                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.collection("Shelter")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .update(data1)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                        public void onSuccess(Void aVoid) {
                                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                                             ft.replace(getId(), new MenuShelterFragment());
                                             ft.commit();
                                         }
                                     });
-                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
 
-                                        }
-                                    });
-                                    dialog = builder.create();
-                                    dialog.show();
-                                }
-                            });
+                        }
+                    });
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
+
 
                 }
 

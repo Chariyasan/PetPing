@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +47,9 @@ public class AddContentShelterFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Map<String, Object> data = new HashMap<>();
     private Uri Uri;
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,8 +73,17 @@ public class AddContentShelterFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(topic.getText().toString().isEmpty() || story.getText().toString().isEmpty() || Uri == null){
+                if(topic.getText().toString().isEmpty() && story.getText().toString().isEmpty() && Uri == null){
                     Toast.makeText(getContext(), "กรุณากรอกข้อมูลให้ครบถ้วนค่ะ", Toast.LENGTH_LONG).show();
+                }
+                if(topic.getText().toString().isEmpty() ){
+                    Toast.makeText(getContext(), "กรุณาระบุหัวข้อบทความค่ะ", Toast.LENGTH_LONG).show();
+                }
+                if(story.getText().toString().isEmpty() ){
+                    Toast.makeText(getContext(), "กรุณาระบุเนื้อหาบทความค่ะ", Toast.LENGTH_LONG).show();
+                }
+                if(Uri == null){
+                    Toast.makeText(getContext(), "กรุณาใส่รูปบทความค่ะ", Toast.LENGTH_LONG).show();
                 }
                 if(Uri != null){
                     final StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(Uri));
@@ -86,17 +100,35 @@ public class AddContentShelterFragment extends Fragment {
                                             data.put("AuthorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             data.put("Tag", tag.getText().toString());
                                             data.put("AuthorName", "Thailand Adopter Club");
-                                            db.collection("Content")
-                                                    .document()
-                                                    .set(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), new ManageContentShelterFragment());
-                                                            ft.commit();
-                                                        }
-                                                    });
+
+                                            builder = new AlertDialog.Builder(getContext());
+                                            builder.setTitle("คุณต้องการเพิ่มข้อมูล[m8;k,ช่หรือไม่");
+
+                                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            });
+                                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    db.collection("Content")
+                                                            .document()
+                                                            .set(data)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                    ft.replace(getId(), new ManageContentShelterFragment());
+                                                                    ft.commit();
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                            dialog = builder.create();
+                                            dialog.show();
+
                                         }
                                     });
                                 }

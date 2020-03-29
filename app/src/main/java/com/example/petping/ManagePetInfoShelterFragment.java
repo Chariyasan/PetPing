@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,13 +30,14 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private PetSearch petSearch;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button btnAddPet;
-
+    private TextView result;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_pet_info_shelter, null);
         listView = view.findViewById(R.id.listView_pet_info);
         btnAddPet = view.findViewById(R.id.btn_add_pet);
+        result =view.findViewById(R.id.result);
         db.collection("Pet")
                 .orderBy("Type")
                 .get()
@@ -64,6 +66,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
     }
 
     private void setValue(Task<QuerySnapshot> task) {
+        int count=0;
         for (QueryDocumentSnapshot document : task.getResult()) {
             petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                     document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
@@ -72,10 +75,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
                     document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                     document.get("Story").toString());
             petList.add(petSearch);
+            count++;
         }
         adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), petList);
         listView.setAdapter(adapter);
-
+        result.setText(String.valueOf(count));
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

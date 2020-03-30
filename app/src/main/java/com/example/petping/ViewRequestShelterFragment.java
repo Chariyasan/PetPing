@@ -30,7 +30,7 @@ import androidx.fragment.app.Fragment;
 public class ViewRequestShelterFragment extends Fragment {
     private ArrayList<HomeShelter> adoptionList = new ArrayList<>();
     private ImageView petImageQA, adoptImageQA;
-    private Button btnAdopter, btnBasicQ, btnPet,btnSaveInfo;
+    private Button btnAdopter, btnBasicQ, btnPet,btnSaveInfo, btnDeleteInfo;
     private ViewFlipper viewFlipper;
     private String uID, petID;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -57,6 +57,7 @@ public class ViewRequestShelterFragment extends Fragment {
         btnBasicQ = view.findViewById(R.id.btn_basic_q);
         btnPet = view.findViewById(R.id.btn_pet_info);
         btnSaveInfo = view.findViewById(R.id.save_info);
+        btnDeleteInfo = view.findViewById(R.id.delete_info);
         viewFlipper = view.findViewById(R.id.view_flipper_request);
 
         adoptName = view.findViewById(R.id.adopter_name);
@@ -240,7 +241,12 @@ public class ViewRequestShelterFragment extends Fragment {
 
             }
         });
+        btnDeleteInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
         return view;
     }
 }

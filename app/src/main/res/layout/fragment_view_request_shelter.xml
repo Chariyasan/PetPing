@@ -13,7 +13,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:text="รายละเอียดผู้ขอรับอุการะ"/>
 <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
@@ -299,8 +305,32 @@
                         android:layout_height="wrap_content"
                         android:textSize="16dp" />
                 </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="10dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/delete_info"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_cancel_click"
+                    android:text="ปฎิเสธ" />
+                <Button
+                    android:id="@+id/save_info"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_custom"
+                    android:text="ยืนยัน" />
             </LinearLayout>
-
+            </LinearLayout>
             //QA
             <LinearLayout
                 android:id="@+id/basic_q"
@@ -918,16 +948,6 @@
                 </LinearLayout>
             </LinearLayout>
         </ViewFlipper>
-
-        <Button
-            android:id="@+id/save_info"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/btn_custom"
-            android:text="บันทึกข้อมูล" />
     </LinearLayout>
     </ScrollView>
 </RelativeLayout>

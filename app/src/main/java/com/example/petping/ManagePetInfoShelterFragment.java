@@ -47,7 +47,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
         search = view.findViewById(R.id.search);
 
         db.collection("Pet")
-                .orderBy("Type")
+                .orderBy("Status")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

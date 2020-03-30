@@ -380,7 +380,7 @@ public class AdoptionQAFragment extends Fragment {
         for(int i=0; i<petProfileList.size(); i++) {
             db.collection("Pet")
                     .document(petProfileList.get(i).getID())
-                    .update("Status", "อยู่ระหว่างดำเนินการ")
+                    .update("Status", "รอพิจารณาคุณสมบัติ")
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -403,7 +403,7 @@ public class AdoptionQAFragment extends Fragment {
             adop.put("petMarking", petProfileList.get(i).getMarking());
             adop.put("petHealth", petProfileList.get(i).getHealth());
             adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
-            adop.put("petStatus", "อยู่ระหว่างดำเนินการ");
+            adop.put("petStatus", "รอพิจารณาคุณสมบัติ");
             adop.put("petStory", petProfileList.get(i).getStory());
 
             db.collection("RequestAdoption")

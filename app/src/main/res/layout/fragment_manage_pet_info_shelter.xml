@@ -18,6 +18,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="ค้นหาโดยชื่อสัตว์"
+                    android:textColor="#000"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -31,9 +43,6 @@
                     android:textColor="#000"
                     android:textSize="18sp"/>
             </LinearLayout>
-
-
-
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

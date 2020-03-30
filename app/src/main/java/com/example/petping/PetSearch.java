@@ -73,6 +73,10 @@ public class PetSearch implements Parcelable {
         }
     };
 
+    public PetSearch() {
+
+    }
+
     public String getWeight() {
         return weight;
     }

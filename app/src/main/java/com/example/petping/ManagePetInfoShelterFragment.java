@@ -2,12 +2,16 @@ package com.example.petping;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,13 +35,17 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button btnAddPet;
     private TextView result;
+    private EditText search;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_pet_info_shelter, null);
         listView = view.findViewById(R.id.listView_pet_info);
         btnAddPet = view.findViewById(R.id.btn_add_pet);
-        result =view.findViewById(R.id.result);
+        result = view.findViewById(R.id.result);
+        search = view.findViewById(R.id.search);
+
         db.collection("Pet")
                 .orderBy("Type")
                 .get()
@@ -52,7 +60,6 @@ public class ManagePetInfoShelterFragment extends Fragment {
                     }
 
                 });
-
 
         btnAddPet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +87,24 @@ public class ManagePetInfoShelterFragment extends Fragment {
         adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), petList);
         listView.setAdapter(adapter);
         result.setText(String.valueOf(count));
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

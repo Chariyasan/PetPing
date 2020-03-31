@@ -20,7 +20,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -405,6 +407,12 @@ public class AdoptionQAFragment extends Fragment {
             adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
             adop.put("petStatus", "รอพิจารณาคุณสมบัติ");
             adop.put("petStory", petProfileList.get(i).getStory());
+
+            long yourmilliseconds = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date resultdate = new Date(yourmilliseconds);
+//            Log.d("DateData", sdf.format(resultdate));
+            adop.put("DateTime", sdf.format(resultdate));
 
             db.collection("RequestAdoption")
                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())

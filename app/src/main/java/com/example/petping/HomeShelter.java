@@ -11,8 +11,9 @@ public class HomeShelter implements Parcelable {
     String petName;
     String petStatus;
     String URL;
+    String date;
 
-    public HomeShelter(String petID, String uID, String userName, String userImage, String petName, String petStatus, String URL) {
+    public HomeShelter(String petID, String uID, String userName, String userImage, String petName, String petStatus, String URL, String date) {
         this.uID = uID;
         this.petID = petID;
         this.userName = userName;
@@ -20,6 +21,7 @@ public class HomeShelter implements Parcelable {
         this.petName = petName;
         this.petStatus = petStatus;
         this.URL = URL;
+        this.date = date;
     }
 
     protected HomeShelter(Parcel in) {
@@ -30,6 +32,19 @@ public class HomeShelter implements Parcelable {
         petName = in.readString();
         petStatus = in.readString();
         URL = in.readString();
+        date = in.readString();
+    }
+
+    public String getPetDate() {
+        return date;
+    }
+
+    public void setPetDate(String date) {
+        this.date = date;
+    }
+
+    public static Creator<HomeShelter> getCREATOR() {
+        return CREATOR;
     }
 
     public static final Creator<HomeShelter> CREATOR = new Creator<HomeShelter>() {
@@ -43,6 +58,10 @@ public class HomeShelter implements Parcelable {
             return new HomeShelter[size];
         }
     };
+
+    public HomeShelter() {
+
+    }
 
     public String getUserImage() {
         return userImage;
@@ -114,5 +133,6 @@ public class HomeShelter implements Parcelable {
         dest.writeString(petName);
         dest.writeString(petStatus);
         dest.writeString(URL);
+        dest.writeString(date);
     }
 }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -25,7 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,12 +38,16 @@ public class HomeShelterFragment extends Fragment {
     private ListView listView;
     private HomeShelterAdapter adapter;
     private ArrayList<HomeShelter> homeShelter = new ArrayList<>();
-    private List<HomeShelter> homeList = new ArrayList<>();
+    private ArrayList<HomeShelter> homeList = new ArrayList<>();
+    private Button btnAll, btnWaiting, btnSuccess;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_shelter, null);
         listView = view.findViewById(R.id.listView);
+        btnAll = view.findViewById(R.id.all);
+        btnWaiting = view.findViewById(R.id.waiting);
+        btnSuccess = view.findViewById(R.id.success);
 
         final List<String> value = new ArrayList<>();
         db.collection("User1")
@@ -71,6 +78,7 @@ public class HomeShelterFragment extends Fragment {
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
+                    .orderBy("DateTime")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -79,17 +87,41 @@ public class HomeShelterFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d("name", document.get("UserName").toString());
                                     HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
-                                            document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString());
+                                            document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
                                    homeList.add(homeShelter);
                                 }
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
                                 listView.setAdapter(adapter);
                             }
-
                         }
                     });
-
         }
+
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.noFilter();
+            }
+        });
+
+        btnWaiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterWaiting();
+
+                long yourmilliseconds = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date resultdate = new Date(yourmilliseconds);
+                Log.d("DateData", sdf.format(resultdate));
+            }
+        });
+
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterSuccess();
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

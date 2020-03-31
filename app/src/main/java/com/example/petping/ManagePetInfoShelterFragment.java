@@ -66,7 +66,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new AddPetShelterFragment());
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
         return view;
@@ -97,6 +97,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
+                int num = 0;
+                for (int i=0; i< adapter.getCount(); i++){
+                    num++;
+                }
+                result.setText(String.valueOf(num));
             }
 
             @Override

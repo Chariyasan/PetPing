@@ -41,7 +41,7 @@ public class MainShelterActivity extends AppCompatActivity {
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            fragment).commit();
+                            fragment).addToBackStack(null).commit();
                     return true;
                 }
             };

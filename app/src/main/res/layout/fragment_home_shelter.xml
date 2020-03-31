@@ -45,6 +45,21 @@
                 android:layout_height="wrap_content"
                 android:text="รับอุปการะแล้ว" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="จำนวนที่พบ"/>
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"

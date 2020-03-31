@@ -64,7 +64,7 @@ public class ManageContentShelterFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new AddContentShelterFragment());
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 

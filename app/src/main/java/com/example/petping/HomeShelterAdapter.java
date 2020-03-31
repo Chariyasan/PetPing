@@ -47,6 +47,7 @@ public class HomeShelterAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     public void noFilter() {
         filterList = homeList;
         notifyDataSetChanged();
@@ -83,6 +84,7 @@ public class HomeShelterAdapter extends BaseAdapter {
         imgPet = convertView.findViewById(R.id.img_pet);
         imgUser = convertView.findViewById(R.id.img_user);
         petDate = convertView.findViewById(R.id.pet_date);
+
 
         user.setText(filterList.get(position).getUserName());
         petName.setText(filterList.get(position).getPetName());

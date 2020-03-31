@@ -25,7 +25,7 @@ public class ManageInfoShelterFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new ManagePetInfoShelterFragment());
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 
@@ -34,7 +34,7 @@ public class ManageInfoShelterFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new ManageContentShelterFragment());
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 

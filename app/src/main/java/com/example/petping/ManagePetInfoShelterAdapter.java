@@ -95,8 +95,8 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
 
     @Override
     public Filter getFilter() {
-        if(valueFilter==null) {
-            valueFilter=new ValueFilter();
+        if(valueFilter == null) {
+            valueFilter = new ValueFilter();
         }
         return valueFilter;
     }
@@ -109,6 +109,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
                 //no constraint given, just return all the data. (no search)
                 results.count = petList.size();
                 results.values = petList;
+                filterList = petList;
             }else{
                 filterList = new ArrayList<PetSearch>();
                 for(int i=0;i<petList.size();i++){
@@ -119,8 +120,8 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
                         filterList.add(petSearch);
                     }
                 }
-                results.count=filterList.size();
-                results.values=filterList;
+                results.count = filterList.size();
+                results.values = filterList;
             }
             return results;
         }

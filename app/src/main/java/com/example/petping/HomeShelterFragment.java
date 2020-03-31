@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +41,7 @@ public class HomeShelterFragment extends Fragment {
     private ArrayList<HomeShelter> homeShelter = new ArrayList<>();
     private ArrayList<HomeShelter> homeList = new ArrayList<>();
     private Button btnAll, btnWaiting, btnSuccess;
+    private TextView count;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class HomeShelterFragment extends Fragment {
         btnAll = view.findViewById(R.id.all);
         btnWaiting = view.findViewById(R.id.waiting);
         btnSuccess = view.findViewById(R.id.success);
+        count = view.findViewById(R.id.count);
 
         final List<String> value = new ArrayList<>();
         db.collection("User1")
@@ -58,7 +61,6 @@ public class HomeShelterFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         for ( Object key : documentSnapshot.getData().values() ) {
                             value.add(key.toString());
-
                         }
                         Set<String> set = new HashSet<String>(value);
                         value.clear();
@@ -75,6 +77,9 @@ public class HomeShelterFragment extends Fragment {
 //            Log.d("uid", value.get(i));
             final int finalI1 = i;
             final int finalI = i;
+            if(homeList != null){
+                homeList.clear();
+            }
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
@@ -86,21 +91,33 @@ public class HomeShelterFragment extends Fragment {
                             if(task.isSuccessful()){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d("name", document.get("UserName").toString());
-                                    HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
+                                   HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
                                             document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
                                    homeList.add(homeShelter);
                                 }
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
                                 listView.setAdapter(adapter);
+                                int num = 0;
+                                for(int i=0; i < homeList.size(); i++){
+                                    num++;
+                                }
+                                count.setText(String.valueOf(num));
                             }
                         }
                     });
         }
 
+
+
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapter.noFilter();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
             }
         });
 
@@ -108,11 +125,11 @@ public class HomeShelterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 adapter.filterWaiting();
-
-                long yourmilliseconds = System.currentTimeMillis();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                Date resultdate = new Date(yourmilliseconds);
-                Log.d("DateData", sdf.format(resultdate));
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
             }
         });
 
@@ -120,6 +137,11 @@ public class HomeShelterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 adapter.filterSuccess();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
             }
         });
 
@@ -136,7 +158,7 @@ public class HomeShelterFragment extends Fragment {
                 viewRequest.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), viewRequest);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 

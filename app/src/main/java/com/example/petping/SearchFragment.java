@@ -34,6 +34,7 @@ public class SearchFragment extends Fragment {
     private PetSearch petSearch;
     private ArrayList<PetSearch> petList = new ArrayList<>();
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +90,9 @@ public class SearchFragment extends Fragment {
 
 
     private void setValue(Task<QuerySnapshot> task) {
+        if(petList != null){
+            petList.clear();
+        }
         for (QueryDocumentSnapshot document : task.getResult()) {
             petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                     document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
@@ -105,7 +109,7 @@ public class SearchFragment extends Fragment {
         petSearchResult.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(getId(), petSearchResult);
-        ft.commit();
+        ft.addToBackStack(null).commit();
     }
 
 }

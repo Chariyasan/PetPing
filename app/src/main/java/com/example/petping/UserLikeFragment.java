@@ -31,7 +31,6 @@ public class UserLikeFragment extends Fragment {
 
     private ListView listView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ImageButton like_back_btn;
     private ArrayList<PetSearch> petFavList = new ArrayList<>();
     private ArrayList<PetSearch> petList = new ArrayList<>();
     private UserLikeAdapter likeAdapter;
@@ -43,7 +42,6 @@ public class UserLikeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_like, container, false);
         listView = view.findViewById(R.id.listView_like);
-        like_back_btn = view.findViewById(R.id.like_back_btn);
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")
@@ -88,15 +86,6 @@ public class UserLikeFragment extends Fragment {
                                 });
                     }
                 }
-            }
-        });
-
-        like_back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new MenuFragment());
-                ft.commit();
             }
         });
 

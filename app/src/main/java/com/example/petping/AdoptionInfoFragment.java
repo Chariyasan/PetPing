@@ -132,7 +132,7 @@ public class AdoptionInfoFragment extends Fragment {
                                                             adoptionQA.setArguments(bundle);
                                                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                             ft.replace(getId(), adoptionQA);
-                                                            ft.commit();
+                                                            ft.addToBackStack(null).commit();
                                                         }
                                                     });
                                         }

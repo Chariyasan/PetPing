@@ -79,7 +79,7 @@ public class AdoptionRegulationFragment extends Fragment {
                            adoptionInfo.setArguments(bundle);
                            FragmentTransaction ft = getFragmentManager().beginTransaction();
                            ft.replace(getId(), adoptionInfo);
-                           ft.commit();
+                           ft.addToBackStack(null).commit();
 //                           FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                           ft.replace(getId(), new AdoptionInfoFragment());
 //                           ft.commit();

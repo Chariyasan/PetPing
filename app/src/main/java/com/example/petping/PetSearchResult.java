@@ -26,7 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class PetSearchResult extends Fragment implements DialogFiltering.filterSelected{
     private ArrayList<PetSearch> petSearchList;
@@ -494,7 +496,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 petProfile.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), petProfile);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
     }

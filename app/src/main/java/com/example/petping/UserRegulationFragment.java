@@ -21,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class UserRegulationFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView one, two, three, four, five, six, seven, eight;
-    private ImageButton reg_back_btn;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu_regulation, null);
 
@@ -33,7 +32,6 @@ public class UserRegulationFragment extends Fragment {
         six = view.findViewById(R.id.reg_six);
         seven = view.findViewById(R.id.reg_seven);
         eight = view.findViewById(R.id.reg_eight);
-        reg_back_btn = view.findViewById(R.id.reg_back_btn);
 
         db.collection("Information")
                 .document("Regulation")
@@ -53,14 +51,6 @@ public class UserRegulationFragment extends Fragment {
                     }
                 });
 
-        reg_back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new MenuFragment());
-                ft.commit();
-            }
-        });
         return view;
     }
 }

@@ -193,7 +193,7 @@ public class PetProfileGeneralFragment extends Fragment {
                 adoptionRegulation.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), adoptionRegulation);
-                ft.commit();
+                ft.addToBackStack(null).commit();
                 //                FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                ft.replace(getId(), new AdoptionRegulationFragment());
 //                ft.commit();

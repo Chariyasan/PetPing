@@ -240,6 +240,15 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/btn_custom"
             android:text="แก้ไขข้อมูล" />
+        <Button
+            android:id="@+id/btn_log_out"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/btn_custom"
+            android:text="ออกจากระบบ" />
 
     </LinearLayout>
 

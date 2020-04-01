@@ -21,14 +21,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class UserFAQFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView help;
-    private ImageButton help_back_btn;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu_faq, null);
 
         help = view.findViewById(R.id.help);
-        help_back_btn = view.findViewById(R.id.help_back_btn);
-
         db.collection("Information")
                 .document("Help")
                 .get()
@@ -40,14 +37,6 @@ public class UserFAQFragment extends Fragment {
                     }
                 });
 
-        help_back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new MenuFragment());
-                ft.commit();
-            }
-        });
         return view;
     }
 }

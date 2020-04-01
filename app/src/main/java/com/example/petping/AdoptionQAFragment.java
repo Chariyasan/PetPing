@@ -442,7 +442,7 @@ public class AdoptionQAFragment extends Fragment {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(getId(), new AdoptionWaitingFragment());
-        ft.commit();
+        ft.disallowAddToBackStack().commit();
     }
 
     private void showMessage() {

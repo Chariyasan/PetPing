@@ -40,7 +40,6 @@ public class UserHistoryFragment extends Fragment {
 
     private ListView listView;
     private UserHistAdapter historyAdapter;
-    private ImageButton hist_back_btn;
     public TextView resultFound;
     private ArrayList<PetHistory> petHistoryItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -54,8 +53,6 @@ public class UserHistoryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_history, container, false);
         listView = view.findViewById(R.id.listView_history);
-
-        hist_back_btn = view.findViewById(R.id.hist_back_btn);
 
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -104,17 +101,6 @@ public class UserHistoryFragment extends Fragment {
             }
         });
 
-        hist_back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new MenuFragment());
-                ft.commit();
-            }
-        });
-
-
-//
 ////        final Task<DocumentSnapshot> his = db.collection("User")
 ////                .document("RPF67EzLXyEJlOk1Yzm6")
 ////                .collection("History")

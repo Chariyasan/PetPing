@@ -56,6 +56,15 @@ public class HomeFragment extends Fragment {
             flipperImages(image[i]);
         }
 
+        if(petList != null){
+            petList.clear();
+        }
+        if(petListDog != null){
+            petListDog.clear();
+        }
+        if(petListCat != null){
+            petListCat.clear();
+        }
         db.collection("Pet")
                 .whereEqualTo("Type", "สุนัข")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
@@ -78,6 +87,7 @@ public class HomeFragment extends Fragment {
                             petListDog.clear();
                             petListDog.addAll(set);
 
+
                             Set<PetSearch> setA = new HashSet<PetSearch>(petList);
                             petList.clear();
                             petList.addAll(setA);
@@ -85,6 +95,21 @@ public class HomeFragment extends Fragment {
                             homeAdapter = new HomeAdapter(getContext(), petList);
                             gridAll.setAdapter(homeAdapter);
                             homeAdapter.notifyDataSetChanged();
+
+                            gridAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                                    Bundle bundle = new Bundle();
+                                    ArrayList<PetSearch> list = new ArrayList<>();
+                                    list.add(petList.get(position));
+                                    bundle.putParcelableArrayList("petProfile", list);
+                                    petProfile.setArguments(bundle);
+                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    ft.replace(getId(), petProfile);
+                                    ft.addToBackStack(null).commit();
+                                }
+                            });
                         } else {
                             Log.d("Error", "Error getting documents: ", task.getException());
                         }
@@ -139,7 +164,7 @@ public class HomeFragment extends Fragment {
                         petProfile.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(getId(), petProfile);
-                        ft.commit();
+                        ft.addToBackStack(null).commit();
                     }
                 });
             }
@@ -163,11 +188,12 @@ public class HomeFragment extends Fragment {
                         petProfile.setArguments(bundle);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(getId(), petProfile);
-                        ft.commit();
+                        ft.addToBackStack(null).commit();
                     }
                 });
             }
         });
+
         return view;
     }
 

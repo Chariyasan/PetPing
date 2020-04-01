@@ -17,15 +17,6 @@
         android:layout_marginBottom="10px"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/like_back_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:src="@drawable/q_back" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

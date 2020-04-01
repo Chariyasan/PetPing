@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -19,9 +20,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 class PetListViewAdapter extends BaseAdapter {
     private Context context;
-    private List<PetSearch> petSearchList;
+    private ArrayList<PetSearch> petSearchList;
 
-    public PetListViewAdapter(Context context, List<PetSearch> petSearchList) {
+    public PetListViewAdapter(Context context, ArrayList<PetSearch> petSearchList) {
         this.context = context;
         this.petSearchList = petSearchList;
     }
@@ -38,7 +39,7 @@ class PetListViewAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
        // return Long.parseLong(petSearchList.get(position).getID());
     }
 

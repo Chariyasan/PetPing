@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +26,10 @@ public class MenuShelterFragment extends Fragment {
     private TextView name, owner, license, address, email, telNo;
     private TextView facebook, instagram, lineID;
     private ImageView image;
-    private Button btn;
+    private Button btn, btn_logOut;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
 
     @Nullable
     @Override
@@ -42,13 +46,14 @@ public class MenuShelterFragment extends Fragment {
         lineID = view.findViewById(R.id.line);
         image = view.findViewById(R.id.image);
         btn = view.findViewById(R.id.btn_edit);
+        btn_logOut = view.findViewById(R.id.btn_log_out);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new EditMenuShelterFragment());
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 
@@ -72,6 +77,31 @@ public class MenuShelterFragment extends Fragment {
                         lineID.setText(documentSnapshot.get("LineID").toString());
                     }
                 });
+
+        btn_logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("คุณต้องการออกจากระบบใช่หรือไม่");
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), SelectTypeUserActivity.class);
+                        getActivity().startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog = builder.create();
+                dialog.show();
+            }
+        });
         return view;
     }
 }

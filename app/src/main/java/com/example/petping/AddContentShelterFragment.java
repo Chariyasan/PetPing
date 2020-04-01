@@ -102,7 +102,7 @@ public class AddContentShelterFragment extends Fragment {
                                             data.put("AuthorName", "Thailand Adopter Club");
 
                                             builder = new AlertDialog.Builder(getContext());
-                                            builder.setTitle("คุณต้องการเพิ่มข้อมูล[m8;k,ช่หรือไม่");
+                                            builder.setTitle("คุณต้องการเพิ่มข้อมูลใช่หรือไม่");
 
                                             builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
                                                 @Override

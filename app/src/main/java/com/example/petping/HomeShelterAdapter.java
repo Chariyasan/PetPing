@@ -61,6 +61,10 @@ public class HomeShelterAdapter extends BaseAdapter {
         filterStatus("รับอุปการะแล้ว");
     }
 
+    public void filterReject() {
+        filterStatus("ไม่ผ่านการพิจารณา");
+    }
+
     private void filterStatus(String status) {
         filterList = new ArrayList<>();
         for(HomeShelter h: homeList){

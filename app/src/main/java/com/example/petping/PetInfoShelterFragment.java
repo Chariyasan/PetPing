@@ -128,7 +128,7 @@ public class PetInfoShelterFragment extends Fragment {
                 petInfoShelterFragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(),  petInfoShelterFragment);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
         btnDeleteInfo.setOnClickListener(new View.OnClickListener() {

@@ -56,6 +56,50 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
         return position;
     }
 
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter{
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            if(constraint == null || constraint.length() == 0) {
+                //no constraint given, just return all the data. (no search)
+                results.count = petList.size();
+                results.values = petList;
+                filterList = petList;
+            }else{
+                filterList = new ArrayList<PetSearch>();
+                for(int i=0;i<petList.size();i++){
+                    if((petList.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        PetSearch petSearch = new PetSearch();
+                        petSearch.setName(petList.get(i).getName());
+                        petSearch.setType(petList.get(i).getType());
+                        petSearch.setBreed(petList.get(i).getBreed());
+                        petSearch.setID(petList.get(i).getID());
+                        filterList.add(petSearch);
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filterList = (ArrayList<PetSearch>) results.values;
+
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 //        View view = View.inflate(context, R.layout.manage_pet_info_adapter, null);
@@ -85,51 +129,10 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
                 ft.replace(id, petInfo);
                 ft.commit();
 
-
             }
         });
 
         return convertView;
     }
 
-
-    @Override
-    public Filter getFilter() {
-        if(valueFilter == null) {
-            valueFilter = new ValueFilter();
-        }
-        return valueFilter;
-    }
-
-    private class ValueFilter extends Filter{
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
-            if(constraint == null || constraint.length() == 0) {
-                //no constraint given, just return all the data. (no search)
-                results.count = petList.size();
-                results.values = petList;
-                filterList = petList;
-            }else{
-                filterList = new ArrayList<PetSearch>();
-                for(int i=0;i<petList.size();i++){
-                    if((petList.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
-                        PetSearch petSearch = new PetSearch();
-                        petSearch.setName(petList.get(i).getName());
-                        petSearch.setID(petList.get(i).getID());
-                        filterList.add(petSearch);
-                    }
-                }
-                results.count = filterList.size();
-                results.values = filterList;
-            }
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            filterList = (ArrayList<PetSearch>) results.values;
-            notifyDataSetChanged();
-        }
-    }
 }

@@ -14,19 +14,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/shelter_img_profile"
-                android:layout_width="145dp"
-                android:layout_height="145dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/user" />
 
-            <Button
-                android:id="@+id/btn_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="เปลี่ยนรูปภาพ" />
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/shelter_img_profile"
+                    android:layout_width="145dp"
+                    android:layout_height="145dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/user" />
+
+                <ImageButton
+                    android:id="@+id/btn_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_edit_black_24dp" />
+            </RelativeLayout>
 
             <!--        <TableRow-->
             <!--        android:layout_width="match_parent"-->
@@ -42,172 +51,225 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:text="ชื่อศูนย์พักพิง"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_name"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textPersonName"/>
 
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:text="ชื่อเจ้าของศูนย์พักพิง"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_owner"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textPersonName" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:text="หมายเลขใบอนุญาต"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_id"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:text="ที่อยู่"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_addr"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textMultiLine" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
                         android:text="เบอร์ติดต่อ"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_tel"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textSize="16dp" />
+                        android:text="อีเมล"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/edit_shelter_email"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:text="Facebook"
-                        android:textSize="16dp" />
+                        android:text="เฟซบุ๊ก"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_fb"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textPersonName" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:text="Instagram"
-                        android:textSize="16dp" />
+                        android:text="อินสตาแกรม"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_ig"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textPersonName" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:padding="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="155dp"
                         android:layout_height="wrap_content"
-                        android:text="Line ID"
-                        android:textSize="16dp" />
+                        android:text="ไอดีไลน์"
+                        android:textSize="16dp"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:id="@+id/edit_shelter_line"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16dp"
+                        android:textColor="#808080"
+                        android:inputType="textPersonName" />
 
                 </LinearLayout>
             </LinearLayout>

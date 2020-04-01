@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,14 +41,14 @@ public class HomeShelterFragment extends Fragment {
     private HomeShelterAdapter adapter;
     private ArrayList<HomeShelter> homeShelter = new ArrayList<>();
     private ArrayList<HomeShelter> homeList = new ArrayList<>();
-    private Button btnAll, btnWaiting, btnSuccess;
+    private Button btnReject, btnWaiting, btnSuccess;
     private TextView count;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_shelter, null);
         listView = view.findViewById(R.id.listView);
-        btnAll = view.findViewById(R.id.all);
+        btnReject = view.findViewById(R.id.reject);
         btnWaiting = view.findViewById(R.id.waiting);
         btnSuccess = view.findViewById(R.id.success);
         count = view.findViewById(R.id.count);
@@ -83,7 +84,7 @@ public class HomeShelterFragment extends Fragment {
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
-                    .orderBy("DateTime")
+                    .orderBy("DateTime", Query.Direction.DESCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -95,24 +96,28 @@ public class HomeShelterFragment extends Fragment {
                                             document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
                                    homeList.add(homeShelter);
                                 }
-                                adapter = new HomeShelterAdapter(getContext(), homeList);
-                                listView.setAdapter(adapter);
                                 int num = 0;
-                                for(int i=0; i < homeList.size(); i++){
-                                    num++;
+                                for(int i=0; i<homeList.size(); i++){
+                                    if(homeList.get(i).getPetStatus().equals("รอพิจารณาคุณสมบัติ")){
+                                        adapter = new HomeShelterAdapter(getContext(), homeList);
+                                        listView.setAdapter(adapter);
+                                            num++;
+                                        count.setText(String.valueOf(num));
+                                    }
+
                                 }
-                                count.setText(String.valueOf(num));
+
+
                             }
                         }
                     });
         }
 
 
-
-        btnAll.setOnClickListener(new View.OnClickListener() {
+        btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.noFilter();
+                adapter.filterReject();
                 int num = 0;
                 for(int i=0; i < adapter.getCount(); i++){
                     num++;

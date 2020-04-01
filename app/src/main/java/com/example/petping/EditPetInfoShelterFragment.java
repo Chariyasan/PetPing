@@ -214,12 +214,12 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                                     health, foundLoc.getText().toString(), status.getText().toString(),
                                                                     story.getText().toString());
                                                             petList.add(pet);
-                                                            ManagePetInfoShelterFragment petInfoShelterFragment = new ManagePetInfoShelterFragment();
+                                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                                             Bundle bundle = new Bundle();
                                                             bundle.putParcelableArrayList("petInfo", petList);
                                                             petInfoShelterFragment.setArguments(bundle);
                                                             FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), petInfoShelterFragment);
+                                                            ft.replace(getId(), new ManagePetInfoShelterFragment());
                                                             ft.commit();
 
                                                         }
@@ -277,7 +277,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                     health, foundLoc.getText().toString(), status.getText().toString(),
                                                     story.getText().toString());
                                             petList.add(pet);
-                                            ManagePetInfoShelterFragment petInfoShelterFragment = new ManagePetInfoShelterFragment();
+                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                             Bundle bundle = new Bundle();
                                             bundle.putParcelableArrayList("petInfo", petList);
                                             petInfoShelterFragment.setArguments(bundle);

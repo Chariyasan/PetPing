@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,11 +23,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ViewRequestShelterFragment extends Fragment {
     private ArrayList<HomeShelter> adoptionList = new ArrayList<>();
@@ -34,13 +41,18 @@ public class ViewRequestShelterFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private String uID, petID;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView adoptName, adoptNid, adoptDOB, adoptTel, adoptAddr, adoptJob, adoptSalary, adoptStatus;
+    private TextView adoptName, adoptNid, adoptDOB, adoptTel, adoptAddr, adoptJob, adoptSalary;
+    private TextView adoptStatus;
     private TextView petName, petBreed, petAge, petSex, petColour, petMarking;
     private TextView petWeight, petSize, petCharacter, petFoundLoc;
     private TextView qOne, qTwo, qThree, qFour, qFive;
     private TextView aOne, aTwo, aThree, aFour, aFive;
     private TextView qSix, qSeven, qEight, qNine, qTen, qEleven;
     private TextView aSix, aSeven, aEight, aNine, aTen, aEleven;
+    private String status;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+    private Map<String, Object> data;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,7 +79,7 @@ public class ViewRequestShelterFragment extends Fragment {
         adoptAddr = view.findViewById(R.id.adopter_address);
         adoptJob = view.findViewById(R.id.adopter_job);
         adoptSalary = view.findViewById(R.id.adopter_salary);
-        adoptStatus = view.findViewById(R.id.adopter_status);
+//        adoptStatus = view.findViewById(R.id.adopter_status);
 
         petName = view.findViewById(R.id.pet_name);
         petBreed = view.findViewById(R.id.pet_breed);
@@ -153,7 +165,8 @@ public class ViewRequestShelterFragment extends Fragment {
                         petSize.setText(document.get("petSize").toString());
                         petCharacter.setText(document.get("petCharacter").toString());
                         petFoundLoc.setText(document.get("petFoundLoc").toString());
-                        adoptStatus.setText(document.get("petStatus").toString());
+                        status = document.get("petStatus").toString();
+//                        adoptStatus.setText(document.get("petStatus").toString());
                     }
                 });
 
@@ -235,15 +248,84 @@ public class ViewRequestShelterFragment extends Fragment {
             }
         });
 
+
         btnSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        data = new HashMap<>();
+                        data.put("petStatus", "รับอุปการะแล้ว");
+                        long yourmilliseconds = System.currentTimeMillis();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date resultdate = new Date(yourmilliseconds);
+//                       Log.d("DateData", sdf.format(resultdate));
+                        data.put("DateTime", sdf.format(resultdate));
+                        db.collection("RequestAdoption")
+                                .document(uID)
+                                .collection("Adoption")
+                                .document(petID)
+                                .update(data);
+                        db.collection("Pet")
+                                .document(petID)
+                                .update("Status", "รับอุปการะแล้ว");
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), new HomeShelterFragment());
+                        ft.commit();
+                    }
+                });
+                dialog = builder.create();
+                dialog.show();
             }
         });
         btnDeleteInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        data = new HashMap<>();
+                        data.put("petStatus", "ไม่ผ่านการพิจารณา");
+                        long yourmilliseconds = System.currentTimeMillis();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date resultdate = new Date(yourmilliseconds);
+//                       Log.d("DateData", sdf.format(resultdate));
+                        data.put("DateTime", sdf.format(resultdate));
+                        db.collection("RequestAdoption")
+                                .document(uID)
+                                .collection("Adoption")
+                                .document(petID)
+                                .update(data);
+                        db.collection("Pet")
+                                .document(petID)
+                                .update("Status", "กำลังหาบ้าน");
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), new HomeShelterFragment());
+                        ft.commit();
+                    }
+                });
+                dialog = builder.create();
+                dialog.show();
+
 
             }
         });

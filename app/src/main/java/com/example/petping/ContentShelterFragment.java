@@ -76,7 +76,7 @@ public class ContentShelterFragment extends Fragment {
                 editContentShelterFragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(),  editContentShelterFragment);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
         return view;

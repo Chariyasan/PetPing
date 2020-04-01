@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +27,8 @@ public class MenuShelterFragment extends Fragment {
     private TextView name, owner, license, address, email, telNo;
     private TextView facebook, instagram, lineID;
     private ImageView image;
-    private Button btn, btn_logOut;
+    private Button btn_logOut;
+    private FloatingActionButton btn;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private AlertDialog dialog;
     private AlertDialog.Builder builder;

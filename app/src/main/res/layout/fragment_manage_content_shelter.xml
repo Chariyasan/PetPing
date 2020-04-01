@@ -21,23 +21,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="จำนวนสัตว์พบ"
-                android:textColor="#000"
-                android:textSize="18sp"/>
+                android:text="จำนวนบมความที่พบ"
+                android:textSize="18dp"/>
             <TextView
                 android:id="@+id/result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textSize="18sp"/>
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:text="บทความ"
+                android:textSize="18dp"/>
         </LinearLayout>
-<!--        <Button-->
-<!--            android:id="@+id/btn_add_content"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="right"-->
-<!--            android:background="@drawable/btn_main"-->
-<!--            android:text="เพิ่ม" />-->
 
         <TableLayout
             android:layout_width="match_parent"

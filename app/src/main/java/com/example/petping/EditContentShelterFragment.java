@@ -126,12 +126,12 @@ public class EditContentShelterFragment extends Fragment{
                                                                     Content content = new Content(ID, topic.getText().toString(),
                                                                             story.getText().toString(), uri.toString(), tag, author, authorName);
                                                                     contentL.add(content);
-                                                                    ManageContentShelterFragment contentShelterFragment = new ManageContentShelterFragment();
+                                                                    ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                                                     Bundle bundle = new Bundle();
                                                                     bundle.putParcelableArrayList("contentInfo", contentL);
                                                                     contentShelterFragment.setArguments(bundle);
                                                                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                                    ft.replace(getId(),  contentShelterFragment);
+                                                                    ft.replace(getId(), contentShelterFragment);
                                                                     ft.commit();
                                                                 }
                                                             });
@@ -149,41 +149,43 @@ public class EditContentShelterFragment extends Fragment{
                     data1.put("Topic", topic.getText().toString());
                     data1.put("Story", story.getText().toString());
 
-                    db.collection("Content")
-                            .document(ID)
-                            .update(data1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Content content = new Content(ID, topic.getText().toString(),
-                                            story.getText().toString(), imageUrl, tag, author, authorName);
-                                    contentL.add(content);
+                    builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
 
-                                    builder = new AlertDialog.Builder(getContext());
-                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
-
-                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            db.collection("Content")
+                                    .document(ID)
+                                    .update(data1)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            ManageContentShelterFragment contentShelterFragment = new ManageContentShelterFragment();
+                                        public void onSuccess(Void aVoid) {
+                                            Content content = new Content(ID, topic.getText().toString(),
+                                                    story.getText().toString(), imageUrl, tag, author, authorName);
+                                            contentL.add(content);
+                                            ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                             Bundle bundle = new Bundle();
                                             bundle.putParcelableArrayList("contentInfo", contentL);
                                             contentShelterFragment.setArguments(bundle);
                                             FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                            ft.replace(getId(),  contentShelterFragment);
+                                            ft.replace(getId(), contentShelterFragment);
                                             ft.commit();
-                                        }
-                                    });
-                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
 
                                         }
                                     });
-                                    dialog = builder.create();
-                                    dialog.show();
-                                }
-                            });
+
+                        }
+                    });
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
+
                 }
             }
         });

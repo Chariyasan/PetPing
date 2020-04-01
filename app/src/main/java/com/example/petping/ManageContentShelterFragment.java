@@ -38,6 +38,9 @@ public class ManageContentShelterFragment extends Fragment {
         listView = view.findViewById(R.id.listView_content_shelter);
         btnAdd = view.findViewById(R.id.btn_add_content);
         result = view.findViewById(R.id.result);
+        if(contentList != null){
+            contentList.clear();
+        }
         db.collection("Content")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

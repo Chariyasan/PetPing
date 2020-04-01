@@ -1,49 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginRight="10px"
     android:layout_marginLeft="10px"
     android:layout_marginTop="10px"
+    android:layout_marginRight="10px"
     android:layout_marginBottom="10px"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/img_pet"
+            app:layout_constraintStart_toStartOf="@+id/img_pet">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_user"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:background="@drawable/border_round_image" />
+                app:layout_constraintBottom_toTopOf="@+id/img_pet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/img_pet"
+                tools:ignore="MissingConstraints" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_sync_black_24dp" />
-
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_pet"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_gravity="center"
-                android:background="@drawable/border_round_image" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.937"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.816"
+                tools:ignore="MissingConstraints" />
 
-        </LinearLayout>
+            <!--            <ImageView-->
+            <!--                android:id="@+id/img_pet"-->
+            <!--                android:layout_width="54dp"-->
+            <!--                android:layout_height="54dp"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:background="@drawable/border_round_image" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,63 +73,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:padding="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="ชื่อผู้อุปการะ"
+                    android:layout_marginRight="5dp"
+                    android:text="ชื่อผู้ขออุปการะ"
                     android:textColor="#878787"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="เวนดี้"
                     android:textSize="16dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
+                    android:text="น้องที่ขออุปการะ"
                     android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:text="น้องที่อุปการะ" />
+                    android:textStyle="bold" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/pet_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/pet_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="ต้อยติ่ง"
-                        android:textSize="16dp" />
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pet_breed"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="สายพันธุ์"-->
-                        <!--android:textColor="#000000"-->
-                        <!--android:textSize="15dp" />-->
-                </LinearLayout>
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16dp" />
 
 
             </LinearLayout>
@@ -122,35 +121,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
+                    android:text="สถานะขออุปการะ"
                     android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:text="สถานะอุปการะ" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/pet_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="กำลังหาบ้าน"
                     android:textSize="16dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/pet_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp" />
+                    android:layout_marginEnd="5dp"
+                    android:gravity="right"
+                    android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -74,6 +75,9 @@ public class ManagePetInfoShelterFragment extends Fragment {
 
     private void setValue(Task<QuerySnapshot> task) {
         int count=0;
+        if(petList != null){
+            petList.clear();
+        }
         for (QueryDocumentSnapshot document : task.getResult()) {
             petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                     document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
@@ -97,11 +101,12 @@ public class ManagePetInfoShelterFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
-                int num = 0;
-                for (int i=0; i< adapter.getCount(); i++){
-                    num++;
-                }
-                result.setText(String.valueOf(num));
+                adapter.getFilter().filter(s, new Filter.FilterListener() {
+                    public void onFilterComplete(int count) {
+                        result.setText(String.valueOf(count));
+                    }
+                });
+
             }
 
             @Override

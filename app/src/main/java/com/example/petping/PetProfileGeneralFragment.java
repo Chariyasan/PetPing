@@ -24,9 +24,11 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -39,7 +41,7 @@ import java.util.Map;
 public class PetProfileGeneralFragment extends Fragment {
     private ArrayList<PetSearch> petProfileList;
     private ImageView imageView, imageSex;
-    private TextView infoName, infoAge, infoBreed;
+    private TextView infoName, infoAge, infoBreed,infoStory;
     private TextView infoColor, infoSize, infoMarking, infoChar;
     private TextView infoWeight, infoFoundLoc, infoStatus, infoMap;
     private ViewFlipper viewFlipper;
@@ -49,6 +51,7 @@ public class PetProfileGeneralFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petFavList = new ArrayList<>();
     private UserLikeAdapter likeAdapter;
+    private TextView shelterName, shelterOwner, shelterAddress, shelterEmail, shelterTelNo, shelterFB, shelterIG, shelterLine, shelterMap;
     private Map<String, Object> dataToSave = new HashMap<String, Object>();
 
     private ToggleButton toggleButtonFav;
@@ -118,6 +121,16 @@ public class PetProfileGeneralFragment extends Fragment {
         imageSex = view.findViewById(R.id.img_info_sex);
         toggleButtonFav = view.findViewById(R.id.toggle_favorite);
         infoMap = view.findViewById(R.id.shelter_map);
+        infoStory = view.findViewById(R.id.info_story);
+
+        shelterName = view.findViewById(R.id.shelter_name);
+        shelterAddress = view.findViewById(R.id.shelter_address);
+        shelterEmail = view.findViewById(R.id.shelter_email);
+        shelterTelNo = view.findViewById(R.id.shelter_telno);
+        shelterFB = view.findViewById(R.id.shelter_fb);
+        shelterIG = view.findViewById(R.id.shelter_ig);
+        shelterLine = view.findViewById(R.id.shelter_line);
+        shelterOwner = view.findViewById(R.id.shelter_owner);
 
         petItem = new ArrayList<>();
         for(int i=0; i<petProfileList.size(); i++){
@@ -134,6 +147,7 @@ public class PetProfileGeneralFragment extends Fragment {
             infoWeight.setText(petProfileList.get(i).getWeight());
             infoFoundLoc.setText(petProfileList.get(i).getFoundLoc());
             infoStatus.setText(petProfileList.get(i).getStatus());
+            infoStory.setText(petProfileList.get(i).getStory());
 
             if(petProfileList.get(i).getSex().equals("ผู้")){
                 imageSex.setImageResource(R.drawable.sex_male);
@@ -171,12 +185,28 @@ public class PetProfileGeneralFragment extends Fragment {
             petItem.add(petProfile);
         }
 
+        db.collection("Shelter")
+                .document()
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        shelterName.setText(documentSnapshot.get("Name").toString());
+                        shelterOwner.setText(documentSnapshot.get("Owner").toString());
+                        shelterAddress.setText(documentSnapshot.get("Address").toString());
+                        shelterEmail.setText(documentSnapshot.get("Email").toString());
+                        shelterTelNo.setText(documentSnapshot.get("TelNo").toString());
+                        shelterFB.setText(documentSnapshot.get("Facebook").toString());
+                        shelterIG.setText(documentSnapshot.get("Instagram").toString());
+                        shelterLine.setText(documentSnapshot.get("LineID").toString());
+                    }
+                });
         infoMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new MapsActivity());
-                ft.commit();
+                ft.addToBackStack(null).commit();
 
 //                Intent intent = new Intent(getActivity(), MapsActivity);
 //                startActivity(intent);

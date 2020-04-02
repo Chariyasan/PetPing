@@ -94,7 +94,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
         });
     }
 
-    private void CreateUserAccount(String email, String password, final String shelterName, final String shelterOwner, final String address, final String telNo, final String license) {
+    private void CreateUserAccount(final String email, String password, final String shelterName, final String shelterOwner, final String address, final String telNo, final String license) {
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(RegisterShelterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +110,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
                             data.put("Instagram", "");
                             data.put("LineID", "");
                             data.put("Image", "");
+                            data.put("Email", email);
                             db.collection("Shelter")
                                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .set(data)

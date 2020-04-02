@@ -217,7 +217,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="สี"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -244,7 +243,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="จุดเด่น"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -271,7 +269,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="ลักษณะเฉพาะ"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -298,7 +295,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="น้ำหนัก"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -325,7 +321,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="ขนาด"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -352,7 +347,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="สถานที่พบ"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -379,7 +373,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="-"
                                     android:textSize="16dp" />
                             </LinearLayout>
 
@@ -406,7 +399,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
-                                    android:text="สถานภาพน้อง"
                                     android:textSize="16dp" />
                             </LinearLayout>
                         </LinearLayout>
@@ -430,13 +422,12 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/text_story"
+                                android:id="@+id/info_story"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
-                                android:textSize="16dp"
-                                android:text="บลาๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆๆ" />
+                                android:textSize="16dp" />
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -457,170 +448,193 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:padding="10dp"
                                 android:orientation="horizontal">
 
-                                <ImageView
-                                    android:id="@+id/icon_address"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="ชื่อศูนย์พักพิง"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/shelter_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:padding="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="ชื่อเจ้าของ"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/shelter_owner"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="ที่อยู่"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:id="@+id/shelter_address"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:textSize="16dp"
-                                    android:text="ที่อยู่" />
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
-                                <ImageView
-                                    android:id="@+id/icon_email"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="เบอร์ติดต่อ"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/shelter_telno"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
+
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="อีเมล"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/shelter_email"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:textSize="16dp"
-                                    android:text="อีเมล" />
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
-                                <ImageView
-                                    android:id="@+id/icon_fb"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="เฟซบุ๊ก"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:id="@+id/shelter_fb"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:textSize="16dp"
-                                    android:text="เฟซบุ๊ก" />
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
-                                <ImageView
-                                    android:id="@+id/icon_ig"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="อินสตาแกรม"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold"/>
 
                                 <TextView
                                     android:id="@+id/shelter_ig"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:textSize="16dp"
-                                    android:text="อินสตาแกรม" />
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
-                                <ImageView
-                                    android:id="@+id/icon_line"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                <TextView
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="ไอดีไลน์"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/shelter_line"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:textSize="16dp"
-                                    android:text="ไลน์" />
+                                    android:layout_marginStart="10dp"
+                                    android:baselineAligned="false"
+                                    android:textSize="16dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/icon_phone"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
                                 <TextView
-                                    android:id="@+id/shelter_phone"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="140dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
+                                    android:text="แผนที่"
                                     android:textSize="16dp"
-                                    android:text="เบอร์โทรศัพท์" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:padding="5dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/icon_map"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/nav_shelter" />
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/shelter_map"
@@ -630,17 +644,6 @@
                                     android:textSize="16dp"
                                     android:text="แผนที่" />
                             </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/text_sex"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="5dp"
-                                android:textSize="16dp"
-                                android:text="Thailand Adopter Club"
-                                android:textStyle="bold" />
 
                         </LinearLayout>
                     </RelativeLayout>

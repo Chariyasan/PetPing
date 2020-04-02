@@ -36,7 +36,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_edit_black_24dp"/>
+            app:srcCompat="@drawable/ic_description_black_24dp"/>
 <!--        <Button-->
 <!--            android:id="@+id/button"-->
 <!--            android:layout_width="100dp"-->

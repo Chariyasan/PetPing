@@ -100,6 +100,7 @@ public class HomeShelterFragment extends Fragment {
                                 for(int i=0; i<homeList.size(); i++){
                                     if(homeList.get(i).getPetStatus().equals("รอพิจารณาคุณสมบัติ")){
                                         adapter = new HomeShelterAdapter(getContext(), homeList);
+                                        adapter.filterWaiting();
                                         listView.setAdapter(adapter);
                                             num++;
                                         count.setText(String.valueOf(num));

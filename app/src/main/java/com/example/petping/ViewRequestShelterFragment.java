@@ -63,6 +63,7 @@ public class ViewRequestShelterFragment extends Fragment {
         for(int i=0; i<adoptionList.size(); i++){
             uID = adoptionList.get(i).getuID();
             petID = adoptionList.get(i).getPetID();
+            status = adoptionList.get(i).getPetStatus();
 //            Log.d("AdoptionList", adoptionList.get(i).getuID());
         }
         btnAdopter = view.findViewById(R.id.btn_adopter_info);
@@ -165,7 +166,7 @@ public class ViewRequestShelterFragment extends Fragment {
                         petSize.setText(document.get("petSize").toString());
                         petCharacter.setText(document.get("petCharacter").toString());
                         petFoundLoc.setText(document.get("petFoundLoc").toString());
-                        status = document.get("petStatus").toString();
+//                        status = document.get("petStatus").toString();
 //                        adoptStatus.setText(document.get("petStatus").toString());
                     }
                 });
@@ -249,86 +250,93 @@ public class ViewRequestShelterFragment extends Fragment {
         });
 
 
-        btnSaveInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
-                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        if (status.equals("รอพิจารณาคุณสมบัติ")) {
+            btnSaveInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
+                        }
+                    });
 
-                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        data = new HashMap<>();
-                        data.put("petStatus", "รับอุปการะแล้ว");
-                        long yourmilliseconds = System.currentTimeMillis();
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                        Date resultdate = new Date(yourmilliseconds);
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            data = new HashMap<>();
+                            data.put("petStatus", "รับอุปการะแล้ว");
+                            long yourmilliseconds = System.currentTimeMillis();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Date resultdate = new Date(yourmilliseconds);
 //                       Log.d("DateData", sdf.format(resultdate));
-                        data.put("DateTime", sdf.format(resultdate));
-                        db.collection("RequestAdoption")
-                                .document(uID)
-                                .collection("Adoption")
-                                .document(petID)
-                                .update(data);
-                        db.collection("Pet")
-                                .document(petID)
-                                .update("Status", "รับอุปการะแล้ว");
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.replace(getId(), new HomeShelterFragment());
-                        ft.commit();
-                    }
-                });
-                dialog = builder.create();
-                dialog.show();
-            }
-        });
-        btnDeleteInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
-                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                            data.put("DateTime", sdf.format(resultdate));
+                            db.collection("RequestAdoption")
+                                    .document(uID)
+                                    .collection("Adoption")
+                                    .document(petID)
+                                    .update(data);
+                            db.collection("Pet")
+                                    .document(petID)
+                                    .update("Status", "รับอุปการะแล้ว");
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.replace(getId(), new HomeShelterFragment());
+                            ft.commit();
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
+                }
+            });
+            btnDeleteInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
+                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
+                        }
+                    });
 
-                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        data = new HashMap<>();
-                        data.put("petStatus", "ไม่ผ่านการพิจารณา");
-                        long yourmilliseconds = System.currentTimeMillis();
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                        Date resultdate = new Date(yourmilliseconds);
+                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            data = new HashMap<>();
+                            data.put("petStatus", "ไม่ผ่านการพิจารณา");
+                            long yourmilliseconds = System.currentTimeMillis();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Date resultdate = new Date(yourmilliseconds);
 //                       Log.d("DateData", sdf.format(resultdate));
-                        data.put("DateTime", sdf.format(resultdate));
-                        db.collection("RequestAdoption")
-                                .document(uID)
-                                .collection("Adoption")
-                                .document(petID)
-                                .update(data);
-                        db.collection("Pet")
-                                .document(petID)
-                                .update("Status", "กำลังหาบ้าน");
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.replace(getId(), new HomeShelterFragment());
-                        ft.commit();
-                    }
-                });
-                dialog = builder.create();
-                dialog.show();
+                            data.put("DateTime", sdf.format(resultdate));
+                            db.collection("RequestAdoption")
+                                    .document(uID)
+                                    .collection("Adoption")
+                                    .document(petID)
+                                    .update(data);
+                            db.collection("Pet")
+                                    .document(petID)
+                                    .update("Status", "กำลังหาบ้าน");
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.replace(getId(), new HomeShelterFragment());
+                            ft.commit();
+                        }
+                    });
+                    dialog = builder.create();
+                    dialog.show();
 
 
-            }
-        });
+                }
+            });
+        }
+        else if(status.equals("รับอุปการะแล้ว") || status.equals("ไม่ผ่านการพิจารณา")){
+            btnSaveInfo.setVisibility(View.INVISIBLE);
+            btnDeleteInfo.setVisibility(View.INVISIBLE);
+        }
+
         return view;
     }
 }

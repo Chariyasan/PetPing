@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ public class PetInfoShelterFragment extends Fragment {
     private int i;
     private String ID;
     private ArrayList<PetSearch> petItem = new ArrayList<>();
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,7 +138,33 @@ public class PetInfoShelterFragment extends Fragment {
         btnDeleteInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("คุณต้องการลบสัตว์นี้ใช่หรือไม่");
 
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.collection("Pet")
+                                .document(ID)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.replace(getId(), new ManagePetInfoShelterFragment());
+                                        ft.commit();
+                                    }
+                                });
+                    }
+                });
+                dialog = builder.create();
+                dialog.show();
             }
         });
         return view;

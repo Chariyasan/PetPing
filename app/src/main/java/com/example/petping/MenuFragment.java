@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MenuFragment extends Fragment {
     private Button btnEditUser, btnLikeList, btnPetStory, btnHistory, btnFAQ, btnRule, btnLogOut;
+    private ImageView image;
     private TextView name;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private AlertDialog dialog;
@@ -40,6 +43,7 @@ public class MenuFragment extends Fragment {
         btnRule = view.findViewById(R.id.btn_rule);
         btnFAQ = view.findViewById(R.id.btn_faq);
         btnLogOut = view.findViewById(R.id.btn_log_out);
+        image = view.findViewById(R.id.user_profile);
 
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -49,9 +53,13 @@ public class MenuFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            name.setText(documentSnapshot.get("UserName").toString());
-                        }
+                        Glide.with(getContext())
+                                .load(documentSnapshot.get("Image").toString())
+                                .into(image);
+                        name.setText(documentSnapshot.get("UserName").toString());
+//                        if(documentSnapshot.exists()){
+//                            name.setText(documentSnapshot.get("UserName").toString());
+//                        }
                     }
                 });
         btnEditUser.setOnClickListener(new View.OnClickListener() {

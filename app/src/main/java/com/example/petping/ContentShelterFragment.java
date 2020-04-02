@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -30,6 +32,8 @@ public class ContentShelterFragment extends Fragment {
     private TextView topic, story;
     private Button btnEdit, btnDelete;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,6 +81,39 @@ public class ContentShelterFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(),  editContentShelterFragment);
                 ft.addToBackStack(null).commit();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("คุณต้องการลบบทความนี้ใช่หรือไม่");
+
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.collection("Content")
+                                .document(ID)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.replace(getId(), new ManageContentShelterFragment());
+                                        ft.commit();
+                                    }
+                                });
+                    }
+                });
+                dialog = builder.create();
+                dialog.show();
             }
         });
         return view;

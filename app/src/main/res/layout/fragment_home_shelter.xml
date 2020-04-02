@@ -34,21 +34,32 @@
             android:orientation="horizontal"
             android:layout_marginBottom="5dp"
             android:gravity="center">
+
             <Button
                 android:id="@+id/waiting"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="รอพิจารณาคุณสมบัติ" />
+                android:layout_weight="0.4"
+                android:background="@android:color/transparent"
+                android:text="รอพิจารณา"
+                android:textSize="18dp" />
+
             <Button
                 android:id="@+id/success"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_weight="0.4"
+                android:textSize="18dp"
                 android:text="รับอุปการะแล้ว" />
             <Button
                 android:id="@+id/reject"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ไม่ผ่านการพิจารณา" />
+                android:background="@android:color/transparent"
+                android:layout_weight="0.4"
+                android:textSize="18dp"
+                android:text="ไม่ผ่านพิจารณา" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,19 +73,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="จำนวนที่พบ"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
             <TextView
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:textSize="18dp"/>
+                android:textSize="16dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="รายการ"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
         </LinearLayout>
         <ListView
             android:id="@+id/listView"

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:text="รอพิจารณา"
+                android:text="กำลังดำเนินการ"
                 android:textSize="18dp" />
 
             <Button

@@ -186,21 +186,25 @@ public class PetProfileGeneralFragment extends Fragment {
         }
 
         db.collection("Shelter")
-                .document()
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        shelterName.setText(documentSnapshot.get("Name").toString());
-                        shelterOwner.setText(documentSnapshot.get("Owner").toString());
-                        shelterAddress.setText(documentSnapshot.get("Address").toString());
-                        shelterEmail.setText(documentSnapshot.get("Email").toString());
-                        shelterTelNo.setText(documentSnapshot.get("TelNo").toString());
-                        shelterFB.setText(documentSnapshot.get("Facebook").toString());
-                        shelterIG.setText(documentSnapshot.get("Instagram").toString());
-                        shelterLine.setText(documentSnapshot.get("LineID").toString());
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                shelterName.setText(documentSnapshot.get("Name").toString());
+                                shelterOwner.setText(documentSnapshot.get("Owner").toString());
+                                shelterAddress.setText(documentSnapshot.get("Address").toString());
+                                shelterEmail.setText(documentSnapshot.get("Email").toString());
+                                shelterTelNo.setText(documentSnapshot.get("TelNo").toString());
+                                shelterFB.setText(documentSnapshot.get("Facebook").toString());
+                                shelterIG.setText(documentSnapshot.get("Instagram").toString());
+                                shelterLine.setText(documentSnapshot.get("LineID").toString());
+                            }
+                        }
                     }
                 });
+
         infoMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

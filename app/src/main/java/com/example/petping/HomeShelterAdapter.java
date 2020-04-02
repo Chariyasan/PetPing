@@ -48,13 +48,13 @@ public class HomeShelterAdapter extends BaseAdapter {
         return position;
     }
 
-    public void noFilter() {
-        filterList = homeList;
-        notifyDataSetChanged();
-    }
+//    public void noFilter() {
+//        filterList = homeList;
+//        notifyDataSetChanged();
+//    }
 
     public void filterWaiting() {
-        filterStatus("รอพิจารณาคุณสมบัติ");
+        filterStatus("กำลังดำเนินการ");
     }
 
     public void filterSuccess() {

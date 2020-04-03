@@ -30,6 +30,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private TextView logIn;
+    private HashMap<String, Object> data = new HashMap<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,27 +69,27 @@ public class RegisterShelterActivity extends AppCompatActivity {
                 String telNo = tel.getText().toString();
 
                 // Check wrong input from user
-//                if(email.isEmpty()){
-//                    showMessage("กรุณากรอกอีเมล");
-//                }
-//                else if(password.isEmpty()){
-//                    showMessage("กรุณากรอกพาสเวิร์ด");
-//                }
-//                else if(!confirmPassword.equals(password)){
-//                    showMessage("ยืนยันพาสเวิร์ดไม่ถูกต้อง");
-//                }
-//                else if(shelterName.isEmpty()){
-//                    showMessage("กรุณากรอกชื่อศูนย์พักพิง");
-//                }
-//                else if(shelterOwner.isEmpty()){
-//                    showMessage("กรุณากรอกชื่อเจ้าของศูนย์พักพิง");
-//                }
-                 if(address.isEmpty()){
+                if(email.isEmpty()){
+                    showMessage("กรุณากรอกอีเมล");
+                }
+                else if(password.isEmpty()){
+                    showMessage("กรุณากรอกพาสเวิร์ด");
+                }
+                else if(!confirmPassword.equals(password)){
+                    showMessage("ยืนยันพาสเวิร์ดไม่ถูกต้อง");
+                }
+                else if(shelterName.isEmpty()){
+                    showMessage("กรุณากรอกชื่อศูนย์พักพิง");
+                }
+                else if(shelterOwner.isEmpty()){
+                    showMessage("กรุณากรอกชื่อเจ้าของศูนย์พักพิง");
+                }
+                else if(address.isEmpty()){
                     showMessage("กรุณากรอกที่อยู่ศูนย์พักพิง");
                 }
-//                else if(telNo.isEmpty()){
-//                    showMessage("กรุณากรอกเบอร์ติดต่อศูนย์พักพิง");
-//                }
+                else if(telNo.isEmpty()){
+                    showMessage("กรุณากรอกเบอร์ติดต่อศูนย์พักพิง");
+                }
                 else{
                     CreateUserAccount(email, password, shelterName, shelterOwner, address, telNo, license);
 
@@ -98,59 +99,67 @@ public class RegisterShelterActivity extends AppCompatActivity {
     }
 
     private void CreateUserAccount(final String email, String password, final String shelterName, final String shelterOwner, final String address, final String telNo, final String license) {
-        GeoLocation geoLocation = new GeoLocation();
-        geoLocation.getAddress(address, getApplicationContext(), new GeoHandler());
-//        auth.createUserWithEmailAndPassword(email,password)
-//                .addOnCompleteListener(RegisterShelterActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()){
-//                            GeoLocation geoLocation = new GeoLocation();
-//                            geoLocation.getAddress(address, getApplicationContext(), new GeoHandler());
-//                            HashMap<String, Object> data = new HashMap<>();
-//                            data.put("Name", shelterName);
-//                            data.put("Owner",shelterOwner);
-//                            data.put("Address", address);
-//                            data.put("TelNo",telNo);
-//                            data.put("License", license);
-//                            data.put("Facebook", "");
-//                            data.put("Instagram", "");
-//                            data.put("LineID", "");
-//                            data.put("Image", "");
-//                            data.put("Email", email);
-//                            db.collection("Shelter")
-//                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .set(data)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            Intent Menu = new Intent(RegisterShelterActivity.this, MainShelterActivity.class);
-//                                            startActivity(Menu);
-//                                            finish();
-//                                        }
-//                                    });
-//                        }
-//                    }
-//                });
-    }
+        auth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(RegisterShelterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            data.put("Name", shelterName);
+                            data.put("Owner",shelterOwner);
+                            data.put("Address", address);
+                            data.put("TelNo",telNo);
+                            data.put("License", license);
+                            data.put("Facebook", "");
+                            data.put("Instagram", "");
+                            data.put("LineID", "");
+                            data.put("Image", "");
+                            data.put("Email", email);
+                            db.collection("Shelter")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .set(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            GeoLocation geoLocation = new GeoLocation();
+                                            geoLocation.getAddress(address, getApplicationContext(), new GeoHandler());
+                                        }
+                                    });
+                        }
+                    }
+                });     }
 
     private void showMessage(String show) {
         Toast.makeText(getApplicationContext(), show, Toast.LENGTH_LONG).show();
     }
 
     private class GeoHandler extends Handler {
+        String location;
+        String[] location1;
+        private HashMap<String, Object> data = new HashMap<>();
         @Override
         public void handleMessage(Message msg) {
-            String address;
             switch (msg.what){
                 case 1:
                     Bundle bundle = msg.getData();
-                    address = bundle.getString("address");
+                    location = bundle.getString("address");
+                    location1 = location.split(",");
                     break;
                     default:
-                        address = null;
+                        location = null;
             }
-            Log.d("Address", address);
+            data.put("Latitude", location1[0]);
+            data.put("longitude", location1[1]);
+            db.collection("Shelter")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .update(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent Menu = new Intent(RegisterShelterActivity.this, MainShelterActivity.class);
+                            startActivity(Menu);
+                            finish();
+                        }
+                    });
         }
     }
 }

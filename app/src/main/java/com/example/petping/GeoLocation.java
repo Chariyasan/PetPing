@@ -25,8 +25,8 @@ public class GeoLocation {
                 if(addressList != null && addressList.size() > 0){
                     Address address  = (Address) addressList.get(0);
                     StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(address.getLatitude()).append("\n");
-                    stringBuilder.append(address.getLongitude()).append("\n");
+                    stringBuilder.append(address.getLatitude()).append(",");
+                    stringBuilder.append(address.getLongitude());
                     result = stringBuilder.toString();
                 }
             } catch (IOException e) {
@@ -37,7 +37,7 @@ public class GeoLocation {
                 if(result != null){
                     message.what = 1;
                     Bundle bundle = new Bundle();
-                    result = "Location: "+location+"Lat and Long"+result;
+//                    result = "Location: "+location+"Lat and Long"+result;
                     bundle.putString("address", result);
                     message.setData(bundle);
                 }

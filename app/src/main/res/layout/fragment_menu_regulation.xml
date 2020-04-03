@@ -18,8 +18,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:padding="5dp"
             android:textSize="20dp"
             android:textAlignment="center"
@@ -46,49 +44,57 @@
                         android:id="@+id/reg_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/reg_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_four"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_five"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_six"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_seven"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/reg_eight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp" />
+                        android:layout_marginBottom="5dp"
+                        android:textSize="16dp"/>
                 </LinearLayout>
 
 <!--        <Button-->

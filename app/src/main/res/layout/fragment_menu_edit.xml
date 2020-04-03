@@ -29,8 +29,8 @@
 
                 <ImageButton
                     android:id="@+id/btn_img"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:background="@android:color/transparent"
@@ -43,72 +43,82 @@
                 android:layout_marginHorizontal="10px"
                 android:layout_marginVertical="10px"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
                     <TextView
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="ชื่อผู้ใช้งาน"
                         android:textSize="16dp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/userName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
+                        android:inputType="textPersonName"
                         android:textColor="#808080"
-                        android:inputType="textPersonName"/>
+                        android:textSize="16dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <EditText
-                            android:id="@+id/password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:inputType="textPersonName"
-                            android:textColor="#808080"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="140dp"
-                            android:layout_height="wrap_content"
-                            android:text="รหัสผ่าน"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
                     <TextView
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:text="เบอร์โทรศัพท์"
                         android:textSize="16dp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/telNO"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:textSize="16dp"
+                        android:inputType="number"
                         android:textColor="#808080"
-                        android:inputType="number"/>
+                        android:textSize="16dp" />
+
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="รหัสผ่าน"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:inputType="textPassword"
+                        android:textColor="#808080"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <!--        <TableRow-->

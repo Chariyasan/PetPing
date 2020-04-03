@@ -9,10 +9,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,22 +29,11 @@ import java.util.ArrayList;
 
 public class UserHistoryFragment extends Fragment {
 
-    private ArrayList<PetSearch> petList = new ArrayList<>();
-    private ArrayList<PetSearch> petSearchList;
-
-    private PetSearch petHistory;
-
-    private ArrayList<PetSearch> historyList = new ArrayList<>();
-    private ArrayList<PetSearch> arrayList = new ArrayList<>();
-
     private ListView listView;
-    private UserHistAdapter historyAdapter;
-    public TextView resultFound;
-    private ArrayList<PetHistory> petHistoryItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private DocumentReference userDocRef = FirebaseFirestore.getInstance().document("/User/RPF67EzLXyEJlOk1Yzm6/History/PetHistory");
-
+    private ArrayList<PetSearch> petHistList = new ArrayList<>();
+    private ArrayList<PetSearch> petList = new ArrayList<>();
+    private UserHistAdapter histAdapter;
 
     @Nullable
     @Override
@@ -53,7 +41,6 @@ public class UserHistoryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_history, container, false);
         listView = view.findViewById(R.id.listView_history);
-
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("History")
@@ -71,23 +58,23 @@ public class UserHistoryFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot document) {
-                                        final PetSearch petHist = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                        PetSearch petHist = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                                 document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
                                                 document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                                                 document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                                                 document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                                                 document.get("Story").toString());
-                                        historyList.add(petHist);
-                                        historyAdapter = new UserHistAdapter(getContext(),historyList);
-                                        listView.setAdapter(historyAdapter);
+                                        petHistList.add(petHist);
+                                        histAdapter = new UserHistAdapter(getContext(),petHistList);
+                                        listView.setAdapter(histAdapter);
 
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
                                                 Bundle bundle = new Bundle();
-                                                arrayList.add(historyList.get(position));
-                                                bundle.putParcelableArrayList("petProfile", arrayList);
+                                                petList.add(petHistList.get(position));
+                                                bundle.putParcelableArrayList("petProfile", petList);
                                                 petProfile.setArguments(bundle);
                                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                 ft.replace(getId(), petProfile);
@@ -101,51 +88,6 @@ public class UserHistoryFragment extends Fragment {
             }
         });
 
-////        final Task<DocumentSnapshot> his = db.collection("User")
-////                .document("RPF67EzLXyEJlOk1Yzm6")
-////                .collection("History")
-////                .document()
-////                .get();
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                petHistoryItem = new ArrayList<>();
-//                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-//                Bundle bundle = new Bundle();
-//                petHistoryItem.add(petSearchList.get(i));
-//                bundle.putSerializable("petProfile", petHistoryItem);
-//
-//                petProfile.setArguments(bundle);
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.replace(getId(), petProfile);
-//                ft.commit();
-//            }
-//        });
-//        int i=0;
-////
-//        db.collection("User")
-//                .document("RPF67EzLXyEJlOk1Yzm6")
-//                .collection("History")
-//                .document()
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            Log.d("Y", task.getResult().toString());
-//                            historyList.add(task.getResult());
-//                            historyAdapter = new UserHistoryAdapter(getContext(), historyList);
-//                            listView.setAdapter(historyAdapter);
-//                            }
-//                        else {
-//                            Log.d("Error", "Error getting documents: ", task.getException());
-//                     }
-//                    }
-//                });
-
-
         return view;
-
     }
 }

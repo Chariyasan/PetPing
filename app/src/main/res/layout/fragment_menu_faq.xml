@@ -19,8 +19,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:padding="5dp"
             android:textSize="20dp"
             android:textAlignment="center"
@@ -46,7 +44,8 @@
                 android:id="@+id/help"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:textSize="16dp"/>
 
             <!--            <Button-->
 <!--                android:id="@+id/help_back_btn"-->

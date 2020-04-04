@@ -378,7 +378,7 @@ public class AdoptionQAFragment extends Fragment {
         return view;
     }
 
-    private void adopProcess(DocumentSnapshot documentSnapshot) {
+    private void adopProcess(final DocumentSnapshot documentSnapshot) {
         for(int i=0; i<petProfileList.size(); i++) {
             db.collection("Pet")
                     .document(petProfileList.get(i).getID())
@@ -407,6 +407,7 @@ public class AdoptionQAFragment extends Fragment {
             adop.put("petFoundLoc", petProfileList.get(i).getFoundLoc());
             adop.put("petStatus", "กำลังดำเนินการ");
             adop.put("petStory", petProfileList.get(i).getStory());
+            adop.put("ShelterID", petProfileList.get(i).getShelterID());
 
             long yourmilliseconds = System.currentTimeMillis();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -423,26 +424,24 @@ public class AdoptionQAFragment extends Fragment {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("Writing", "DocumentSnapshot successfully written!");
+                            HashMap<String, Object> data1 = new HashMap<>();
+                            String ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            data1.put(ID, documentSnapshot.get("UserName").toString());
+                            db.collection("User1")
+                                    .document("userID")
+                                    .update(data1)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Writing", "DocumentSnapshot successfully written!");
+                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                            ft.replace(getId(), new AdoptionWaitingFragment());
+                                            ft.disallowAddToBackStack().commit();
+                                        }
+                                    });
                         }
                     });
         }
-
-        HashMap<String, Object> data1 = new HashMap<>();
-        String ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        data1.put(documentSnapshot.get("UserName").toString(), ID);
-        db.collection("User1")
-                .document("userID")
-                .update(data1)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Writing", "DocumentSnapshot successfully written!");
-                    }
-                });
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(getId(), new AdoptionWaitingFragment());
-        ft.disallowAddToBackStack().commit();
     }
 
     private void showMessage() {

@@ -11,8 +11,7 @@ public class Content implements Parcelable {
     private String story;
     private String url;
     private String tag;
-    private String authorID;
-    private String authorName;
+    private String shelterID;
 
     public Content(Parcel in) {
         super();
@@ -31,14 +30,14 @@ public class Content implements Parcelable {
 
     };
 
-    public Content(String ID, String topic, String story, String url, String tag, String authorID, String authorName) {
+    public Content(String ID, String topic, String story, String url, String tag, String shelterID) {
         this.ID = ID;
         this.topic = topic;
         this.story = story;
         this.url = url;
         this.tag = tag;
-        this.authorID = authorID;
-        this.authorName = authorName;
+        this.shelterID = shelterID;
+
     }
 
     public void readFromParcel(Parcel in) {
@@ -47,8 +46,7 @@ public class Content implements Parcelable {
         story = in.readString();
         url = in.readString();
         tag = in.readString();
-        authorID = in.readString();
-        authorName = in.readString();
+        shelterID = in.readString();
     }
 
 
@@ -94,19 +92,11 @@ public class Content implements Parcelable {
     }
 
     public String getAuthorID() {
-        return authorID;
+        return shelterID;
     }
 
     public void setAuthorID(String authorID) {
-        this.authorID = authorID;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+        this.shelterID = authorID;
     }
 
     @Override
@@ -121,7 +111,6 @@ public class Content implements Parcelable {
         dest.writeString(story);
         dest.writeString(url);
         dest.writeString(tag);
-        dest.writeString(authorID);
-        dest.writeString(authorName);
+        dest.writeString(shelterID);
     }
 }

@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
                                         document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                                         document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                        document.get("Story").toString());
+                                        document.get("Story").toString(), document.get("ShelterID").toString());
                                 petListDog.add(petSearch);
                                 petList.add(petSearch);
                             }
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
                                         document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                                         document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                        document.get("Story").toString());
+                                        document.get("Story").toString(), document.get("ShelterID").toString());
                                 petListCat.add(petSearch);
                             }
                             Set<PetSearch> set = new HashSet<PetSearch>(petListCat);

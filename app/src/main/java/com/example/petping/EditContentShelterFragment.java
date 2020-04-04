@@ -77,7 +77,6 @@ public class EditContentShelterFragment extends Fragment{
             ID = contentList.get(i).getID();
             tag = contentList.get(i).getTag();
             author = contentList.get(i).getAuthorID();
-            authorName = contentList.get(i).getAuthorName();
             imageUrl = contentList.get(i).getUrl();
         }
 
@@ -124,7 +123,7 @@ public class EditContentShelterFragment extends Fragment{
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
                                                                     Content content = new Content(ID, topic.getText().toString(),
-                                                                            story.getText().toString(), uri.toString(), tag, author, authorName);
+                                                                            story.getText().toString(), uri.toString(), tag, author);
                                                                     contentL.add(content);
                                                                     ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                                                     Bundle bundle = new Bundle();
@@ -162,7 +161,7 @@ public class EditContentShelterFragment extends Fragment{
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Content content = new Content(ID, topic.getText().toString(),
-                                                    story.getText().toString(), imageUrl, tag, author, authorName);
+                                                    story.getText().toString(), imageUrl, tag, author);
                                             contentL.add(content);
                                             ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                             Bundle bundle = new Bundle();

@@ -53,7 +53,7 @@ public class ManageContentShelterAdapter extends BaseAdapter {
         btn = view.findViewById(R.id.button);
 
         contentId.setText(contentList.get(position).getID());
-        author.setText(contentList.get(position).getAuthorName());
+        author.setText(contentList.get(position).getAuthorID());
         topic.setText(contentList.get(position).getTopic());
 
         btn.setOnClickListener(new View.OnClickListener() {

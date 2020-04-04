@@ -60,13 +60,16 @@ public class HomeShelterFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        for ( Object key : documentSnapshot.getData().values() ) {
-                            value.add(key.toString());
+                        if(documentSnapshot.exists()){
+                            for (String key : documentSnapshot.getData().keySet() ) {
+                                value.add(key);
+                                Log.d("key1", key);
+                            }
+                            Set<String> set = new HashSet<String>(value);
+                            value.clear();
+                            value.addAll(set);
+                            showDetail(value);
                         }
-                        Set<String> set = new HashSet<String>(value);
-                        value.clear();
-                        value.addAll(set);
-                        showDetail(value);
                     }
                 });
 
@@ -84,7 +87,7 @@ public class HomeShelterFragment extends Fragment {
             db.collection("RequestAdoption")
                     .document(value.get(i))
                     .collection("Adoption")
-                    .orderBy("DateTime", Query.Direction.DESCENDING)
+                    .whereEqualTo("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

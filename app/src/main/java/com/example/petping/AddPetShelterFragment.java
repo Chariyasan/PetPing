@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -230,6 +231,7 @@ public class AddPetShelterFragment extends Fragment {
                                             data.put("Type", type);
                                             data.put("Weight", weight.getText().toString());
                                             data.put("Image", uri.toString());
+                                            data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                                             builder = new AlertDialog.Builder(getContext());
                                             builder.setTitle("คุณต้องการเพิ่มข้อมูลสัตว์ใช่หรือไม่");

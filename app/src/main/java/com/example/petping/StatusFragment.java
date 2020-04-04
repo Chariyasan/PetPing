@@ -47,7 +47,7 @@ public class StatusFragment extends Fragment {
                                         document.get("petBreed").toString(), document.get("petSize").toString(), document.get("petURL").toString(),
                                         document.get("petWeight").toString(), document.get("petCharacter").toString(), document.get("petMarking").toString(),
                                         document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
-                                        document.get("petStory").toString());
+                                        document.get("petStory").toString(), document.get("ShelterID").toString());
                                 petList.add(petSearch);
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
                                 listView.setAdapter(petAdapter);

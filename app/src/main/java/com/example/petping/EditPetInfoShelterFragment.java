@@ -23,6 +23,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -212,7 +213,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                                     breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
                                                                     character.getText().toString(), marking.getText().toString(),
                                                                     health, foundLoc.getText().toString(), status.getText().toString(),
-                                                                    story.getText().toString());
+                                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
                                                             petList.add(pet);
                                                             PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                                             Bundle bundle = new Bundle();
@@ -275,7 +276,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                     breed.getText().toString(), size1, url1, weight.getText().toString(),
                                                     character.getText().toString(), marking.getText().toString(),
                                                     health, foundLoc.getText().toString(), status.getText().toString(),
-                                                    story.getText().toString());
+                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             petList.add(pet);
                                             PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                             Bundle bundle = new Bundle();

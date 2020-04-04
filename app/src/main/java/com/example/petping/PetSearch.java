@@ -20,10 +20,10 @@ public class PetSearch implements Parcelable {
     private String foundLoc;
     private String status;
     private String story;
-
+    private String shelterID;
 
     public PetSearch(String ID, String name, String type, String colour, String sex, String age, String breed, String size, String url,
-                     String weight, String character, String marking, String health, String foundLoc, String status, String story) {
+                     String weight, String character, String marking, String health, String foundLoc, String status, String story, String shelterID) {
         this.ID = ID;
         this.name = name;
         this.type = type;
@@ -40,6 +40,7 @@ public class PetSearch implements Parcelable {
         this.foundLoc = foundLoc;
         this.status = status;
         this.story = story;
+        this.shelterID = shelterID;
     }
 
     protected PetSearch(Parcel in) {
@@ -59,6 +60,7 @@ public class PetSearch implements Parcelable {
         foundLoc = in.readString();
         status = in.readString();
         story = in.readString();
+        shelterID = in.readString();
     }
 
     public static final Creator<PetSearch> CREATOR = new Creator<PetSearch>() {
@@ -189,6 +191,14 @@ public class PetSearch implements Parcelable {
         return age;
     }
 
+    public String getShelterID() {
+        return shelterID;
+    }
+
+    public void setShelterID(String shelterID) {
+        this.shelterID = shelterID;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -228,5 +238,6 @@ public class PetSearch implements Parcelable {
         dest.writeString(foundLoc);
         dest.writeString(status);
         dest.writeString(story);
+        dest.writeString(shelterID);
     }
 }

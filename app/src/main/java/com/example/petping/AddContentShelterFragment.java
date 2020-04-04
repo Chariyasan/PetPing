@@ -97,9 +97,8 @@ public class AddContentShelterFragment extends Fragment {
                                             data.put("Topic", topic.getText().toString());
                                             data.put("Story", story.getText().toString());
                                             data.put("URL", uri.toString());
-                                            data.put("AuthorID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                            data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             data.put("Tag", tag.getText().toString());
-                                            data.put("AuthorName", "Thailand Adopter Club");
 
                                             builder = new AlertDialog.Builder(getContext());
                                             builder.setTitle("คุณต้องการเพิ่มข้อมูลใช่หรือไม่");

@@ -101,7 +101,7 @@ public class PetInfoShelterFragment extends Fragment {
                                 documentSnapshot.get("Breed").toString(), documentSnapshot.get("Size").toString(), documentSnapshot.get("Image").toString(),
                                 documentSnapshot.get("Weight").toString(), documentSnapshot.get("Character").toString(), documentSnapshot.get("Marking").toString(),
                                 documentSnapshot.get("Health").toString(), documentSnapshot.get("OriginalLocation").toString(), documentSnapshot.get("Status").toString(),
-                                documentSnapshot.get("Story").toString());
+                                documentSnapshot.get("Story").toString(), documentSnapshot.get("ShelterID").toString());
                         petItem.add(petSearch);
                     }
                 });

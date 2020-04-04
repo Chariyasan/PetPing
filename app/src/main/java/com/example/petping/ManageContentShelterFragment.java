@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,6 +43,7 @@ public class ManageContentShelterFragment extends Fragment {
             contentList.clear();
         }
         db.collection("Content")
+                .whereEqualTo("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -51,7 +53,7 @@ public class ManageContentShelterFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Content content = new Content(document.getId(), document.get("Topic").toString(),
                                         document.get("Story").toString(), document.get("URL").toString(),
-                                        document.get("Tag").toString(), document.get("AuthorID").toString(), document.get("AuthorName").toString());
+                                        document.get("Tag").toString(), document.get("ShelterID").toString());
                                 contentList.add(content);
                                 count++;
                             }

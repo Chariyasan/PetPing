@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,8 +23,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,7 +38,8 @@ import java.util.Set;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
-    private String location, address;
+    private Button btn;
+    private String location, address, shelterName;
     private String[] loc;
     private Double latitude, longitude;
     private Spinner spinner;
@@ -47,7 +52,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        spinner = view.findViewById(R.id.map_spinner);
+
+        btn = view.findViewById(R.id.btn);
         if (getArguments() != null){
             location = getArguments().getString("location");
             loc = location.split(",");
@@ -56,9 +62,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             longitude = Double.parseDouble(loc[2]);
             Log.d("address", address);
         }
-        else{
-            //      Color
+
             final CollectionReference collection = db.collection("Shelter");
+            spinner = view.findViewById(R.id.map_spinner);
             final List<String> mapList = new ArrayList<>();
             final ArrayAdapter<String> mapAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mapList);
             mapAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -67,13 +73,43 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getString("Name");
+                        String name = document.get("Name").toString();
                         mapList.add(name);
                     }
                     mapAdapter.notifyDataSetChanged();
+
                 }
             });
-        }
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.d("test", spinner.getSelectedItem().toString());
+                    shelterName = spinner.getSelectedItem().toString();
+                    db.collection("Shelter")
+                            .whereEqualTo("Name", shelterName)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            latitude = Double.parseDouble(document.get("Latitude").toString());
+                                            longitude = Double.parseDouble(document.get("Longitude").toString());
+//                                            Log.d("Latitude", String.valueOf(latitude));
+//                                            Log.d("Longitude", String.valueOf(longitude));
+
+                                            LatLng thai = new LatLng(latitude, longitude);
+                                            mMap.addMarker(new MarkerOptions().position(thai).title(document.get("Name").toString()));
+                                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thai, 17));
+                                        }
+                                    }
+                                }
+                            });
+                }
+            });
+
+
+
 
         return view;
     }
@@ -101,10 +137,16 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
-        LatLng thai = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(thai).title(address));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thai, 17));
+        if(latitude == null && longitude == null){
+            LatLng loc = new LatLng(13.794404,100.3247247);
+            mMap.addMarker(new MarkerOptions().position(loc).title("Faculty of ICT"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+        }else{
+            LatLng thai = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(thai).title(address));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thai, 17));
+        }
+
     }
 }

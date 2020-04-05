@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,10 +20,25 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
-
     private GoogleMap mMap;
+    private String location, address;
+    private String[] loc;
+    private Double latitude, longitude;
+    private Spinner spinner;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
@@ -29,6 +47,34 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        spinner = view.findViewById(R.id.map_spinner);
+        if (getArguments() != null){
+            location = getArguments().getString("location");
+            loc = location.split(",");
+            address = loc[0];
+            latitude = Double.parseDouble(loc[1]);
+            longitude = Double.parseDouble(loc[2]);
+            Log.d("address", address);
+        }
+        else{
+            //      Color
+            final CollectionReference collection = db.collection("Shelter");
+            final List<String> mapList = new ArrayList<>();
+            final ArrayAdapter<String> mapAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mapList);
+            mapAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(mapAdapter);
+            collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = document.getString("Name");
+                        mapList.add(name);
+                    }
+                    mapAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
         return view;
     }
 
@@ -57,8 +103,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng thai = new LatLng(13.794404,100.322536);
-        mMap.addMarker(new MarkerOptions().position(thai).title("Marker in Faculty of ICT"));
+        LatLng thai = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(thai).title(address));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thai, 17));
     }
 }

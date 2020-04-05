@@ -148,7 +148,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
                         location = null;
             }
             data.put("Latitude", location1[0]);
-            data.put("longitude", location1[1]);
+            data.put("Longitude", location1[1]);
             db.collection("Shelter")
                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .update(data)

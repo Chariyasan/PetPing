@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import java.util.Set;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
-    private Button btn;
+    private ImageButton btn;
     private String location, address, shelterName;
     private String[] loc;
     private Double latitude, longitude;
@@ -107,9 +108,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                             });
                 }
             });
-
-
-
 
         return view;
     }

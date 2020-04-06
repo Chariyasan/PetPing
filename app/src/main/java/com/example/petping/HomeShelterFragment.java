@@ -2,9 +2,13 @@ package com.example.petping;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +24,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -52,6 +58,67 @@ public class HomeShelterFragment extends Fragment {
         btnWaiting = view.findViewById(R.id.waiting);
         btnSuccess = view.findViewById(R.id.success);
         count = view.findViewById(R.id.count);
+
+        btnWaiting.setTypeface(null, Typeface.BOLD);
+        btnWaiting.setTextColor(Color.parseColor("#808080"));
+        btnSuccess.setTypeface(null, Typeface.NORMAL);
+        btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnReject.setTypeface(null, Typeface.NORMAL);
+        btnReject.setTextColor(Color.parseColor("#FFAFAFAF"));
+
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterReject();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.NORMAL);
+                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnSuccess.setTypeface(null, Typeface.NORMAL);
+                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnReject.setTypeface(null, Typeface.BOLD);
+                btnReject.setTextColor(Color.parseColor("#808080"));
+            }
+        });
+
+        btnWaiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterWaiting();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.BOLD);
+                btnWaiting.setTextColor(Color.parseColor("#808080"));
+                btnSuccess.setTypeface(null, Typeface.NORMAL);
+                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnReject.setTypeface(null, Typeface.NORMAL);
+                btnReject.setTextColor(Color.parseColor("#FFAFAFAF"));
+            }
+        });
+
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterSuccess();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                count.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.NORMAL);
+                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnSuccess.setTypeface(null, Typeface.BOLD);
+                btnSuccess.setTextColor(Color.parseColor("#808080"));
+                btnReject.setTypeface(null, Typeface.NORMAL);
+                btnReject.setTextColor(Color.parseColor("#FFAFAFAF"));
+            }
+        });
 
         final List<String> value = new ArrayList<>();
         db.collection("User1")
@@ -95,9 +162,9 @@ public class HomeShelterFragment extends Fragment {
                             if(task.isSuccessful()){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d("name", document.get("UserName").toString());
-                                   HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
+                                    HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
                                             document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
-                                   homeList.add(homeShelter);
+                                    homeList.add(homeShelter);
                                 }
                                 int num = 0;
                                 for(int i=0; i<homeList.size(); i++){
@@ -105,7 +172,7 @@ public class HomeShelterFragment extends Fragment {
                                         adapter = new HomeShelterAdapter(getContext(), homeList);
                                         adapter.filterWaiting();
                                         listView.setAdapter(adapter);
-                                            num++;
+                                        num++;
                                         count.setText(String.valueOf(num));
                                     }
                                 }
@@ -114,42 +181,40 @@ public class HomeShelterFragment extends Fragment {
                     });
         }
 
-
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.filterReject();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
-                }
-                count.setText(String.valueOf(num));
-            }
-        });
-
-        btnWaiting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.filterWaiting();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
-                }
-                count.setText(String.valueOf(num));
-            }
-        });
-
-        btnSuccess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.filterSuccess();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
-                }
-                count.setText(String.valueOf(num));
-            }
-        });
+//        btnReject.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int num = 0;
+//                for(int i=0; i < adapter.getCount(); i++){
+//                    num++;
+//                }
+//                count.setText(String.valueOf(num));
+//            }
+//        });
+//
+//        btnWaiting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                adapter.filterWaiting();
+//                int num = 0;
+//                for(int i=0; i < adapter.getCount(); i++){
+//                    num++;
+//                }
+//                count.setText(String.valueOf(num));
+//            }
+//        });
+//
+//        btnSuccess.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                adapter.filterSuccess();
+//                int num = 0;
+//                for(int i=0; i < adapter.getCount(); i++){
+//                    num++;
+//                }
+//                count.setText(String.valueOf(num));
+//            }
+//        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

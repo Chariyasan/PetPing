@@ -1,6 +1,8 @@
 package com.example.petping;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +39,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private Button btnAddPet;
     private TextView result;
     private EditText search;
+    private Button btnFinding, btnWaiting, btnSuccess;
 
     @Nullable
     @Override
@@ -46,6 +49,15 @@ public class ManagePetInfoShelterFragment extends Fragment {
         btnAddPet = view.findViewById(R.id.btn_add_pet);
         result = view.findViewById(R.id.result);
         search = view.findViewById(R.id.search);
+        btnFinding = view.findViewById(R.id.finding);
+        btnWaiting = view.findViewById(R.id.waiting);
+        btnSuccess = view.findViewById(R.id.success);
+        btnFinding.setTypeface(null, Typeface.BOLD);
+        btnFinding.setTextColor(Color.parseColor("#808080"));
+        btnWaiting.setTypeface(null, Typeface.NORMAL);
+        btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnSuccess.setTypeface(null, Typeface.NORMAL);
+        btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
 
         db.collection("Pet")
                 .orderBy("Status")
@@ -70,7 +82,88 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 ft.addToBackStack(null).commit();
             }
         });
+
+        btnFinding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterFinding();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                result.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.NORMAL);
+                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnSuccess.setTypeface(null, Typeface.NORMAL);
+                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnFinding.setTypeface(null, Typeface.BOLD);
+                btnFinding.setTextColor(Color.parseColor("#808080"));
+
+                searchFilter();
+            }
+        });
+
+        btnWaiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterWaiting();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                result.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.BOLD);
+                btnWaiting.setTextColor(Color.parseColor("#808080"));
+                btnSuccess.setTypeface(null, Typeface.NORMAL);
+                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnFinding.setTypeface(null, Typeface.NORMAL);
+                btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
+                searchFilter();
+            }
+        });
+
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.filterSuccess();
+                int num = 0;
+                for(int i=0; i < adapter.getCount(); i++){
+                    num++;
+                }
+                result.setText(String.valueOf(num));
+                btnWaiting.setTypeface(null, Typeface.NORMAL);
+                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+                btnSuccess.setTypeface(null, Typeface.BOLD);
+                btnSuccess.setTextColor(Color.parseColor("#808080"));
+                btnFinding.setTypeface(null, Typeface.NORMAL);
+                btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
+                searchFilter();
+            }
+        });
+
         return view;
+    }
+
+    private void searchFilter() {
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+                adapter.getFilter().filter(s, new Filter.FilterListener() {
+                    public void onFilterComplete(int count) {
+                        result.setText(String.valueOf(count));
+                    }
+                });
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void setValue(Task<QuerySnapshot> task) {
@@ -86,34 +179,18 @@ public class ManagePetInfoShelterFragment extends Fragment {
                     document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                     document.get("Story").toString(), document.get("ShelterID").toString());
             petList.add(petSearch);
-            count++;
+
         }
-        adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), petList);
-        listView.setAdapter(adapter);
-        result.setText(String.valueOf(count));
 
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        for(int i=0; i<petList.size(); i++){
+            if(petList.get(i).getStatus().equals("กำลังหาบ้าน")){
+                adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), petList);
+                adapter.filterFinding();
+                listView.setAdapter(adapter);
+                count++;
+                result.setText(String.valueOf(count));
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
-                adapter.getFilter().filter(s, new Filter.FilterListener() {
-                    public void onFilterComplete(int count) {
-                        result.setText(String.valueOf(count));
-                    }
-                });
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        }
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override

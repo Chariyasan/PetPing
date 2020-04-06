@@ -58,7 +58,7 @@ public class HomeShelterAdapter extends BaseAdapter {
     }
 
     public void filterSuccess() {
-        filterStatus("รับอุปการะแล้ว");
+        filterStatus("ดำเนินการสำเร็จ");
     }
 
     public void filterReject() {
@@ -80,11 +80,11 @@ public class HomeShelterAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 //        View view = View.inflate(context, R.layout.home_shelter_adapter, null);
         convertView = mLayoutInflater.inflate(R.layout.home_shelter_adapter, null);
-        final TextView user, petName, petStatus, petDate;
+        final TextView user, petName, petDate;
         ImageView imgPet, imgUser;
         user = convertView.findViewById(R.id.user);
         petName = convertView.findViewById(R.id.pet_name);
-        petStatus = convertView.findViewById(R.id.pet_status);
+//        petStatus = convertView.findViewById(R.id.pet_status);
         imgPet = convertView.findViewById(R.id.img_pet);
         imgUser = convertView.findViewById(R.id.img_user);
         petDate = convertView.findViewById(R.id.pet_date);
@@ -92,7 +92,7 @@ public class HomeShelterAdapter extends BaseAdapter {
 
         user.setText(filterList.get(position).getUserName());
         petName.setText(filterList.get(position).getPetName());
-        petStatus.setText(filterList.get(position).getPetStatus());
+//        petStatus.setText(filterList.get(position).getPetStatus());
         petDate.setText(filterList.get(position).getPetDate());
         Glide.with(context)
                 .load(filterList.get(position).getURL())

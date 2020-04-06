@@ -2,6 +2,7 @@ package com.example.petping;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,8 +121,11 @@ public class ViewRequestShelterFragment extends Fragment {
         aEleven = view.findViewById(R.id.a_eleven);
 
         btnAdopter.setTypeface(null, Typeface.BOLD);
+        btnAdopter.setTextColor(Color.parseColor("#808080"));
         btnBasicQ.setTypeface(null, Typeface.NORMAL);
+        btnBasicQ.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnPet.setTypeface(null, Typeface.NORMAL);
+        btnPet.setTextColor(Color.parseColor("#FFAFAFAF"));
 
         db.collection("User")
                 .document(uID)
@@ -222,8 +226,11 @@ public class ViewRequestShelterFragment extends Fragment {
             public void onClick(View v) {
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.adopter_info)));
                 btnAdopter.setTypeface(null, Typeface.BOLD);
+                btnAdopter.setTextColor(Color.parseColor("#808080"));
                 btnBasicQ.setTypeface(null, Typeface.NORMAL);
+                btnBasicQ.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnPet.setTypeface(null, Typeface.NORMAL);
+                btnPet.setTextColor(Color.parseColor("#FFAFAFAF"));
 
             }
         });
@@ -233,8 +240,11 @@ public class ViewRequestShelterFragment extends Fragment {
             public void onClick(View v) {
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.basic_q)));
                 btnAdopter.setTypeface(null, Typeface.NORMAL);
+                btnAdopter.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnBasicQ.setTypeface(null, Typeface.BOLD);
+                btnBasicQ.setTextColor(Color.parseColor("#808080"));
                 btnPet.setTypeface(null, Typeface.NORMAL);
+                btnPet.setTextColor(Color.parseColor("#FFAFAFAF"));
 
             }
         });
@@ -244,13 +254,16 @@ public class ViewRequestShelterFragment extends Fragment {
             public void onClick(View v) {
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.pet_info)));
                 btnAdopter.setTypeface(null, Typeface.NORMAL);
+                btnAdopter.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnBasicQ.setTypeface(null, Typeface.NORMAL);
+                btnBasicQ.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnPet.setTypeface(null, Typeface.BOLD);
+                btnPet.setTextColor(Color.parseColor("#808080"));
             }
         });
 
 
-        if (status.equals("รอพิจารณาคุณสมบัติ")) {
+        if (status.equals("กำลังดำเนินการ")) {
             btnSaveInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -267,7 +280,7 @@ public class ViewRequestShelterFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             data = new HashMap<>();
-                            data.put("petStatus", "รับอุปการะแล้ว");
+                            data.put("petStatus", "ดำเนินการสำเร็จ");
                             long yourmilliseconds = System.currentTimeMillis();
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                             Date resultdate = new Date(yourmilliseconds);
@@ -280,7 +293,7 @@ public class ViewRequestShelterFragment extends Fragment {
                                     .update(data);
                             db.collection("Pet")
                                     .document(petID)
-                                    .update("Status", "รับอุปการะแล้ว");
+                                    .update("Status", "ดำเนินการสำเร็จ");
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             ft.replace(getId(), new HomeShelterFragment());
                             ft.commit();
@@ -294,7 +307,7 @@ public class ViewRequestShelterFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("ยืนยันการรับอุปการะใช่หรือไม่");
+                    builder.setTitle("ยืนยันการขอรับอุปการะใช่หรือไม่");
                     builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -332,7 +345,7 @@ public class ViewRequestShelterFragment extends Fragment {
                 }
             });
         }
-        else if(status.equals("รับอุปการะแล้ว") || status.equals("ไม่ผ่านการพิจารณา")){
+        else if(status.equals("ดำเนินการสำเร็จ") || status.equals("ไม่ผ่านการพิจารณา")){
             btnSaveInfo.setVisibility(View.INVISIBLE);
             btnDeleteInfo.setVisibility(View.INVISIBLE);
         }

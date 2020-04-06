@@ -99,6 +99,28 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
             notifyDataSetChanged();
         }
     }
+    public void filterWaiting() {
+        filterStatus("กำลังดำเนินการ");
+    }
+
+    public void filterSuccess() {
+        filterStatus("ดำเนินการสำเร็จ");
+    }
+
+    public void filterFinding() {
+        filterStatus("กำลังหาบ้าน");
+    }
+
+    private void filterStatus(String status) {
+        filterList = new ArrayList<>();
+        for(PetSearch pet: petList){
+            if(pet.getStatus().equals(status)){
+//                HomeShelter homeShelter = new HomeShelter();
+                filterList.add(pet);
+            }
+        }
+        notifyDataSetChanged();
+    }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

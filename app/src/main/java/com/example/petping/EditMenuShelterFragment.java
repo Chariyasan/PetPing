@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +38,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class EditMenuShelterFragment extends Fragment {
     private ImageView image;
-    private Button btnImage, btnSave;
+    private Button btnSave;
+    private ImageButton btnImage;
     private TextView email;
     private EditText name, owner, license, address, telNo, facebook, ig, lineID;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

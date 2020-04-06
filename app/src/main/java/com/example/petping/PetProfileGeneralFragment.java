@@ -2,6 +2,7 @@ package com.example.petping;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
+import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,14 +48,16 @@ public class PetProfileGeneralFragment extends Fragment {
     private TextView infoWeight, infoFoundLoc, infoStatus, infoMap;
     private ViewFlipper viewFlipper;
     private Button btnGeneral, btnStory, btnShelter;
-    private FloatingActionButton btnAdopt;
+    //    private FloatingActionButton btnAdopt;
+    private FloatingTextButton btnAdopt;
+    //    private ExtendedFloatingActionButton btnAdopt;
     private ArrayList<PetSearch> petItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petFavList = new ArrayList<>();
     private UserLikeAdapter likeAdapter;
     private TextView shelterName, shelterOwner, shelterAddress, shelterEmail, shelterTelNo, shelterFB, shelterIG, shelterLine, shelterMap;
     private Map<String, Object> dataToSave = new HashMap<String, Object>();
-    private String shelterID;
+
     private ToggleButton toggleButtonFav;
 
     @Override
@@ -70,17 +74,24 @@ public class PetProfileGeneralFragment extends Fragment {
         btnStory = view.findViewById(R.id.button_story);
         btnShelter = view.findViewById(R.id.button_shelter);
         btnAdopt = view.findViewById(R.id.btn_adopt);
+
         btnGeneral.setTypeface(null, Typeface.BOLD);
+        btnGeneral.setTextColor(Color.parseColor("#808080"));
         btnStory.setTypeface(null, Typeface.NORMAL);
+        btnStory.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnShelter.setTypeface(null, Typeface.NORMAL);
+        btnShelter.setTextColor(Color.parseColor("#FFAFAFAF"));
 
         btnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //viewFlipper.showPrevious();
                 btnGeneral.setTypeface(null, Typeface.BOLD);
+                btnGeneral.setTextColor(Color.parseColor("#808080"));
                 btnStory.setTypeface(null, Typeface.NORMAL);
+                btnStory.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnShelter.setTypeface(null, Typeface.NORMAL);
+                btnShelter.setTextColor(Color.parseColor("#FFAFAFAF"));
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_general)));
             }
         });
@@ -90,8 +101,11 @@ public class PetProfileGeneralFragment extends Fragment {
             public void onClick(View v) {
                 //viewFlipper.showNext();
                 btnGeneral.setTypeface(null, Typeface.NORMAL);
+                btnGeneral.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnStory.setTypeface(null, Typeface.BOLD);
+                btnStory.setTextColor(Color.parseColor("#808080"));
                 btnShelter.setTypeface(null, Typeface.NORMAL);
+                btnShelter.setTextColor(Color.parseColor("#FFAFAFAF"));
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_story)));
             }
         });
@@ -101,8 +115,11 @@ public class PetProfileGeneralFragment extends Fragment {
             public void onClick(View v) {
                 //viewFlipper.showNext();
                 btnGeneral.setTypeface(null, Typeface.NORMAL);
+                btnGeneral.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnStory.setTypeface(null, Typeface.NORMAL);
+                btnStory.setTextColor(Color.parseColor("#FFAFAFAF"));
                 btnShelter.setTypeface(null, Typeface.BOLD);
+                btnShelter.setTextColor(Color.parseColor("#808080"));
                 viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.scrollView_pet_shelter)));
             }
         });
@@ -148,7 +165,6 @@ public class PetProfileGeneralFragment extends Fragment {
             infoFoundLoc.setText(petProfileList.get(i).getFoundLoc());
             infoStatus.setText(petProfileList.get(i).getStatus());
             infoStory.setText(petProfileList.get(i).getStory());
-            shelterID = petProfileList.get(i).getShelterID();
 
             if(petProfileList.get(i).getSex().equals("ผู้")){
                 imageSex.setImageResource(R.drawable.sex_male);
@@ -187,28 +203,36 @@ public class PetProfileGeneralFragment extends Fragment {
         }
 
         db.collection("Shelter")
-                .document(shelterID)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        shelterName.setText(documentSnapshot.get("Name").toString());
-                        shelterOwner.setText(documentSnapshot.get("Owner").toString());
-                        shelterAddress.setText(documentSnapshot.get("Address").toString());
-                        shelterEmail.setText(documentSnapshot.get("Email").toString());
-                        shelterTelNo.setText(documentSnapshot.get("TelNo").toString());
-                        shelterFB.setText(documentSnapshot.get("Facebook").toString());
-                        shelterIG.setText(documentSnapshot.get("Instagram").toString());
-                        shelterLine.setText(documentSnapshot.get("LineID").toString());
-
-                        String address = documentSnapshot.get("Name").toString();
-                        String latitude = documentSnapshot.get("Latitude").toString();
-                        String longitude = documentSnapshot.get("Longitude").toString();
-
-                        InfoMap(latitude, longitude, address);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                shelterName.setText(documentSnapshot.get("Name").toString());
+                                shelterOwner.setText(documentSnapshot.get("Owner").toString());
+                                shelterAddress.setText(documentSnapshot.get("Address").toString());
+                                shelterEmail.setText(documentSnapshot.get("Email").toString());
+                                shelterTelNo.setText(documentSnapshot.get("TelNo").toString());
+                                shelterFB.setText(documentSnapshot.get("Facebook").toString());
+                                shelterIG.setText(documentSnapshot.get("Instagram").toString());
+                                shelterLine.setText(documentSnapshot.get("LineID").toString());
+                            }
+                        }
                     }
                 });
 
+        infoMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(), new MapsActivity());
+                ft.addToBackStack(null).commit();
+
+//                Intent intent = new Intent(getActivity(), MapsActivity);
+//                startActivity(intent);
+            }
+        });
 
         btnAdopt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,25 +252,6 @@ public class PetProfileGeneralFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void InfoMap(final String latitude, final String longitude, final String address) {
-
-        infoMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MapsActivity mapsActivity = new MapsActivity();
-                Bundle bundle = new Bundle();
-                String location = address+","+latitude+","+longitude;
-                bundle.putString("location", location);
-                mapsActivity.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), mapsActivity);
-                ft.addToBackStack(null).commit();
-//                Intent intent = new Intent(getActivity(), MapsActivity);
-//                startActivity(intent);
-            }
-        });
     }
 
     private void saveIntoLike(String ID){

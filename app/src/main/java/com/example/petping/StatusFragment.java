@@ -36,6 +36,7 @@ public class StatusFragment extends Fragment {
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Adoption")
+                .orderBy("DateTime")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

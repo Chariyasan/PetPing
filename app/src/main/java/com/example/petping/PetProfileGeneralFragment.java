@@ -49,7 +49,7 @@ public class PetProfileGeneralFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private Button btnGeneral, btnStory, btnShelter;
     //    private FloatingActionButton btnAdopt;
-    private FloatingTextButton btnAdopt;
+    private FloatingActionButton btnAdopt;
     //    private ExtendedFloatingActionButton btnAdopt;
     private ArrayList<PetSearch> petItem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

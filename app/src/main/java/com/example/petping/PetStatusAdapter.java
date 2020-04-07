@@ -1,6 +1,7 @@
 package com.example.petping;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,14 +45,25 @@ public class PetStatusAdapter extends BaseAdapter {
                 .load(petList.get(position).getUrl())
                 .into((ImageView) imgView);
 
-        TextView textViewName, textViewBreed, textViewStatus;
-        textViewName = view.findViewById(R.id.status_name);
-        textViewBreed = view.findViewById(R.id.status_breed);
-        textViewStatus = view.findViewById(R.id.status_status);
+        TextView name, breed, status;
+        name = view.findViewById(R.id.status_name);
+        breed = view.findViewById(R.id.status_breed);
+        status = view.findViewById(R.id.status_status);
 
-        textViewName.setText(petList.get(position).getName());
-        textViewBreed.setText(petList.get(position).getBreed());
-        textViewStatus.setText(petList.get(position).getStatus());
+        name.setText(petList.get(position).getName());
+        breed.setText(petList.get(position).getBreed());
+        status.setText(petList.get(position).getStatus());
+
+        String status1 = petList.get(position).getStatus();
+        if(status1.equals("กำลังดำเนินการ")){
+            status.setTextColor(Color.parseColor("#ffa41b"));
+        }
+        if(status1.equals("ดำเนินการสำเร็จ")){
+            status.setTextColor(Color.parseColor("#00574B"));
+        }
+        if(status1.equals("ไม่ผ่านการพิจารณา")){
+            status.setTextColor(Color.parseColor("#a30203"));
+        }
 
         return view;
     }

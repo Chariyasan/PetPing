@@ -32,6 +32,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
     private ArrayList<PetSearch> filterList;
     private LayoutInflater mLayoutInflater;
 
+
     public ManagePetInfoShelterAdapter(FragmentManager fragment, int id, Context context, ArrayList<PetSearch> petList) {
         this.fragment = fragment;
         this.id = id;

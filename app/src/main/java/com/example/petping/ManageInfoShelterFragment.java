@@ -32,6 +32,7 @@ public class ManageInfoShelterFragment extends Fragment {
         btnContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new ManageContentShelterFragment());
                 ft.addToBackStack(null).commit();

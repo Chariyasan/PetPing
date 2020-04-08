@@ -161,14 +161,33 @@
             <com.example.petping.NonScrollListView
                 android:id="@+id/listView_pet_info"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:divider="#DADADA"
                 android:dividerHeight="1sp"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:textSize="16dp">
             </com.example.petping.NonScrollListView>
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1">
+                <LinearLayout
+                    android:id="@+id/btn_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
         </TableLayout>
 
+        <!--<Button  android:id="@+id/btn_left"-->
+            <!--android:layout_width="150dip"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="หน้าก่อน" />-->
+        <!--<Button  android:id="@+id/btn_right"-->
+            <!--android:layout_width="150dip"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="หน้าถัดไป" />-->
     </LinearLayout>
 </ScrollView>

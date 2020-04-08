@@ -1,6 +1,5 @@
 package com.example.petping;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -43,7 +40,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private EditText search;
     private Button btnFinding, btnWaiting, btnSuccess, btnPrevious, btnNext;
     private View.OnClickListener clickListener;
-
+    private boolean check1, check2, check3;
     public int ITEMS_IN_PAGE = 5;
     private int noOfBtns;
     private Button[] btns;
@@ -62,7 +59,9 @@ public class ManagePetInfoShelterFragment extends Fragment {
         btnSuccess = view.findViewById(R.id.success);
 //        btnPrevious = view.findViewById(R.id.btn_left);
 //        btnNext = view.findViewById(R.id.btn_right);
-
+        check1 = true;
+        check2 = false;
+        check3 = false;
         btnFinding.setTypeface(null, Typeface.BOLD);
         btnFinding.setTextColor(Color.parseColor("#808080"));
         btnWaiting.setTypeface(null, Typeface.NORMAL);
@@ -93,15 +92,12 @@ public class ManagePetInfoShelterFragment extends Fragment {
                             }
                             setButtonsForPagination(total);
                             result.setText(String.valueOf(total));
-                            int count=0;
-                            for(int i=0; i<ITEMS_IN_PAGE; i++) {
-//                                if (petList.get(i).getStatus().equals("กำลังหาบ้าน")) {
-                                    tempList.add(petList.get(i));
 
-//                                }
+                            for(int i=0; i<ITEMS_IN_PAGE; i++) {
+                                tempList.add(petList.get(i));
                             }
                             adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
-//                            adapter.filterFinding();
+                            adapter.filterFinding();
                             listView.setAdapter(adapter);
                             searchFilter();
 
@@ -121,69 +117,81 @@ public class ManagePetInfoShelterFragment extends Fragment {
             }
         });
 
-        btnFinding.setOnClickListener(new View.OnClickListener() {
+        clickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.filterFinding();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
+                switch (v.getId()) {
+                    case R.id.finding:
+                        findingView();
+                        check1 = true;
+                        check2 = false;
+                        check3 = false;
+                        break;
+                    case R.id.waiting:
+                        waitingView();
+                        check1 = false;
+                        check2 = true;
+                        check3 = false;
+                        break;
+                    case R.id.success:
+                        successView();
+                        check1 = false;
+                        check2 = false;
+                        check3 = true;
+                        break;
                 }
-                result.setText(String.valueOf(num));
-                btnWaiting.setTypeface(null, Typeface.NORMAL);
-                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
-                btnSuccess.setTypeface(null, Typeface.NORMAL);
-                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
-                btnFinding.setTypeface(null, Typeface.BOLD);
-                btnFinding.setTextColor(Color.parseColor("#808080"));
-
-                searchFilter();
-//                setButtonsForPagination(num);
             }
-        });
-
-        btnWaiting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.filterWaiting();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
-                }
-                result.setText(String.valueOf(num));
-                btnWaiting.setTypeface(null, Typeface.BOLD);
-                btnWaiting.setTextColor(Color.parseColor("#808080"));
-                btnSuccess.setTypeface(null, Typeface.NORMAL);
-                btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
-                btnFinding.setTypeface(null, Typeface.NORMAL);
-                btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
-                searchFilter();
-//                setButtonsForPagination(num);
-
-            }
-        });
-
-        btnSuccess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.filterSuccess();
-                int num = 0;
-                for(int i=0; i < adapter.getCount(); i++){
-                    num++;
-                }
-                result.setText(String.valueOf(num));
-                btnWaiting.setTypeface(null, Typeface.NORMAL);
-                btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
-                btnSuccess.setTypeface(null, Typeface.BOLD);
-                btnSuccess.setTextColor(Color.parseColor("#808080"));
-                btnFinding.setTypeface(null, Typeface.NORMAL);
-                btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
-                searchFilter();
-//                setButtonsForPagination(num);
-            }
-        });
-
+        };
+        btnFinding.setOnClickListener(clickListener);
+        btnWaiting.setOnClickListener(clickListener);
+        btnSuccess.setOnClickListener(clickListener);
         return view;
+    }
+
+    private void successView() {
+        adapter.filterSuccess();
+        int num = 0;
+        for(int i=0; i < adapter.getCount(); i++){
+            num++;
+        }
+        result.setText(String.valueOf(num));
+        btnWaiting.setTypeface(null, Typeface.NORMAL);
+        btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnSuccess.setTypeface(null, Typeface.BOLD);
+        btnSuccess.setTextColor(Color.parseColor("#808080"));
+        btnFinding.setTypeface(null, Typeface.NORMAL);
+        btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
+    }
+
+    private void waitingView() {
+        adapter.filterWaiting();
+        int num = 0;
+        for(int i=0; i < adapter.getCount(); i++){
+            num++;
+        }
+        result.setText(String.valueOf(num));
+        btnWaiting.setTypeface(null, Typeface.BOLD);
+        btnWaiting.setTextColor(Color.parseColor("#808080"));
+        btnSuccess.setTypeface(null, Typeface.NORMAL);
+        btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnFinding.setTypeface(null, Typeface.NORMAL);
+        btnFinding.setTextColor(Color.parseColor("#FFAFAFAF"));
+    }
+
+    private void findingView() {
+        adapter.filterFinding();
+        int num = 0;
+        for(int i=0; i < adapter.getCount(); i++){
+            num++;
+        }
+        result.setText(String.valueOf(num));
+        btnWaiting.setTypeface(null, Typeface.NORMAL);
+        btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnSuccess.setTypeface(null, Typeface.NORMAL);
+        btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
+        btnFinding.setTypeface(null, Typeface.BOLD);
+        btnFinding.setTextColor(Color.parseColor("#808080"));
+
     }
 
     private void searchFilter() {
@@ -208,10 +216,6 @@ public class ManagePetInfoShelterFragment extends Fragment {
         });
     }
 
-//    private void setValue(Task<QuerySnapshot> task) {
-//
-//
-//    }
     private void setButtonsForPagination(int total) {
 
         int val = total % ITEMS_IN_PAGE;
@@ -228,11 +232,9 @@ public class ManagePetInfoShelterFragment extends Fragment {
 
         btns = new Button[noOfBtns];
 
-
         for (int i = 0; i < noOfBtns; i++) {
             btns[i] = new Button(getContext());
-            btns[i].setBackgroundColor(getResources().getColor(
-                    android.R.color.transparent));
+            btns[i].setBackgroundColor(Color.TRANSPARENT);
             btns[i].setText("" + (i + 1));
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -240,81 +242,57 @@ public class ManagePetInfoShelterFragment extends Fragment {
             layout.addView(btns[i], lp);
 
             final int j = i;
-
             //code to perform on click of each button
             btns[j].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     loadList(j);
-                    CheckBtnBackGroud(j);
+                    CheckBtnBackGround(j);
                 }
             });
         }
 
     }// end of setButtonsForPagination()
 
-    private void CheckBtnBackGroud(int j) {
+    private void CheckBtnBackGround(int j) {
         for (int i = 0; i < noOfBtns; i++) {
             if (i == j) {
                 // btns[index].setBackgroundDrawable(getResources().getDrawable(R.drawable.box_green));
-                btns[j].setBackgroundColor(getResources().getColor(
-                        android.R.color.darker_gray));
-                btns[i].setTextColor(getResources().getColor(
-                        android.R.color.white));
+                btns[j].setBackgroundColor(Color.DKGRAY);
+                btns[i].setTextColor(Color.WHITE);
             } else {
-                btns[i].setBackgroundColor(getResources().getColor(
-                        android.R.color.transparent));
-                btns[i].setTextColor(getResources().getColor(
-                        android.R.color.black));
+                btns[i].setBackgroundColor(Color.TRANSPARENT);
+                btns[i].setTextColor(Color.BLACK);
             }
         }
     }
 
     private void loadList(int j) {
-
         int start = j * ITEMS_IN_PAGE;
         tempList.clear();
         for (int i = start; i < (start) + ITEMS_IN_PAGE; i++) {
             if (i < petList.size()) {
                 // sort.add(data.get(i));
                 tempList.add(petList.get(i));
-//                if (btnFinding.isSelected()){
-//                    tempList.add(petList.get(i));
-//                    adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
-////                    adapter.filterFinding();
-//                    listView.setAdapter(adapter);
-//                    int num = 0;
-//                    for(int k=0; k < adapter.getCount(); k++){
-//                        num++;
-//                    }
-//                    result.setText(String.valueOf(num));
-//                }
-//                if (petList.get(i).getStatus().equals("กำลังดำเนินการ")){
-//                    tempList.add(petList.get(i));
-//                    adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
-//                    adapter.filterWaiting();
-//                    listView.setAdapter(adapter);
-//                    int num = 0;
-//                    for(int k=0; k < adapter.getCount(); k++){
-//                        num++;
-//                    }
-//                    result.setText(String.valueOf(num));
-//                }
-//                if (petList.get(i).getStatus().equals("ดำเนินการสำเร็จ")){
-//                    tempList.add(petList.get(i));
-//                    adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
-//                    adapter.filterSuccess();
-//                    listView.setAdapter(adapter);
-//                    int num = 0;
-//                    for(int k=0; k < adapter.getCount(); k++){
-//                        num++;
-//                    }
-//                    result.setText(String.valueOf(num));
-//                }
             } else {
                 break;
             }
-            adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
-            listView.setAdapter(adapter);
+        }
+        for(int i=0; i<tempList.size(); i++){
+            if(check1 == true && check2 == false && check3 == false){
+                adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
+                adapter.filterFinding();
+                listView.setAdapter(adapter);
+            }
+            if(check1 == false && check2 == true && check3 == false){
+                adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
+                adapter.filterWaiting();
+                listView.setAdapter(adapter);
+            }
+            if(check1 == false && check2 == false && check3 == true){
+                adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
+                adapter.filterSuccess();
+                listView.setAdapter(adapter);
+            }
         }
     }
 

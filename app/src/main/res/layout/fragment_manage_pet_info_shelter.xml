@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
-                android:text="จำนวนสัตว์ที่พบ"
+                android:text="สัตว์ทั้งหมด"
                 android:textSize="16dp"/>
             <TextView
                 android:id="@+id/result"

@@ -30,6 +30,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class ManagePetInfoShelterFragment extends Fragment {
     private ArrayList<PetSearch> petList = new ArrayList<>();
+    private ArrayList<PetSearch> petList1 = new ArrayList<>();
+
     private ArrayList<PetSearch> tempList = new ArrayList<>();
     private ManagePetInfoShelterAdapter adapter;
     private ListView listView;
@@ -45,6 +47,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private int noOfBtns;
     private Button[] btns;
     private View view;
+   
 
     @Nullable
     @Override
@@ -79,7 +82,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            int total=0;
+                            int total =0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                         document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
@@ -88,11 +91,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                                         document.get("Story").toString(), document.get("ShelterID").toString());
                                 petList.add(petSearch);
+                                petList1.add(petSearch);
                                 total++;
                             }
                             setButtonsForPagination(total);
-                            result.setText(String.valueOf(total));
-
+//                            result.setText(String.valueOf(total));
                             for(int i=0; i<ITEMS_IN_PAGE; i++) {
                                 tempList.add(petList.get(i));
                             }
@@ -100,6 +103,12 @@ public class ManagePetInfoShelterFragment extends Fragment {
                             adapter.filterFinding();
                             listView.setAdapter(adapter);
                             searchFilter();
+
+                            int total1 = 0;
+                            for (int i=0; i<petList1.size(); i++){
+                                total1++;
+                            }
+                            result.setText(String.valueOf(total1));
 
                         } else {
                             Log.d("Error", "Error getting documents: ", task.getException());
@@ -116,7 +125,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 ft.addToBackStack(null).commit();
             }
         });
-
+    
         clickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,11 +159,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
 
     private void successView() {
         adapter.filterSuccess();
-        int num = 0;
-        for(int i=0; i < adapter.getCount(); i++){
-            num++;
-        }
-        result.setText(String.valueOf(num));
+//        int num = 0;
+//        for(int i=0; i < adapter.getCount(); i++){
+//            num++;
+//        }
+//        result.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.NORMAL);
         btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnSuccess.setTypeface(null, Typeface.BOLD);
@@ -165,11 +174,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
 
     private void waitingView() {
         adapter.filterWaiting();
-        int num = 0;
-        for(int i=0; i < adapter.getCount(); i++){
-            num++;
-        }
-        result.setText(String.valueOf(num));
+//        int num = 0;
+//        for(int i=0; i < adapter.getCount(); i++){
+//            num++;
+//        }
+//        result.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.BOLD);
         btnWaiting.setTextColor(Color.parseColor("#808080"));
         btnSuccess.setTypeface(null, Typeface.NORMAL);
@@ -180,11 +189,11 @@ public class ManagePetInfoShelterFragment extends Fragment {
 
     private void findingView() {
         adapter.filterFinding();
-        int num = 0;
-        for(int i=0; i < adapter.getCount(); i++){
-            num++;
-        }
-        result.setText(String.valueOf(num));
+//        int num = 0;
+//        for(int i=0; i < adapter.getCount(); i++){
+//            num++;
+//        }
+//        result.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.NORMAL);
         btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnSuccess.setTypeface(null, Typeface.NORMAL);
@@ -277,6 +286,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 break;
             }
         }
+        int num=0;
         for(int i=0; i<tempList.size(); i++){
             if(check1 == true && check2 == false && check3 == false){
                 adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);

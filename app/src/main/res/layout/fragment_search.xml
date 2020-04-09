@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/search_dog"/>
+            app:srcCompat="@drawable/search_dog_btn"/>
 
         <ImageButton
             android:id="@+id/btn_cat"
@@ -31,7 +31,7 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/search_cat"/>
+            app:srcCompat="@drawable/search_cat_btn"/>
 
     </LinearLayout>
 

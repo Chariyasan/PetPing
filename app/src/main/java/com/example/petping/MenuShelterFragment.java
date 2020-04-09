@@ -65,9 +65,12 @@ public class MenuShelterFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Glide.with(getContext())
-                                .load(documentSnapshot.get("Image").toString())
-                                .into(image);
+                        if(documentSnapshot.exists()){
+                            Glide.with(getContext())
+                                    .load(documentSnapshot.get("Image").toString())
+                                    .into(image);
+                        }
+
                         name.setText(documentSnapshot.get("Name").toString());
                         owner.setText(documentSnapshot.get("Owner").toString());
                         license.setText(documentSnapshot.get("License").toString());

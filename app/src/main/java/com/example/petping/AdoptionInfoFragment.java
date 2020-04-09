@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,7 +41,8 @@ import static android.app.Activity.RESULT_OK;
 public class AdoptionInfoFragment extends Fragment {
     private EditText eName, eNID, eDOB, eTel, eAddr, eJob, eSalary;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Button button, btnAdoptImg;
+    private Button button;
+    private ImageButton btnAdoptImg;;
     private ArrayList<PetSearch> petProfileList;
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private static final int PICK_IMAGE_REQUEST = 1;

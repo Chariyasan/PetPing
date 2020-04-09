@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                             fragment = new HomeFragment();
                             break;
                         case R.id.nav_shelter:
-                            fragment = new ShelterFragment();
+                            fragment = new MapsActivity();
                             break;
                         case R.id.nav_search:
                             fragment = new SearchFragment();

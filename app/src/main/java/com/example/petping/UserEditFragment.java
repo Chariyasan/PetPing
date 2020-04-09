@@ -74,9 +74,12 @@ public class UserEditFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Glide.with(getContext())
-                                .load(documentSnapshot.get("Image"))
-                                .into(image);
+                        if (documentSnapshot.exists()){
+                            Glide.with(getContext())
+                                    .load(documentSnapshot.get("Image"))
+                                    .into(image);
+                        }
+
                         userName.setText(documentSnapshot.get("UserName").toString());
                         telNo.setText(documentSnapshot.get("TelNo").toString());
                         name = documentSnapshot.get("Name").toString();

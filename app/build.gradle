@@ -46,6 +46,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.dimorinny:floating-text-button:0.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
 }
 
 apply plugin: 'com.google.gms.google-services'

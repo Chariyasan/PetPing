@@ -37,9 +37,12 @@ public class HomeFragment extends Fragment {
     private ArrayList<PetSearch> petListDog = new ArrayList<>();
     private ArrayList<PetSearch> petListCat = new ArrayList<>();
     private ArrayList<PetSearch> petList = new ArrayList<>();
+    private ArrayList<Content> contentList = new ArrayList<>();
     private HomeAdapter homeAdapter;
+    private ContentHomeAdapter contentAdapter;
     private GridView gridDog, gridCat, gridAll;
-    private RecyclerView pet_rec, pet_all;
+    private RecyclerView pet_rec, contentView;
+    private LinearLayoutManager layoutManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -55,8 +58,11 @@ public class HomeFragment extends Fragment {
 //        gridDog = view.findViewById(R.id.grid_dog);
 //        gridCat = view.findViewById(R.id.grid_cat);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pet_rec = view.findViewById(R.id.pet_rec);
+        pet_rec.setLayoutManager(layoutManager);
+
+        contentView = view.findViewById(R.id.content);
         pet_rec.setLayoutManager(layoutManager);
         //HomeAdapter adapter = new HomeAdapter(getContext(), petList);
         //petView.setAdapter(adapter);
@@ -76,6 +82,27 @@ public class HomeFragment extends Fragment {
         if(petListCat != null){
             petListCat.clear();
         }
+
+        db.collection("Content")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Content content = new Content(document.getId(), document.get("Topic").toString(),
+                                        document.get("Story").toString(), document.get("URL").toString(),
+                                        document.get("Tag").toString(), document.get("ShelterID").toString());
+                                contentList.add(content);
+                                Log.d("Content",document.get("Topic").toString());
+                            }
+                            contentAdapter = new ContentHomeAdapter(getFragmentManager(), getId(), getContext(), contentList);
+                            contentView.setAdapter(contentAdapter);
+
+                        }
+                    }
+                });
+
         db.collection("Pet")
                 .whereEqualTo("Type", "สุนัข")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
@@ -105,8 +132,9 @@ public class HomeFragment extends Fragment {
 //                            flipperPet.setDisplayedChild(flipperPet.indexOfChild(view.findViewById(R.id.grid_all)));
 ////                            homeAdapter = new HomeAdapter(getContext(), petList);
 ////                            gridAll.setAdapter(homeAdapter);
-                            homeAdapter = new HomeAdapter(getContext(), petList);
+                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
                             pet_rec.setAdapter(homeAdapter);
+
 //                            pet_all.setAdapter(homeAdapter);
 //                            //homeAdapter.notifyDataSetChanged();
 //

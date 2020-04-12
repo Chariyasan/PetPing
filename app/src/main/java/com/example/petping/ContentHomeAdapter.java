@@ -1,17 +1,14 @@
 package com.example.petping;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,14 +16,15 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class ContentHomeAdapter extends RecyclerView.Adapter<ContentHomeAdapter.ViewHolder> {
     private Context context;
-    private List<PetSearch> petList;
+    private List<Content> contentList;
     private FragmentManager fragmentManager;
     private int id;
-    public HomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<PetSearch> petList) {
+
+    public ContentHomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<Content> contentList) {
         this.context = context;
-        this.petList = petList;
+        this.contentList = contentList;
         this.fragmentManager = fragmentManager;
         this.id = id;
     }
@@ -41,35 +39,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 //        return petList.get(position);
 //    }
 
+
     @NonNull
     @Override
-    public HomeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_adapter, parent, false);
+    public ContentHomeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_home_adapter, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.ViewHolder holder, final int position) {
-//        View view = View.inflate(context, R.layout.home_adapter, null);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context)
-                .load(petList.get(position).getUrl())
+                .load(contentList.get(position).getUrl())
                 .into(holder.image);
-        holder.name.setText(petList.get(position).getName());
-        holder.age.setText(petList.get(position).getAge());
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-                Bundle bundle = new Bundle();
-                ArrayList<PetSearch> list = new ArrayList<>();
-                list.add(petList.get(position));
-                bundle.putParcelableArrayList("petProfile", list);
-                petProfile.setArguments(bundle);
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(id, petProfile);
-                ft.addToBackStack(null).commit();
-            }
-        });
+        holder.topic.setText(contentList.get(position).getTopic());
     }
 
     @Override
@@ -79,7 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return petList.size();
+        return contentList.size();
     }
 
 //    @Override
@@ -105,14 +88,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageView image;
-        TextView name;
-        TextView age;
+        TextView topic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.pet_img);
-            name = itemView.findViewById(R.id.pet_name);
-            age = itemView.findViewById(R.id.pet_age);
+            image = itemView.findViewById(R.id.image);
+            topic = itemView.findViewById(R.id.topic);
             mView = itemView;
         }
     }

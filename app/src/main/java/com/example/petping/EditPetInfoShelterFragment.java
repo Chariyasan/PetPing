@@ -201,30 +201,30 @@ public class EditPetInfoShelterFragment extends Fragment {
                                     builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            db.collection("Pet")
-                                                    .document(ID)
-                                                    .update(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d("Update", "Success");
-                                                            PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
-                                                                    colour.getText().toString(), finalSex, age.getText().toString(),
-                                                                    breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
-                                                                    character.getText().toString(), marking.getText().toString(),
-                                                                    health, foundLoc.getText().toString(), status.getText().toString(),
-                                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                                            petList.add(pet);
-                                                            PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putParcelableArrayList("petInfo", petList);
-                                                            petInfoShelterFragment.setArguments(bundle);
-                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), new ManagePetInfoShelterFragment());
-                                                            ft.commit();
+db.collection("Pet")
+        .document(ID)
+        .update(data)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("Update", "Success");
+                PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
+                        colour.getText().toString(), finalSex, age.getText().toString(),
+                        breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
+                        character.getText().toString(), marking.getText().toString(),
+                        health, foundLoc.getText().toString(), status.getText().toString(),
+                        story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                petList.add(pet);
+                PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("petInfo", petList);
+                petInfoShelterFragment.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(), new ManagePetInfoShelterFragment());
+                ft.commit();
 
-                                                        }
-                                                    });
+            }
+        });
                                         }
                                     });
                                     builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {

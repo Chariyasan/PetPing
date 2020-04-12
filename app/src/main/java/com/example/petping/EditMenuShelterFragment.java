@@ -125,17 +125,17 @@ public class EditMenuShelterFragment extends Fragment {
                                             builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    db.collection("Shelter")
-                                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                            .update(data)
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                                    ft.replace(getId(), new MenuShelterFragment());
-                                                                    ft.commit();
-                                                                }
-                                                            });
+                                                db.collection("Shelter")
+                                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                        .update(data)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                ft.replace(getId(), new MenuShelterFragment());
+                                                                ft.commit();
+                                                            }
+                                                        });
                                                 }
                                             });
                                             builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {

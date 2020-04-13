@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     private ContentHomeAdapter contentAdapter;
     private GridView gridDog, gridCat, gridAll;
     private RecyclerView pet_rec, contentView;
-    private LinearLayoutManager layoutManager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -58,12 +58,13 @@ public class HomeFragment extends Fragment {
 //        gridDog = view.findViewById(R.id.grid_dog);
 //        gridCat = view.findViewById(R.id.grid_cat);
 
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pet_rec = view.findViewById(R.id.pet_rec);
         pet_rec.setLayoutManager(layoutManager);
 
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         contentView = view.findViewById(R.id.content);
-        pet_rec.setLayoutManager(layoutManager);
+        contentView.setLayoutManager(layoutManager1);
         //HomeAdapter adapter = new HomeAdapter(getContext(), petList);
         //petView.setAdapter(adapter);
 //        pet_all = view.findViewById(R.id.pet_all);
@@ -76,12 +77,10 @@ public class HomeFragment extends Fragment {
         if(petList != null){
             petList.clear();
         }
-        if(petListDog != null){
-            petListDog.clear();
+        if(contentList != null){
+            contentList.clear();
         }
-        if(petListCat != null){
-            petListCat.clear();
-        }
+
 
         db.collection("Content")
                 .get()
@@ -94,11 +93,10 @@ public class HomeFragment extends Fragment {
                                         document.get("Story").toString(), document.get("URL").toString(),
                                         document.get("Tag").toString(), document.get("ShelterID").toString());
                                 contentList.add(content);
-                                Log.d("Content",document.get("Topic").toString());
+//                                Log.d("Content",document.get("Topic").toString());
                             }
                             contentAdapter = new ContentHomeAdapter(getFragmentManager(), getId(), getContext(), contentList);
                             contentView.setAdapter(contentAdapter);
-
                         }
                     }
                 });
@@ -121,122 +119,11 @@ public class HomeFragment extends Fragment {
                                 petListDog.add(petSearch);
                                 petList.add(petSearch);
                             }
-                            Set<PetSearch> set = new HashSet<PetSearch>(petListDog);
-                            petListDog.clear();
-                            petListDog.addAll(set);
-//
-//
-                            Set<PetSearch> setA = new HashSet<PetSearch>(petList);
-                            petList.clear();
-                            petList.addAll(setA);
-//                            flipperPet.setDisplayedChild(flipperPet.indexOfChild(view.findViewById(R.id.grid_all)));
-////                            homeAdapter = new HomeAdapter(getContext(), petList);
-////                            gridAll.setAdapter(homeAdapter);
                             homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
                             pet_rec.setAdapter(homeAdapter);
 
-//                            pet_all.setAdapter(homeAdapter);
-//                            //homeAdapter.notifyDataSetChanged();
-//
-//                            gridAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                                @Override
-//                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                    PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-//                                    Bundle bundle = new Bundle();
-//                                    ArrayList<PetSearch> list = new ArrayList<>();
-//                                    list.add(petList.get(position));
-//                                    bundle.putParcelableArrayList("petProfile", list);
-//                                    petProfile.setArguments(bundle);
-//                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                                    ft.replace(getId(), petProfile);
-//                                    ft.addToBackStack(null).commit();
-//                                }
-//                            });
-//                        } else {
-//                            Log.d("Error", "Error getting documents: ", task.getException());
-//                        }
                         }
-//
-//                });
-//
-//
-//        db.collection("Pet")
-//                .whereEqualTo("Type", "แมว")
-//                .whereEqualTo("Status", "กำลังหาบ้าน")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-//                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-//                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-//                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-//                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-//                                        document.get("Story").toString(), document.get("ShelterID").toString());
-//                                petListCat.add(petSearch);
-//                            }
-//                            Set<PetSearch> set = new HashSet<PetSearch>(petListCat);
-//                            petListCat.clear();
-//                            petListCat.addAll(set);
-//                        } else {
-//                            Log.d("Error", "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//
-//                });
-//
-//        dogBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                flipperPet.setDisplayedChild(flipperPet.indexOfChild(view.findViewById(R.id.grid_dog)));
-////                homeAdapter = new HomeAdapter(getContext(), petListDog);
-//////                gridDog.setAdapter(homeAdapter);
-//                HomeAdapter adapter = new HomeAdapter(getContext(), petList);
-//                petView.setAdapter(adapter);
-////                homeAdapter.notifyDataSetChanged();
-//
-//                gridDog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-//                        Bundle bundle = new Bundle();
-//                        ArrayList<PetSearch> list = new ArrayList<>();
-//                        list.add(petListDog.get(position));
-//                        bundle.putParcelableArrayList("petProfile", list);
-//                        petProfile.setArguments(bundle);
-//                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                        ft.replace(getId(), petProfile);
-//                        ft.addToBackStack(null).commit();
-//                    }
-//                });
-//            }
-//        });
-//
-//        catBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                flipperPet.setDisplayedChild(flipperPet.indexOfChild(view.findViewById(R.id.grid_cat)));
-////                homeAdapter = new HomeAdapter(getContext(), petListCat);
-////                gridCat.setAdapter(homeAdapter);
-//                HomeAdapter adapter = new HomeAdapter(getContext(), petList);
-//                petView.setAdapter(adapter);
-////                homeAdapter.notifyDataSetChanged();
-//                gridCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-//                        Bundle bundle = new Bundle();
-//                        ArrayList<PetSearch> list = new ArrayList<>();
-//                        list.add(petListCat.get(position));
-//                        bundle.putParcelableArrayList("petProfile", list);
-//                        petProfile.setArguments(bundle);
-//                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                        ft.replace(getId(), petProfile);
-//                        ft.addToBackStack(null).commit();
-//                    }
-//                });
+
                     }
                 });
 

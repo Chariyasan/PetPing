@@ -1,6 +1,8 @@
 package com.example.petping;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,16 +32,6 @@ public class ContentHomeAdapter extends RecyclerView.Adapter<ContentHomeAdapter.
         this.id = id;
     }
 
-//    @Override
-//    public int getCount() {
-//        return petList.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return petList.get(position);
-//    }
-
 
     @NonNull
     @Override
@@ -48,11 +41,26 @@ public class ContentHomeAdapter extends RecyclerView.Adapter<ContentHomeAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Glide.with(context)
                 .load(contentList.get(position).getUrl())
                 .into(holder.image);
         holder.topic.setText(contentList.get(position).getTopic());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentHomeFragment content = new ContentHomeFragment();
+                Bundle bundle = new Bundle();
+                ArrayList<Content> list = new ArrayList<>();
+                list.add(contentList.get(position));
+                bundle.putParcelableArrayList("contentHome", list);
+                content.setArguments(bundle);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(id, content);
+                ft.addToBackStack(null).commit();
+            }
+        });
     }
 
     @Override
@@ -64,26 +72,6 @@ public class ContentHomeAdapter extends RecyclerView.Adapter<ContentHomeAdapter.
     public int getItemCount() {
         return contentList.size();
     }
-
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = View.inflate(context, R.layout.home_adapter, null);
-//        ImageView imgView = (ImageView) view.findViewById(R.id.home_img);
-//        TextView textViewName, textViewBreed, textViewAge;
-//        Glide.with(context)
-//                .load(petList.get(position).getUrl())
-//                .into((ImageView) imgView);
-//
-//
-//        textViewName = view.findViewById(R.id.home_name);
-//        textViewAge = view.findViewById(R.id.home_age);
-//        textViewBreed = view.findViewById(R.id.home_breed);
-//
-//        textViewName.setText(petList.get(position).getName());
-//        textViewAge.setText(petList.get(position).getAge());
-//        textViewBreed.setText(petList.get(position).getBreed());
-//        return view;
-//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;

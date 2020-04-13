@@ -59,16 +59,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                 // Check wrong input from user
                 if(name.isEmpty()){
-                    showMessage("Please input name");
+                    showMessage("กรุณาใส่กรอกชื่อค่ะ");
                 }
                 else if(email.isEmpty()){
-                    showMessage("Please input email");
+                    showMessage("กรุณากรอกอัเมลค่ะ");
                 }
                 else if(password.isEmpty()){
-                    showMessage("Please input password");
+                    showMessage("กรุณากรอกรหัสผ่านค่ะ");
                 }
                 else if(!password.equals(confirmPass)){
-                    showMessage("Please Make sure that you input correct password");
+                    showMessage("กรุณาตรวจสอบรหัสผ่านอีกครั้งค่ะ");
                 }
                 // User input every information
                 else{

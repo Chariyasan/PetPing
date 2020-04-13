@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MenuFragment extends Fragment {
-    private Button btnEditUser, btnLikeList, btnPetStory, btnHistory, btnFAQ, btnRule, btnLogOut;
+    private Button btnEditUser, btnLikeList, btnHistory, btnFAQ, btnRule, btnLogOut;
     private ImageView image;
     private TextView name;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -38,7 +38,6 @@ public class MenuFragment extends Fragment {
         name = view.findViewById(R.id.textView);
         btnEditUser = view.findViewById(R.id.btn_user);
         btnLikeList = view.findViewById(R.id.btn_like);
-        btnPetStory = view.findViewById(R.id.btn_story);
         btnHistory = view.findViewById(R.id.btn_history);
         btnRule = view.findViewById(R.id.btn_rule);
         btnFAQ = view.findViewById(R.id.btn_faq);
@@ -76,13 +75,6 @@ public class MenuFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), new UserLikeFragment());
                 ft.addToBackStack(null).commit();
-            }
-        });
-
-        btnPetStory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
 

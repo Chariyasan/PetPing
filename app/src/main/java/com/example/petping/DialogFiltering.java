@@ -131,14 +131,14 @@ public class DialogFiltering extends DialogFragment {
         }
 
         builder.setView(view)
-                .setTitle("Title")
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setTitle("ค้นหาน้องที่ต้องการ")
+                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getDialog().dismiss();
                     }
                 })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("ค้นหา", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(ageLeastOne.isChecked()){

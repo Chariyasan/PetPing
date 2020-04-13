@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="เงื่อนไขและข้อบังคับ"
+                android:text="เงื่อนไขและข้อตกลงในการอุปการะ"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:textSize="16dp"
-                    android:text="ข้าพเจ้ารับทราบและยินดีปฏิบัติตามข้อตกลงในเงื่อนไขและข้อบังคับทุกประการ" />
+                    android:text="ข้าพเจ้ารับทราบและยินดีปฏิบัติตามเงื่อนไขและข้อตกลงการขอรับอุปการะทุกประการ" />
             </LinearLayout>
 
             <Button

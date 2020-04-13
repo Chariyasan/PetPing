@@ -37,7 +37,8 @@ import androidx.fragment.app.FragmentTransaction;
 import static android.app.Activity.RESULT_OK;
 
 public class AddContentShelterFragment extends Fragment {
-    private EditText topic, story, tag;
+    //    private EditText topic, story, tag;
+    private EditText topic, story;
     private Button btnSave;
     private ImageButton btnImage;
     private ImageView image;
@@ -57,7 +58,7 @@ public class AddContentShelterFragment extends Fragment {
         topic = view.findViewById(R.id.topic);
         story = view.findViewById(R.id.story);
         image = view.findViewById(R.id.img_view);
-        tag = view.findViewById(R.id.tag);
+//        tag = view.findViewById(R.id.tag);
         btnSave = view.findViewById(R.id.button);
         btnImage = view.findViewById(R.id.btn_choose_image);
 
@@ -98,10 +99,10 @@ public class AddContentShelterFragment extends Fragment {
                                             data.put("Story", story.getText().toString());
                                             data.put("URL", uri.toString());
                                             data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                            data.put("Tag", tag.getText().toString());
+//                                            data.put("Tag", tag.getText().toString());
 
                                             builder = new AlertDialog.Builder(getContext());
-                                            builder.setTitle("คุณต้องการเพิ่มข้อมูลใช่หรือไม่");
+                                            builder.setTitle("คุณต้องการเพิ่มข้อมูลบทความใช่หรือไม่");
 
                                             builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
                                                 @Override

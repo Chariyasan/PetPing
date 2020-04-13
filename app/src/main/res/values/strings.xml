@@ -17,9 +17,10 @@
     </string-array>
     <string-array name="color_array">
         <item>ไม่ระบุ</item>
+        <item>ขาว</item>
+        <item>ดำ</item>
         <item>น้ำตาล</item>
         <item>เทา</item>
-        <item>ดำ</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

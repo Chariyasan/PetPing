@@ -42,7 +42,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Thailand Adopter Club"
             android:textColor="#000"
             android:textSize="18dp"
             tools:ignore="MissingConstraints" />

@@ -268,28 +268,28 @@
                     <TextView
                         android:id="@+id/textView_color"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="สี"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
-                    <!--                    <Spinner-->
-                    <!--                        android:id="@+id/color_spinner"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:background="@android:drawable/btn_dropdown"-->
-                    <!--                        android:spinnerMode="dropdown"-->
-                    <!--                        android:textSize="16dp"/>-->
-
-                    <EditText
+                    <Spinner
                         android:id="@+id/color"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="11"
-                        android:hint="สี"
-                        android:inputType="textPersonName"
-                        android:textSize="16dp"
-                        android:textColor="#808080"/>
+                        android:layout_height="match_parent"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:spinnerMode="dropdown"
+                        android:textSize="16dp"/>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/color"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ems="11"-->
+<!--                        android:hint="สี"-->
+<!--                        android:inputType="textPersonName"-->
+<!--                        android:textSize="16dp"-->
+<!--                        android:textColor="#808080"/>-->
 
                 </LinearLayout>
 

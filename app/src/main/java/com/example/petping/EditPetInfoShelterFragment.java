@@ -12,19 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,7 +39,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,19 +56,20 @@ public class EditPetInfoShelterFragment extends Fragment {
     private ArrayList<PetSearch> petList = new ArrayList<>();
     private ImageButton changeImage;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private EditText name, sex, breed, age, colour, marking, weight;
+    private EditText name, sex, breed, age, marking, weight;
     private EditText size, character, foundLoc, status, story;
     private RadioGroup sexRdGroup;
     private RadioButton sexRd, maleRd, femaleRd;
     private ImageView image;
     private Button btnSaveInfo;
-    private String ID, type, size1, url, health;
+    private String ID, type, size1, url, health, colour;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private Map<String, Object> data = new HashMap<>();
     private Map<String, Object> data1 = new HashMap<>();
     private Uri Uri;
     private String url1;
+    private Spinner spinColor;
 
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
@@ -75,7 +86,6 @@ public class EditPetInfoShelterFragment extends Fragment {
         image = view.findViewById(R.id.image);
         name = view.findViewById(R.id.name);
         breed = view.findViewById(R.id.breed);
-        colour = view.findViewById(R.id.colour);
         age = view.findViewById(R.id.age);
         marking = view.findViewById(R.id.marking);
         weight = view.findViewById(R.id.weight);
@@ -91,6 +101,7 @@ public class EditPetInfoShelterFragment extends Fragment {
 
         btnSaveInfo = view.findViewById(R.id.save_info);
 
+
         for (int i=0; i<petInfoList.size(); i++){
             ID = petInfoList.get(i).getID();
             type = petInfoList.get(i).getType();
@@ -104,7 +115,31 @@ public class EditPetInfoShelterFragment extends Fragment {
 
             name.setText(petInfoList.get(i).getName());
             breed.setText(petInfoList.get(i).getBreed());
-            colour.setText(petInfoList.get(i).getColour());
+//            colour.setText(petInfoList.get(i).getColour());
+
+            spinColor = view.findViewById(R.id.color);
+            final CollectionReference collection = db.collection("Pet");
+            final List<String> colorList = new ArrayList<>();
+            final ArrayAdapter<String> colorAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, colorList );
+            colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinColor.setAdapter(colorAdapter);
+            final int finalI = i;
+            collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String color = document.getString("Color");
+                        colorList.add(color);
+                    }
+                    Set<String> set = new HashSet<>(colorList);
+                    colorList.clear();
+                    colorList.addAll(set);
+                    colorList.remove(petInfoList.get(finalI).getColour());
+                    colorList.add(0, petInfoList.get(finalI).getColour());
+                    colorAdapter.notifyDataSetChanged();
+                }
+            });
+
             age.setText(petInfoList.get(i).getAge());
             marking.setText(petInfoList.get(i).getMarking());
             weight.setText(petInfoList.get(i).getWeight());
@@ -163,7 +198,7 @@ public class EditPetInfoShelterFragment extends Fragment {
         btnSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                colour = spinColor.getSelectedItem().toString();
                 String sex = null;
                 int radioSex = sexRdGroup.getCheckedRadioButtonId();
                 sexRd = view.findViewById(radioSex);
@@ -185,7 +220,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                 public void onSuccess(final android.net.Uri uri) {
                                     data.put("Name", name.getText().toString());
                                     data.put("Breed", breed.getText().toString());
-                                    data.put("Color", colour.getText().toString());
+                                    data.put("Color", colour);
                                     data.put("Sex", finalSex);
                                     data.put("Age", age.getText().toString());
                                     data.put("Marking", marking.getText().toString());
@@ -201,30 +236,30 @@ public class EditPetInfoShelterFragment extends Fragment {
                                     builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-db.collection("Pet")
-        .document(ID)
-        .update(data)
-        .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("Update", "Success");
-                PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
-                        colour.getText().toString(), finalSex, age.getText().toString(),
-                        breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
-                        character.getText().toString(), marking.getText().toString(),
-                        health, foundLoc.getText().toString(), status.getText().toString(),
-                        story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
-                petList.add(pet);
-                PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("petInfo", petList);
-                petInfoShelterFragment.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new ManagePetInfoShelterFragment());
-                ft.commit();
+                                        db.collection("Pet")
+                                                .document(ID)
+                                                .update(data)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("Update", "Success");
+                                                        PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
+                                                                colour, finalSex, age.getText().toString(),
+                                                                breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
+                                                                character.getText().toString(), marking.getText().toString(),
+                                                                health, foundLoc.getText().toString(), status.getText().toString(),
+                                                                story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                        petList.add(pet);
+                                                        PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
+                                                        Bundle bundle = new Bundle();
+                                                        bundle.putParcelableArrayList("petInfo", petList);
+                                                        petInfoShelterFragment.setArguments(bundle);
+                                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                        ft.replace(getId(), new ManagePetInfoShelterFragment());
+                                                        ft.commit();
 
-            }
-        });
+                                                    }
+                                                });
                                         }
                                     });
                                     builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
@@ -243,7 +278,7 @@ db.collection("Pet")
                 else{
                     data1.put("Name", name.getText().toString());
                     data1.put("Breed", breed.getText().toString());
-                    data1.put("Color", colour.getText().toString());
+                    data1.put("Color", colour);
                     data1.put("Sex", finalSex);
                     data1.put("Age", age.getText().toString());
                     data1.put("Marking", marking.getText().toString());
@@ -272,7 +307,7 @@ db.collection("Pet")
                                         public void onSuccess(Void aVoid) {
                                             Log.d("Update", "Success");
                                             PetSearch pet = new PetSearch(ID, name.getText().toString(), type,
-                                                    colour.getText().toString(), finalSex, age.getText().toString(),
+                                                    colour, finalSex, age.getText().toString(),
                                                     breed.getText().toString(), size1, url1, weight.getText().toString(),
                                                     character.getText().toString(), marking.getText().toString(),
                                                     health, foundLoc.getText().toString(), status.getText().toString(),

@@ -46,10 +46,10 @@ public class LogInShelterActivity extends AppCompatActivity {
                 String password = passL.getText().toString();
 
                 if(email.isEmpty() ){
-                    showMessage("Please input email");
+                    showMessage("กรุณาใส่อีเมลค่ะ");
                 }
                 else if(password.isEmpty()) {
-                    showMessage("Please input password");
+                    showMessage("กรุณาใส่รหัสผ่านค่ะ");
                 }
                 else{
                     logIn(email,password);
@@ -71,7 +71,7 @@ public class LogInShelterActivity extends AppCompatActivity {
 //                            showMessage("Can LogIn");
                         }
                         else{
-                            showMessage("Log In failed");
+                            showMessage("อีเมลหรือรหัสผ่านไม่ถูกต้อง กรุณาลองอีกครั้ง");
                         }
                     }
                 });

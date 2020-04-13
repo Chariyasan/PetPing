@@ -12,27 +12,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -44,10 +55,11 @@ public class AddPetShelterFragment extends Fragment {
 
     private RadioGroup typeRdGroup, sexRdGroup, statusRdGroup;
     private RadioButton typeRd, dogRd, catRd, sexRd, maleRd, femaleRd, statusRd, homeRd, waitRd;
-    private EditText name, breed, color, marking, age, weight, foundLoc;
+    private EditText name, breed, marking, age, weight, foundLoc;
     private EditText character, size, story, health;
+    private Spinner spinColor;
     private Button btn;
-    private String sex, type, status, size1;
+    private String sex, type, color, size1;
     private Map<String, Object> data = new HashMap<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef;
@@ -66,7 +78,6 @@ public class AddPetShelterFragment extends Fragment {
         btn = view.findViewById(R.id.button);
         name = view.findViewById(R.id.name);
         breed = view.findViewById(R.id.breed);
-        color = view.findViewById(R.id.color);
         marking = view.findViewById(R.id.marking);
         age = view.findViewById(R.id.age);
         weight = view.findViewById(R.id.weight);
@@ -92,6 +103,31 @@ public class AddPetShelterFragment extends Fragment {
         imgView = view.findViewById(R.id.img_view);
         storageRef = FirebaseStorage.getInstance().getReference();
 
+//        spinColor = view.findViewById(R.id.color);
+//        ArrayAdapter<CharSequence> colorAdapter = ArrayAdapter.createFromResource(getContext(), R.array.color_array, android.R.layout.simple_spinner_item);
+//        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinColor.setAdapter(colorAdapter);
+
+        spinColor = view.findViewById(R.id.color);
+        final CollectionReference collection = db.collection("Pet");
+        final List<String> colorList = new ArrayList<>();
+        final ArrayAdapter<String> colorAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, colorList );
+        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinColor.setAdapter(colorAdapter);
+        collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String color = document.getString("Color");
+                    colorList.add(color);
+                }
+                Set<String> set = new HashSet<>(colorList);
+                colorList.clear();
+                colorList.addAll(set);
+                colorList.add(0,"เลือกสีของน้อง");
+                colorAdapter.notifyDataSetChanged();
+            }
+        });
 
         btnChooseImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +140,7 @@ public class AddPetShelterFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                color = spinColor.getSelectedItem().toString();
                 int radioSex = sexRdGroup.getCheckedRadioButtonId();
                 sexRd = view.findViewById(radioSex);
                 if(sexRd == view.findViewById(R.id.rd_male)){
@@ -122,6 +159,26 @@ public class AddPetShelterFragment extends Fragment {
                     type = catRd.getText().toString();
                 }
 
+//                final CollectionReference collection = db.collection("Pet");
+//                final List<String> colorList = new ArrayList<>();
+//                final ArrayAdapter<String> colorAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, colorList );
+//                colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                color.setAdapter(colorAdapter);
+//                collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        for (QueryDocumentSnapshot document : task.getResult()) {
+//                            String color = document.getString("Color");
+//                            colorList.add(color);
+//                        }
+//                        Set<String> set = new HashSet<>(colorList);
+//                        colorList.clear();
+//                        colorList.addAll(set);
+////                        colorList.add(0,"ไม่ระบุ");
+//                        colorAdapter.notifyDataSetChanged();
+//                    }
+//                });
+
 //                int radioStatus = statusRdGroup.getCheckedRadioButtonId();
 //                statusRd = view.findViewById(radioStatus);
 //                if(statusRd == view.findViewById(R.id.rd_find_home)){
@@ -131,8 +188,9 @@ public class AddPetShelterFragment extends Fragment {
 //                    status = waitRd.getText().toString();
 //                }
 
+//                color.getText().toString().isEmpty()
                 if(age.getText().toString().isEmpty() && breed.getText().toString().isEmpty() && character.getText().toString().isEmpty() &&
-                        color.getText().toString().isEmpty() &&  health.getText().toString().isEmpty() && marking.getText().toString().isEmpty() &&
+                        health.getText().toString().isEmpty() && marking.getText().toString().isEmpty() &&
                         name.getText().toString().isEmpty() && foundLoc.getText().toString().isEmpty() && sex == null &&
                         story.getText().toString().isEmpty() && type == null && imageUri == null && weight.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "กรุณากรอกข้อมูลให้ครบถ้วนค่ะ", Toast.LENGTH_LONG).show();
@@ -152,7 +210,7 @@ public class AddPetShelterFragment extends Fragment {
                 else if(breed.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "กรุณาระบุสายพันธุ์สัตว์ค่ะ", Toast.LENGTH_LONG).show();
                 }
-                else if(color.getText().toString().isEmpty()){
+                else if(color == null){
                     Toast.makeText(getContext(), "กรุณาระบุลสีสัตว์ค่ะ", Toast.LENGTH_LONG).show();
                 }
                 else if(marking.getText().toString().isEmpty()){
@@ -168,7 +226,7 @@ public class AddPetShelterFragment extends Fragment {
                     Toast.makeText(getContext(), "กรุณาระบุสถานที่พบสัตว์ค่ะ", Toast.LENGTH_LONG).show();
                 }
                 else if(character.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(), "กรุณาระบุลักษณ์เฉพาะสัตว์ค่ะ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "กรุณาระบุลักษณะเฉพาะสัตว์ค่ะ", Toast.LENGTH_LONG).show();
                 }
                 else if(story.getText().toString().isEmpty()){
                     Toast.makeText(getContext(), "กรุณาระบุเรื่องราวสัตว์ค่ะ", Toast.LENGTH_LONG).show();
@@ -219,7 +277,7 @@ public class AddPetShelterFragment extends Fragment {
                                             data.put("Age", age.getText().toString());
                                             data.put("Breed", breed.getText().toString());
                                             data.put("Character", character.getText().toString());
-                                            data.put("Color", color.getText().toString());
+//                                            data.put("Color", color.getText().toString());
                                             data.put("Health", health.getText().toString());
                                             data.put("Marking", marking.getText().toString());
                                             data.put("Name", name.getText().toString());

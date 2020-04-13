@@ -35,7 +35,7 @@ public class RegisterShelterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_shelter);
-        
+
         mail = findViewById(R.id.email);
         pass = findViewById(R.id.password);
         conPass = findViewById(R.id.confirmPass);
@@ -70,25 +70,25 @@ public class RegisterShelterActivity extends AppCompatActivity {
 
                 // Check wrong input from user
                 if(email.isEmpty()){
-                    showMessage("กรุณากรอกอีเมล");
+                    showMessage("กรุณากรอกอีเมลค่ะ");
                 }
                 else if(password.isEmpty()){
-                    showMessage("กรุณากรอกพาสเวิร์ด");
+                    showMessage("กรุณากรอกรหัสผ่านค่ะ");
                 }
                 else if(!confirmPassword.equals(password)){
-                    showMessage("ยืนยันพาสเวิร์ดไม่ถูกต้อง");
+                    showMessage("กรุณาตรวจสอบรหัสผ่านอีกครั้งค่ะ");
                 }
                 else if(shelterName.isEmpty()){
-                    showMessage("กรุณากรอกชื่อศูนย์พักพิง");
+                    showMessage("กรุณากรอกชื่อศูนย์พักพิงค่ะ");
                 }
                 else if(shelterOwner.isEmpty()){
-                    showMessage("กรุณากรอกชื่อเจ้าของศูนย์พักพิง");
+                    showMessage("กรุณากรอกชื่อเจ้าของศูนย์พักพิงค่ะ");
                 }
                 else if(address.isEmpty()){
-                    showMessage("กรุณากรอกที่อยู่ศูนย์พักพิง");
+                    showMessage("กรุณากรอกที่อยู่ศูนย์พักพิงค่ะ");
                 }
                 else if(telNo.isEmpty()){
-                    showMessage("กรุณากรอกเบอร์ติดต่อศูนย์พักพิง");
+                    showMessage("กรุณากรอกเบอร์ติดต่อศูนย์พักพิงค่ะ");
                 }
                 else{
                     CreateUserAccount(email, password, shelterName, shelterOwner, address, telNo, license);
@@ -144,8 +144,8 @@ public class RegisterShelterActivity extends AppCompatActivity {
                     location = bundle.getString("address");
                     location1 = location.split(",");
                     break;
-                    default:
-                        location = null;
+                default:
+                    location = null;
             }
             data.put("Latitude", location1[0]);
             data.put("Longitude", location1[1]);

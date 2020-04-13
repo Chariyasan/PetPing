@@ -1,6 +1,8 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -65,7 +67,8 @@ public class PetProfileGeneralFragment extends Fragment {
     private TextView shelterLine;
     private String shelterID;
     private Map<String, Object> dataToSave = new HashMap<String, Object>();
-
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     private ToggleButton toggleButtonFav;
 
     @Override
@@ -236,14 +239,43 @@ public class PetProfileGeneralFragment extends Fragment {
         btnAdopt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdoptionRegulationFragment adoptionRegulation = new AdoptionRegulationFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("petProfile", petItem);
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("คุณต้องการอุปการะน้องตัวนี้ใช่หรือไม่");
 
-                adoptionRegulation.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), adoptionRegulation);
-                ft.addToBackStack(null).commit();
+                builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AdoptionRegulationFragment adoptionRegulation = new AdoptionRegulationFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("petProfile", petItem);
+
+                        adoptionRegulation.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), adoptionRegulation);
+                        ft.addToBackStack(null).commit();
+                    }
+//                        });
+//                    }
+                });
+                dialog = builder.create();
+                dialog.show();
+
+
+//                AdoptionRegulationFragment adoptionRegulation = new AdoptionRegulationFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelableArrayList("petProfile", petItem);
+//
+//                adoptionRegulation.setArguments(bundle);
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                ft.replace(getId(), adoptionRegulation);
+//                ft.addToBackStack(null).commit();
+
                 //                FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                ft.replace(getId(), new AdoptionRegulationFragment());
 //                ft.commit();

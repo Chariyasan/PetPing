@@ -111,35 +111,35 @@
                     <EditText
                         android:id="@+id/story"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="320dp"
                         android:textSize="16dp"
                         android:ems="11"
                         android:gravity="top|left"
                         android:inputType="textMultiLine"
                         android:background="@drawable/edittext_round"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:text="แท็ก" />
+<!--                    <TextView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="16dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:text="แท็ก" />-->
 
-                    <EditText
-                        android:id="@+id/tag"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:ems="11"
-                        android:hint="แท็กที่เกี่ยวข้อง"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
+<!--                    <EditText-->
+<!--                        android:id="@+id/tag"-->
+<!--                        android:layout_width="300dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="16dp"-->
+<!--                        android:ems="11"-->
+<!--                        android:hint="แท็กที่เกี่ยวข้อง"-->
+<!--                        android:inputType="textPersonName" />-->
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 

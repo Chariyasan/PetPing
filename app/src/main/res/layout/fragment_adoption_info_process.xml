@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="กรอกข้อมูลเพิ่มเติม"
+                android:text="กรุณากรอกข้อมูลเพิ่มเติม"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

@@ -25,9 +25,10 @@
             android:id="@+id/btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="6dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
             android:background="@android:color/transparent"
+            android:padding="6dp"
             android:src="@drawable/nav_search" />
     </RelativeLayout>
 

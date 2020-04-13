@@ -33,7 +33,7 @@ public class MainShelterActivity extends AppCompatActivity {
                         case R.id.nav_home:
                             fragment = new HomeShelterFragment();
                             break;
-                        case R.id.nav_info:
+                        case R.id.nav_manage:
                             fragment = new ManageInfoShelterFragment();
                             break;
                         case R.id.nav_menu:

@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="4dp"
         app:cardMaxElevation="2dp"
         app:cardElevation="1dp"
@@ -17,9 +17,11 @@
         tools:ignore="MissingConstraints">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/box_round" >
 
 
             <ImageView
@@ -30,7 +32,7 @@
                 android:id="@+id/image"
                 android:src="@drawable/ic_launcher_background"/>
 
-            <LinearLayout
+<!--            <LinearLayoutLayout-->
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end|bottom"
@@ -40,15 +42,16 @@
                     android:id="@+id/topic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:padding="5dp"
                     android:text="ชื่อ"
-                    android:textColor="#FFF"
-                    android:textSize="18dp" />
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center"/>
 
-            </LinearLayout>
+<!--            </LinearLayoutLayout>-->
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

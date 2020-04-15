@@ -101,7 +101,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                                 total++;
                             }
                             setButtonsForPagination(total);
-//                            result.setText(String.valueOf(total));
+                            result.setText(String.valueOf(total));
                             for(int i=0; i<ITEMS_IN_PAGE; i++) {
                                 tempList.add(petList.get(i));
                             }
@@ -109,12 +109,6 @@ public class ManagePetInfoShelterFragment extends Fragment {
                             adapter.filterFinding();
                             listView.setAdapter(adapter);
                             searchFilter();
-
-                            int total1 = 0;
-                            for (int i=0; i<petList1.size(); i++){
-                                total1++;
-                            }
-                            result.setText(String.valueOf(total1));
 
                         } else {
                             Log.d("Error", "Error getting documents: ", task.getException());

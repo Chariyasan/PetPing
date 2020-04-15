@@ -30,10 +30,10 @@
                 android:textSize="16dp" />
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/nav_search"
+                android:src="@drawable/search"
                 android:tint="#C6C6C6" />
         </RelativeLayout>
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
-                android:text="จำนวนัตว์ที่พบ"
+                android:text="จำนวนสัตว์ที่พบ"
                 android:textSize="16dp"/>
             <TextView
                 android:id="@+id/result"

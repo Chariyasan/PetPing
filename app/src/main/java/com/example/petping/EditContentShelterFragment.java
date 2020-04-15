@@ -76,7 +76,7 @@ public class EditContentShelterFragment extends Fragment{
             story.setText(contentList.get(i).getStory());
             ID = contentList.get(i).getID();
             tag = contentList.get(i).getTag();
-            author = contentList.get(i).getAuthorID();
+            author = contentList.get(i).getShelterID();
             imageUrl = contentList.get(i).getUrl();
         }
 

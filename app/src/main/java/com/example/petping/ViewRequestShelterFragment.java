@@ -293,7 +293,7 @@ public class ViewRequestShelterFragment extends Fragment {
                                     .update(data);
                             db.collection("Pet")
                                     .document(petID)
-                                    .update("Status", "ดำเนินการสำเร็จ");
+                                    .update("Status", "หาบ้านสำเร็จ");
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             ft.replace(getId(), new HomeShelterFragment());
                             ft.commit();

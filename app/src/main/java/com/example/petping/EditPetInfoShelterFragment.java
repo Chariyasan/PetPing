@@ -57,7 +57,7 @@ public class EditPetInfoShelterFragment extends Fragment {
     private ImageButton changeImage;
     private static final int PICK_IMAGE_REQUEST = 1;
     private EditText name, sex, breed, age, marking, weight;
-    private EditText size, character, foundLoc, status, story;
+    private EditText character, foundLoc, status, story;
     private RadioGroup sexRdGroup;
     private RadioButton sexRd, maleRd, femaleRd;
     private ImageView image;
@@ -75,7 +75,7 @@ public class EditPetInfoShelterFragment extends Fragment {
     private AlertDialog.Builder builder;
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_edit_pet_info_shelter, null);
 
         if(getArguments() != null){
@@ -89,7 +89,7 @@ public class EditPetInfoShelterFragment extends Fragment {
         age = view.findViewById(R.id.age);
         marking = view.findViewById(R.id.marking);
         weight = view.findViewById(R.id.weight);
-        size = view.findViewById(R.id.size);
+//        size = view.findViewById(R.id.size);
         character = view.findViewById(R.id.character);
         foundLoc = view.findViewById(R.id.found_location);
         status = view.findViewById(R.id.status);
@@ -105,7 +105,7 @@ public class EditPetInfoShelterFragment extends Fragment {
         for (int i=0; i<petInfoList.size(); i++){
             ID = petInfoList.get(i).getID();
             type = petInfoList.get(i).getType();
-            size1 = petInfoList.get(i).getSize();
+//            size1 = petInfoList.get(i).getSize();
             url = petInfoList.get(i).getUrl();
             health = petInfoList.get(i).getHealth();
             Glide.with(getContext())
@@ -143,7 +143,7 @@ public class EditPetInfoShelterFragment extends Fragment {
             age.setText(petInfoList.get(i).getAge());
             marking.setText(petInfoList.get(i).getMarking());
             weight.setText(petInfoList.get(i).getWeight());
-            size.setText(petInfoList.get(i).getSize());
+//            size.setText(petInfoList.get(i).getSize());
             character.setText(petInfoList.get(i).getCharacter());
             foundLoc.setText(petInfoList.get(i).getFoundLoc());
             status.setText(petInfoList.get(i).getStatus());
@@ -209,6 +209,8 @@ public class EditPetInfoShelterFragment extends Fragment {
                     sex = femaleRd.getText().toString();
                 }
 
+
+
                 final String finalSex = sex;
                 if(Uri != null){
                     final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
@@ -230,6 +232,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                     data.put("Status", status.getText().toString());
                                     data.put("Story", story.getText().toString());
                                     data.put("Image", uri.toString());
+                                    data.put("Size", size1);
 
                                     builder = new AlertDialog.Builder(getContext());
                                     builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
@@ -287,6 +290,25 @@ public class EditPetInfoShelterFragment extends Fragment {
                     data1.put("OriginalLocation", foundLoc.getText().toString());
                     data1.put("Status", status.getText().toString());
                     data1.put("Story", story.getText().toString());
+                    if(type.equals("สุนัข")){
+                        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
+                                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
+                                weight.getText().toString().equals("5")){
+//                        size.setText("S");
+                            size1 = "S";
+                        }
+                        else if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
+                                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
+                                weight.getText().toString().equals("10")){
+//                        size.setText("M");
+                            size1 = "M";
+                        }
+                        else if(weight.getText().toString().compareTo("11") > 0){
+//                        size.setText("L");
+                            size1 = "L";
+                        }
+                    }
+                    data.put("Size", size1);
 
                     builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");

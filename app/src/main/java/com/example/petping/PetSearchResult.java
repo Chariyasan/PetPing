@@ -314,7 +314,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         }
 
         //Not Choose Age & Size
-        if(color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+        if(!color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 if (petSearchList.get(i).getColour().equals(color)

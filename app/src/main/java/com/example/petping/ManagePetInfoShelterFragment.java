@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -72,11 +73,16 @@ public class ManagePetInfoShelterFragment extends Fragment {
         btnSuccess.setTypeface(null, Typeface.NORMAL);
         btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
 
+
         if(petList != null){
             petList.clear();
         }
+        if(tempList != null){
+            tempList.clear();
+        }
         db.collection("Pet")
-                .orderBy("Status")
+                .whereEqualTo("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .orderBy("Status")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -286,7 +292,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 break;
             }
         }
-        int num=0;
+
         for(int i=0; i<tempList.size(); i++){
             if(check1 == true && check2 == false && check3 == false){
                 adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);

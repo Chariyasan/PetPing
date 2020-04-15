@@ -100,35 +100,37 @@ public class UserEditFragment extends Fragment {
                                     data.put("TelNo", telNo.getText().toString());
                                     data.put("UserName", userName.getText().toString());
                                     data.put("Image", uri.toString());
-                                    db.collection("User")
-                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .collection("Information")
-                                            .document("Information")
-                                            .update(data)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    builder = new AlertDialog.Builder(getContext());
-                                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
+                                    builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
 
-                                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                    builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            db.collection("User")
+                                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .collection("Information")
+                                                    .document("Information")
+                                                    .update(data)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
+                                                        public void onComplete(@NonNull Task<Void> task) {
                                                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                             ft.replace(getId(),  new MenuFragment());
                                                             ft.commit();
                                                         }
                                                     });
-                                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
 
-                                                        }
-                                                    });
-                                                    dialog = builder.create();
-                                                    dialog.show();
-                                                }
-                                            });
+                                        }
+                                    });
+                                    builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    dialog = builder.create();
+                                    dialog.show();
+
                                 }
                             });
                         }

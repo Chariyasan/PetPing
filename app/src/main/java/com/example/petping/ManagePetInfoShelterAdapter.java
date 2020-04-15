@@ -105,7 +105,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
     }
 
     public void filterSuccess() {
-        filterStatus("ดำเนินการสำเร็จ");
+        filterStatus("หาบ้านสำเร็จ");
     }
 
     public void filterFinding() {

@@ -277,7 +277,7 @@ public class AddPetShelterFragment extends Fragment {
                                             data.put("Age", age.getText().toString());
                                             data.put("Breed", breed.getText().toString());
                                             data.put("Character", character.getText().toString());
-//                                            data.put("Color", color.getText().toString());
+                                            data.put("Color", color);
                                             data.put("Health", health.getText().toString());
                                             data.put("Marking", marking.getText().toString());
                                             data.put("Name", name.getText().toString());

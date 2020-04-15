@@ -50,7 +50,6 @@ public class Content implements Parcelable {
     }
 
 
-
     public String getID() {
         return ID;
     }
@@ -91,12 +90,16 @@ public class Content implements Parcelable {
         this.tag = tag;
     }
 
-    public String getAuthorID() {
+    public String getShelterID() {
         return shelterID;
     }
 
-    public void setAuthorID(String authorID) {
-        this.shelterID = authorID;
+    public void setShelterID(String shelterID) {
+        this.shelterID = shelterID;
+    }
+
+    public static Creator<Content> getCREATOR() {
+        return CREATOR;
     }
 
     @Override

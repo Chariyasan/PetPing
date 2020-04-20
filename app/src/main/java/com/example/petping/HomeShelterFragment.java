@@ -169,13 +169,13 @@ public class HomeShelterFragment extends Fragment {
                                 int num = 0;
                                 for(int i=0; i<homeList.size(); i++){
                                     if(homeList.get(i).getPetStatus().equals("กำลังดำเนินการ")){
-                                        adapter = new HomeShelterAdapter(getContext(), homeList);
-                                        adapter.filterWaiting();
-                                        listView.setAdapter(adapter);
                                         num++;
                                         count.setText(String.valueOf(num));
                                     }
                                 }
+                                adapter = new HomeShelterAdapter(getContext(), homeList);
+                                adapter.filterWaiting();
+                                listView.setAdapter(adapter);
                             }
                         }
                     });

@@ -47,7 +47,7 @@ public class PetProfileGeneralFragment extends Fragment {
     private ImageView imageView, imageSex;
     private TextView infoName, infoAge, infoBreed,infoStory;
     private TextView infoColor, infoSize, infoMarking, infoChar;
-    private TextView infoWeight, infoFoundLoc, infoStatus, infoMap;
+    private TextView infoWeight, infoFoundLoc, infoStatus, infoMap, infohealth;
     private ViewFlipper viewFlipper;
     private Button btnGeneral, btnStory, btnShelter;
     //    private FloatingActionButton btnAdopt;
@@ -150,6 +150,7 @@ public class PetProfileGeneralFragment extends Fragment {
         toggleButtonFav = view.findViewById(R.id.toggle_favorite);
         infoMap = view.findViewById(R.id.shelter_map);
         infoStory = view.findViewById(R.id.info_story);
+        infohealth = view.findViewById(R.id.info_health);
 
         shelterName = view.findViewById(R.id.shelter_name);
         shelterAddress = view.findViewById(R.id.shelter_address);
@@ -177,6 +178,7 @@ public class PetProfileGeneralFragment extends Fragment {
             infoStatus.setText(petProfileList.get(i).getStatus());
             infoStory.setText(petProfileList.get(i).getStory());
             shelterID = petProfileList.get(i).getShelterID();
+            infohealth.setText(petProfileList.get(i).getHealth());
 
             if(petProfileList.get(i).getSex().equals("ผู้")){
                 imageSex.setImageResource(R.drawable.sex_male);

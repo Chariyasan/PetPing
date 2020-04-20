@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,12 +22,14 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class StatusFragment extends Fragment {
     private ListView listView;
     private PetStatusAdapter petAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petList = new ArrayList<>();
+    private ArrayList<PetSearch> statusList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +55,21 @@ public class StatusFragment extends Fragment {
                                 petList.add(petSearch);
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
                                 listView.setAdapter(petAdapter);
+
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        ViewStatusFragment viewStatus = new ViewStatusFragment();
+                                        Bundle bundle = new Bundle();
+                                        statusList.add(petList.get(position));
+                                        bundle.putParcelableArrayList("viewStatus", statusList);
+
+                                        viewStatus.setArguments(bundle);
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.replace(getId(), viewStatus);
+                                        ft.addToBackStack(null).commit();
+                                    }
+                                });
                             }
                         }
                     }

@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +55,9 @@ public class AdoptionQAFragment extends Fragment {
     private String ID;
     private Map<String, Object> adop = new HashMap<>();
     private String one, two, three, four, five, six, seven, eight, nine, ten, eleven;
+
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_adoption_qa_process, null);
@@ -424,21 +429,41 @@ public class AdoptionQAFragment extends Fragment {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("Writing", "DocumentSnapshot successfully written!");
-                            HashMap<String, Object> data1 = new HashMap<>();
+                            final HashMap<String, Object> data1 = new HashMap<>();
                             String ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             data1.put(ID, documentSnapshot.get("UserName").toString());
-                            db.collection("User1")
-                                    .document("userID")
-                                    .update(data1)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("Writing", "DocumentSnapshot successfully written!");
-                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                            ft.replace(getId(), new AdoptionWaitingFragment());
-                                            ft.disallowAddToBackStack().commit();
-                                        }
-                                    });
+
+                            builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("คุณยืนยันการขอรับอุปการะใช่หรือไม่");
+
+                            builder.setNegativeButton("ไม่ใช่", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            builder.setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    db.collection("User1")
+                                            .document("userID")
+                                            .update(data1)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("Writing", "DocumentSnapshot successfully written!");
+                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                    ft.replace(getId(), new AdoptionWaitingFragment());
+                                                    ft.disallowAddToBackStack().commit();
+                                                }
+                                            });
+                                }
+                            });
+
+
+                            dialog = builder.create();
+                            dialog.show();
                         }
                     });
         }

@@ -26,10 +26,10 @@
             android:textSize="20dp"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:text="การขออุปการะ"/>
+            android:text="สถานะการขออุปการะ"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="5dp"
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:text="กำลังดำเนินการ"
-                android:textSize="18dp" />
+                android:text="กำลังตรวจสอบข้อมูล"
+                android:textSize="16dp" />
 
             <Button
                 android:id="@+id/success"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.4"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:text="ดำเนินการสำเร็จ" />
             <Button
                 android:id="@+id/reject"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.4"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:text="ไม่ผ่านพิจารณา" />
         </LinearLayout>
         <LinearLayout

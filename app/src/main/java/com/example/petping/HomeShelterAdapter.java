@@ -54,7 +54,7 @@ public class HomeShelterAdapter extends BaseAdapter {
 //    }
 
     public void filterWaiting() {
-        filterStatus("กำลังดำเนินการ");
+        filterStatus("กำลังตรวจสอบข้อมูล");
     }
 
     public void filterSuccess() {

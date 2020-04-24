@@ -24,6 +24,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,7 +34,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class ManagePetInfoShelterFragment extends Fragment {
     private ArrayList<PetSearch> petList = new ArrayList<>();
-    private ArrayList<PetSearch> petList1 = new ArrayList<>();
+//    private ArrayList<PetSearch> petList1 = new ArrayList<>();
 
     private ArrayList<PetSearch> tempList = new ArrayList<>();
     private ManagePetInfoShelterAdapter adapter;
@@ -39,16 +42,15 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private PetSearch petSearch;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button btnAddPet;
-    private TextView result;
+    private TextView found, result;
     private EditText search;
     private Button btnFinding, btnWaiting, btnSuccess, btnPrevious, btnNext;
     private View.OnClickListener clickListener;
     private boolean check1, check2, check3;
-    public int ITEMS_IN_PAGE = 5;
+    public int ITEMS_IN_PAGE = 10;
     private int noOfBtns;
     private Button[] btns;
     private View view;
-   
 
     @Nullable
     @Override
@@ -56,6 +58,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_manage_pet_info_shelter, null);
         listView = view.findViewById(R.id.listView_pet_info);
         btnAddPet = view.findViewById(R.id.btn_add_pet);
+//        found = view.findViewById(R.id.found);
         result = view.findViewById(R.id.result);
         search = view.findViewById(R.id.search);
         btnFinding = view.findViewById(R.id.finding);
@@ -97,7 +100,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                                         document.get("Story").toString(), document.get("ShelterID").toString());
                                 petList.add(petSearch);
-                                petList1.add(petSearch);
+//                                petList1.add(petSearch);
                                 total++;
                             }
                             setButtonsForPagination(total);
@@ -105,6 +108,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                             for(int i=0; i<ITEMS_IN_PAGE; i++) {
                                 tempList.add(petList.get(i));
                             }
+
                             adapter = new ManagePetInfoShelterAdapter(getFragmentManager(),getId(), getContext(), tempList);
                             adapter.filterFinding();
                             listView.setAdapter(adapter);
@@ -163,7 +167,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
 //        for(int i=0; i < adapter.getCount(); i++){
 //            num++;
 //        }
-//        result.setText(String.valueOf(num));
+//        found.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.NORMAL);
         btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnSuccess.setTypeface(null, Typeface.BOLD);
@@ -178,7 +182,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
 //        for(int i=0; i < adapter.getCount(); i++){
 //            num++;
 //        }
-//        result.setText(String.valueOf(num));
+//        found.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.BOLD);
         btnWaiting.setTextColor(Color.parseColor("#808080"));
         btnSuccess.setTypeface(null, Typeface.NORMAL);
@@ -193,7 +197,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
 //        for(int i=0; i < adapter.getCount(); i++){
 //            num++;
 //        }
-//        result.setText(String.valueOf(num));
+//        found.setText(String.valueOf(num));
         btnWaiting.setTypeface(null, Typeface.NORMAL);
         btnWaiting.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnSuccess.setTypeface(null, Typeface.NORMAL);
@@ -214,7 +218,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 adapter.getFilter().filter(s);
                 adapter.getFilter().filter(s, new Filter.FilterListener() {
                     public void onFilterComplete(int count) {
-                        result.setText(String.valueOf(count));
+                        found.setText(String.valueOf(count));
                     }
                 });
             }
@@ -280,6 +284,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
         tempList.clear();
         for (int i = start; i < (start) + ITEMS_IN_PAGE; i++) {
             if (i < petList.size()) {
+
                 // sort.add(data.get(i));
                 tempList.add(petList.get(i));
             } else {

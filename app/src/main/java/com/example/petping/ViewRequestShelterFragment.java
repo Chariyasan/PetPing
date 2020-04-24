@@ -264,7 +264,7 @@ public class ViewRequestShelterFragment extends Fragment {
         });
 
 
-        if (status.equals("กำลังดำเนินการ")) {
+        if (status.equals("กำลังตรวจสอบข้อมูล")) {
             btnSaveInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

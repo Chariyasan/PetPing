@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +103,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
         }
     }
     public void filterWaiting() {
-        filterStatus("กำลังดำเนินการ");
+        filterStatus("กำลังตรวจสอบข้อมูล");
     }
 
     public void filterSuccess() {
@@ -120,6 +122,12 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
                 filterList.add(pet);
             }
         }
+        Collections.sort(filterList, new Comparator<PetSearch>() {
+            @Override
+            public int compare(PetSearch o1, PetSearch o2) {
+                return o1.getStatus().compareTo(o2.getStatus());
+            }
+        });
         notifyDataSetChanged();
     }
 

@@ -165,10 +165,11 @@ public class HomeShelterFragment extends Fragment {
                                     HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
                                             document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
                                     homeList.add(homeShelter);
+                                    Log.d("PetID", document.getId());
                                 }
                                 int num = 0;
                                 for(int i=0; i<homeList.size(); i++){
-                                    if(homeList.get(i).getPetStatus().equals("กำลังดำเนินการ")){
+                                    if(homeList.get(i).getPetStatus().equals("กำลังตรวจสอบข้อมูล")){
                                         num++;
                                         count.setText(String.valueOf(num));
                                     }
@@ -200,8 +201,6 @@ public class HomeShelterFragment extends Fragment {
                 ViewRequestShelterFragment viewRequest = new ViewRequestShelterFragment();
                 Bundle bundle = new Bundle();
 //                homeShelter.add(homeList.get(position));
-                Log.d("Position", String.valueOf(position));
-//
                 bundle.putParcelableArrayList("homeShelter", homeList1);
                 viewRequest.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();

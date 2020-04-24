@@ -49,6 +49,20 @@
                 android:layout_marginStart="5dp"
                 android:text="จำนวนสัตว์ที่พบ"
                 android:textSize="16dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/found"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:textSize="16dp"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:text="จาก"-->
+                <!--android:textSize="16dp"/>-->
             <TextView
                 android:id="@+id/result"
                 android:layout_width="wrap_content"
@@ -89,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:background="@android:color/transparent"
-                android:text="กำลังดำเนินการ"
+                android:text="กำลังตรวจสอบข้อมูล"
                 android:textSize="16dp" />
 
             <Button

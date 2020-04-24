@@ -150,7 +150,7 @@ public class ManagePetInfoShelterAdapter extends BaseAdapter  implements Filtera
 
                 FragmentTransaction ft = fragment.beginTransaction();
                 ft.replace(id, petInfo);
-                ft.commit();
+                ft.addToBackStack(null).commit();
 
             }
         });

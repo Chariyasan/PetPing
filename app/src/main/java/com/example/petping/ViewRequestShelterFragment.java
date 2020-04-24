@@ -67,6 +67,7 @@ public class ViewRequestShelterFragment extends Fragment {
             status = adoptionList.get(i).getPetStatus();
 //            Log.d("AdoptionList", adoptionList.get(i).getuID());
         }
+
         btnAdopter = view.findViewById(R.id.btn_adopter_info);
         btnBasicQ = view.findViewById(R.id.btn_basic_q);
         btnPet = view.findViewById(R.id.btn_pet_info);

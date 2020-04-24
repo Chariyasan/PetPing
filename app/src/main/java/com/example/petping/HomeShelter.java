@@ -63,6 +63,14 @@ public class HomeShelter implements Parcelable {
 
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getUserImage() {
         return userImage;
     }

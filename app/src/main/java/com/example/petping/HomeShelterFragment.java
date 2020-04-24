@@ -181,51 +181,28 @@ public class HomeShelterFragment extends Fragment {
                     });
         }
 
-//        btnReject.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int num = 0;
-//                for(int i=0; i < adapter.getCount(); i++){
-//                    num++;
-//                }
-//                count.setText(String.valueOf(num));
-//            }
-//        });
-//
-//        btnWaiting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                adapter.filterWaiting();
-//                int num = 0;
-//                for(int i=0; i < adapter.getCount(); i++){
-//                    num++;
-//                }
-//                count.setText(String.valueOf(num));
-//            }
-//        });
-//
-//        btnSuccess.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                adapter.filterSuccess();
-//                int num = 0;
-//                for(int i=0; i < adapter.getCount(); i++){
-//                    num++;
-//                }
-//                count.setText(String.valueOf(num));
-//            }
-//        });
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ArrayList<HomeShelter> homeList1 = new ArrayList<>();
+                HomeShelter home = (HomeShelter) parent.getItemAtPosition(position);
+                String petId = home.getPetID();
+                String uID = home.getuID();
+                String userName = home.getUserName();
+                String userImage = home.getUserImage();
+                String petName = home.getPetName();
+                String petStatus = home.getPetStatus();
+                String petImage = home.getURL();
+                String dateTime = home.getDate();
+
+                HomeShelter homeShelter1 = new HomeShelter(petId, uID, userName, userImage, petName, petStatus, petImage, dateTime);
+                homeList1.add(homeShelter1);
                 ViewRequestShelterFragment viewRequest = new ViewRequestShelterFragment();
                 Bundle bundle = new Bundle();
-                homeShelter.add(homeList.get(position));
-//                for(int i=0; i<homeShelter.size(); i++){
-//                    Log.d("homeShelter", homeShelter.get(i).getuID());
-//                }
-                bundle.putParcelableArrayList("homeShelter", homeShelter);
+//                homeShelter.add(homeList.get(position));
+                Log.d("Position", String.valueOf(position));
+//
+                bundle.putParcelableArrayList("homeShelter", homeList1);
                 viewRequest.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), viewRequest);

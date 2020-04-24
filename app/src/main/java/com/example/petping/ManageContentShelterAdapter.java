@@ -68,7 +68,7 @@ public class ManageContentShelterAdapter extends BaseAdapter {
 
                 FragmentTransaction ft = fragment.beginTransaction();
                 ft.replace(id, content);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
         return view;

@@ -22,7 +22,6 @@ public class SelectTypeUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //ใช้อันที่ comment
                 Intent intent = new Intent(SelectTypeUserActivity.this, LogInShelterActivity.class);
-//                Intent intent = new Intent(SelectTypeUserActivity.this, MainShelterActivity.class);
                 startActivity(intent);
                 finish();
             }

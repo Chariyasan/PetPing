@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import java.util.Set;
 public class PetSearchResult extends Fragment implements DialogFiltering.filterSelected{
     private ArrayList<PetSearch> petSearchList;
     private ArrayList<PetSearch> petSearchFilter;
-    private ListView listView;
+    private GridView listView;
     private PetListViewAdapter petAdapter;
     private ArrayList<PetSearch> petItem;
     private ImageButton btnFiltering;
@@ -63,7 +64,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         resultFound.setText(String.valueOf(count));
 
         //Show pet list after searching
-        listView = (ListView) temp.findViewById(R.id.listView_pet);
+        listView = (GridView) temp.findViewById(R.id.listView_pet);
         petAdapter = new PetListViewAdapter(getContext(), petSearchList);
         listView.setAdapter(petAdapter);
 
@@ -74,7 +75,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
                 Bundle bundle = new Bundle();
                 petItem.add(petSearchList.get(position));
-                bundle.putSerializable("petProfile", petItem);
+                bundle.putParcelableArrayList("petProfile", petItem);
 
                 for (int i = 0; i < petItem.size(); i++) {
                     saveIntoHistory("petID", petItem.get(i).getID());
@@ -83,7 +84,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 petProfile.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(getId(), petProfile);
-                ft.commit();
+                ft.addToBackStack(null).commit();
             }
         });
 
@@ -483,22 +484,6 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
             petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
             listView.setAdapter(petAdapter);
         }
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                petItem = new ArrayList<>();
-                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
-                Bundle bundle = new Bundle();
-                petItem.add(petSearchFilter.get(position));
-                bundle.putParcelableArrayList("petProfile", petItem);
-
-                petProfile.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), petProfile);
-                ft.addToBackStack(null).commit();
-            }
-        });
     }
 
     private void saveIntoHistory(String KEY_PETID, final String petID) {

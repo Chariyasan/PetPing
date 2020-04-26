@@ -218,7 +218,7 @@ public class ManagePetInfoShelterFragment extends Fragment {
                 adapter.getFilter().filter(s);
                 adapter.getFilter().filter(s, new Filter.FilterListener() {
                     public void onFilterComplete(int count) {
-                        found.setText(String.valueOf(count));
+                        result.setText(String.valueOf(count));
                     }
                 });
             }

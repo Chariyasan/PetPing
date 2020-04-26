@@ -97,10 +97,38 @@ public class AdoptionInfoFragment extends Fragment {
                     sex = femaleRd.getText().toString();
                 }
 
-                if(name.isEmpty() || nid.isEmpty() || DOB.isEmpty() || tel.isEmpty() || sex.isEmpty() || addr.isEmpty() || job.isEmpty() || salary.isEmpty()){
+                if(imageUri == null && name.isEmpty() && nid.isEmpty() && DOB.isEmpty() && tel.isEmpty()
+                        && sex.isEmpty() && addr.isEmpty() && job.isEmpty() && salary.isEmpty()){
                     showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
                 }
-                if(imageUri != null){
+                else if(imageUri == null){
+                    showMessage("กรุณาเลือกรูปภาพของคุณค่ะ");
+                }
+                else if(name.isEmpty()){
+                    showMessage("กรุณาระบุชื่อค่ะ");
+                }
+                else if(nid.isEmpty()){
+                    showMessage("กรุณาระบุเลขบัตรประชาชนค่ะ");
+                }
+                else if(DOB.isEmpty()){
+                    showMessage("กรุณาระบุเวันเกิดค่ะ");
+                }
+                else if(tel.isEmpty()){
+                    showMessage("กรุณาระบุเเบอร์โทรศัพท์ค่ะ");
+                }
+                else if(sex.isEmpty()){
+                    showMessage("กรุณาระบุเเพศค่ะ");
+                }
+                else if(addr.isEmpty()){
+                    showMessage("กรุณาระบุเที่อยู่ค่ะ");
+                }
+                else if(job.isEmpty()){
+                    showMessage("กรุณาระบุอาชีพค่ะ");
+                }
+                else if(salary.isEmpty()){
+                    showMessage("กรุณาเงินเดือนค่ะ");
+                }
+                else{
                     final StorageReference fileReference = storageRef.child(name + "." + getFileExtension(imageUri));
                     fileReference.putFile(imageUri)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -141,9 +169,6 @@ public class AdoptionInfoFragment extends Fragment {
                                     });
                                 }
                             });
-                }
-                else{
-                    showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
                 }
             }
         });

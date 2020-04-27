@@ -162,7 +162,7 @@ public class HomeShelterFragment extends Fragment {
                             if(task.isSuccessful()){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d("name", document.get("UserName").toString());
-                                    HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("UserName").toString(), document.get("UserImage").toString(),
+                                    HomeShelter homeShelter = new HomeShelter(document.getId(), value.get(finalI1), document.get("adoptUserName").toString(), document.get("adoptImage").toString(),
                                             document.get("petName").toString(), document.get("petStatus").toString(), document.get("petURL").toString(), document.get("DateTime").toString());
                                     homeList.add(homeShelter);
                                     Log.d("PetID", document.getId());

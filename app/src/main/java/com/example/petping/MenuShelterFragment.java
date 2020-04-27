@@ -69,17 +69,18 @@ public class MenuShelterFragment extends Fragment {
                             Glide.with(getContext())
                                     .load(documentSnapshot.get("Image").toString())
                                     .into(image);
+                            name.setText(documentSnapshot.get("Name").toString());
+                            owner.setText(documentSnapshot.get("Owner").toString());
+                            license.setText(documentSnapshot.get("License").toString());
+                            address.setText(documentSnapshot.get("Address").toString());
+                            email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                            telNo.setText(documentSnapshot.get("TelNo").toString());
+                            facebook.setText(documentSnapshot.get("Facebook").toString());
+                            instagram.setText(documentSnapshot.get("Instagram").toString());
+                            lineID.setText(documentSnapshot.get("LineID").toString());
                         }
 
-                        name.setText(documentSnapshot.get("Name").toString());
-                        owner.setText(documentSnapshot.get("Owner").toString());
-                        license.setText(documentSnapshot.get("License").toString());
-                        address.setText(documentSnapshot.get("Address").toString());
-                        email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                        telNo.setText(documentSnapshot.get("TelNo").toString());
-                        facebook.setText(documentSnapshot.get("Facebook").toString());
-                        instagram.setText(documentSnapshot.get("Instagram").toString());
-                        lineID.setText(documentSnapshot.get("LineID").toString());
+
                     }
                 });
 

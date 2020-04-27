@@ -128,24 +128,24 @@ public class ViewRequestShelterFragment extends Fragment {
         btnPet.setTypeface(null, Typeface.NORMAL);
         btnPet.setTextColor(Color.parseColor("#FFAFAFAF"));
 
-        db.collection("User")
-                .document(uID)
-                .collection("Information")
-                .document("Information")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        Log.d("Flipper", documentSnapshot.getData().toString());
-                        adoptName.setText(documentSnapshot.get("Name").toString());
-                        adoptNid.setText(documentSnapshot.get("NID").toString());
-                        adoptDOB.setText(documentSnapshot.get("DOB").toString());
-                        adoptTel.setText(documentSnapshot.get("TelNo").toString());
-                        adoptAddr.setText(documentSnapshot.get("Address").toString());
-                        adoptJob.setText(documentSnapshot.get("Job").toString());
-                        adoptSalary.setText(documentSnapshot.get("Salary").toString());
-                    }
-                });
+//        db.collection("User")
+//                .document(uID)
+//                .collection("Information")
+//                .document("Information")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+////                        Log.d("Flipper", documentSnapshot.getData().toString());
+//                        adoptName.setText(documentSnapshot.get("Name").toString());
+//                        adoptNid.setText(documentSnapshot.get("NID").toString());
+//                        adoptDOB.setText(documentSnapshot.get("DOB").toString());
+//                        adoptTel.setText(documentSnapshot.get("TelNo").toString());
+//                        adoptAddr.setText(documentSnapshot.get("Address").toString());
+//                        adoptJob.setText(documentSnapshot.get("Job").toString());
+//                        adoptSalary.setText(documentSnapshot.get("Salary").toString());
+//                    }
+//                });
 
         db.collection("RequestAdoption")
                 .document(uID)
@@ -159,7 +159,7 @@ public class ViewRequestShelterFragment extends Fragment {
                                 .load(document.get("petURL"))
                                 .into(petImageQA);
                         Glide.with(getContext())
-                                .load(document.get("UserImage"))
+                                .load(document.get("adoptImage"))
                                 .into(adoptImageQA);
                         petName.setText(document.get("petName").toString());
                         petBreed.setText(document.get("petBreed").toString());
@@ -171,6 +171,14 @@ public class ViewRequestShelterFragment extends Fragment {
                         petSize.setText(document.get("petSize").toString());
                         petCharacter.setText(document.get("petCharacter").toString());
                         petFoundLoc.setText(document.get("petFoundLoc").toString());
+
+                        adoptName.setText(document.get("adoptName").toString());
+                        adoptNid.setText(document.get("adoptNID").toString());
+                        adoptDOB.setText(document.get("adoptDOB").toString());
+                        adoptTel.setText(document.get("adoptTelNo").toString());
+                        adoptAddr.setText(document.get("adoptAddress").toString());
+                        adoptJob.setText(document.get("adoptJob").toString());
+                        adoptSalary.setText(document.get("adoptSalary").toString());
 //                        status = document.get("petStatus").toString();
 //                        adoptStatus.setText(document.get("petStatus").toString());
                     }

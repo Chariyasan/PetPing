@@ -82,7 +82,6 @@ public class UserEditFragment extends Fragment {
 
                         userName.setText(documentSnapshot.get("UserName").toString());
                         telNo.setText(documentSnapshot.get("TelNo").toString());
-                        name = documentSnapshot.get("Name").toString();
                     }
                 });
 

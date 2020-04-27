@@ -50,8 +50,9 @@ public class AdoptionInfoFragment extends Fragment {
     private ImageView imageView;
     private RadioGroup sexRdGroup;
     private RadioButton sexRd, maleRd, femaleRd;
-    private String sex, name, nid, DOB, tel, addr, job, salary;
+    private String sex, name, nid, DOB, tel, addr, job, salary, ID;
     private Map<String, Object> data = new HashMap<>();
+    private Map<String, Object> data1 = new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class AdoptionInfoFragment extends Fragment {
                 }
 
                 if(imageUri == null && name.isEmpty() && nid.isEmpty() && DOB.isEmpty() && tel.isEmpty()
-                        && sex.isEmpty() && addr.isEmpty() && job.isEmpty() && salary.isEmpty()){
+                        && sex == null && addr.isEmpty() && job.isEmpty() && salary.isEmpty()){
                     showMessage("กรุณากรอกข้อมูลให้ครบถ้วนค่ะ");
                 }
                 else if(imageUri == null){
@@ -116,7 +117,7 @@ public class AdoptionInfoFragment extends Fragment {
                 else if(tel.isEmpty()){
                     showMessage("กรุณาระบุเเบอร์โทรศัพท์ค่ะ");
                 }
-                else if(sex.isEmpty()){
+                else if(sex == null){
                     showMessage("กรุณาระบุเเพศค่ะ");
                 }
                 else if(addr.isEmpty()){
@@ -137,32 +138,49 @@ public class AdoptionInfoFragment extends Fragment {
                                     fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
-                                            data.put("Name", name);
-                                            data.put("NID", nid);
-                                            data.put("DOB", DOB);
-                                            data.put("TelNo", tel);
-                                            data.put("Sex", sex);
-                                            data.put("Address", addr);
-                                            data.put("Job", job);
-                                            data.put("Salary", salary);
-                                            data.put("Image", uri.toString());
 
+                                            data1.put("Image", uri.toString());
+                                            data1.put("TelNo", tel);
+
+                                            data.put("adoptName", name);
+                                            data.put("adoptNID", nid);
+                                            data.put("adoptDOB", DOB);
+                                            data.put("adoptSex", sex);
+                                            data.put("adoptAddress", addr);
+                                            data.put("adoptJob", job);
+                                            data.put("adoptSalary", salary);
+                                            data.put("adoptImage", uri.toString());
+                                            data.put("adoptTelNo", tel);
+                                            for(int i=0; i<petProfileList.size(); i++) {
+                                                ID = petProfileList.get(i).getID();
+                                            }
                                             db.collection("User")
                                                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                     .collection("Information")
                                                     .document("Information")
-                                                    .update(data)
+                                                    .update(data1)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            AdoptionQAFragment adoptionQA = new AdoptionQAFragment();
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putParcelableArrayList("petProfile", petProfileList);
 
-                                                            adoptionQA.setArguments(bundle);
-                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                                                            ft.replace(getId(), adoptionQA);
-                                                            ft.addToBackStack(null).commit();
+                                                            db.collection("RequestAdoption")
+                                                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                    .collection("Adoption")
+                                                                    .document(ID)
+                                                                    .set(data)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            AdoptionQAFragment adoptionQA = new AdoptionQAFragment();
+                                                                            Bundle bundle = new Bundle();
+                                                                            bundle.putParcelableArrayList("petProfile", petProfileList);
+
+                                                                            adoptionQA.setArguments(bundle);
+                                                                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                                            ft.replace(getId(), adoptionQA);
+                                                                            ft.addToBackStack(null).commit();
+                                                                        }
+                                                                    });
                                                         }
                                                     });
                                         }

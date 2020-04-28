@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -118,27 +119,62 @@ public class EditPetInfoShelterFragment extends Fragment {
 //            colour.setText(petInfoList.get(i).getColour());
 
             spinColor = view.findViewById(R.id.color);
-            final CollectionReference collection = db.collection("Pet");
+            final CollectionReference collection = db.collection("PetColor");
             final List<String> colorList = new ArrayList<>();
             final ArrayAdapter<String> colorAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, colorList );
             colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinColor.setAdapter(colorAdapter);
             final int finalI = i;
-            collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String color = document.getString("Color");
-                        colorList.add(color);
-                    }
-                    Set<String> set = new HashSet<>(colorList);
-                    colorList.clear();
-                    colorList.addAll(set);
-                    colorList.remove(petInfoList.get(finalI).getColour());
-                    colorList.add(0, petInfoList.get(finalI).getColour());
-                    colorAdapter.notifyDataSetChanged();
-                }
-            });
+            if(type.equals("สุนัข")){
+                collection.document("Dog").get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                for(Object key: documentSnapshot.getData().values()){
+                                    colorList.add(key.toString());
+                                }
+                                Set<String> set = new HashSet<>(colorList);
+                                colorList.clear();
+                                colorList.addAll(set);
+                                colorList.remove(petInfoList.get(finalI).getColour());
+                                colorList.add(0, petInfoList.get(finalI).getColour());
+                                colorAdapter.notifyDataSetChanged();
+                            }
+                        });
+            }
+            if(type.equals("แมว")){
+                collection.document("Cat").get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                for(Object key: documentSnapshot.getData().values()){
+                                    colorList.add(key.toString());
+                                }
+                                Set<String> set = new HashSet<>(colorList);
+                                colorList.clear();
+                                colorList.addAll(set);
+                                colorList.remove(petInfoList.get(finalI).getColour());
+                                colorList.add(0, petInfoList.get(finalI).getColour());
+                                colorAdapter.notifyDataSetChanged();
+                            }
+                        });
+            }
+//            final int finalI = i;
+//            collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String color = document.getString("Color");
+//                        colorList.add(color);
+//                    }
+//                    Set<String> set = new HashSet<>(colorList);
+//                    colorList.clear();
+//                    colorList.addAll(set);
+//                    colorList.remove(petInfoList.get(finalI).getColour());
+//                    colorList.add(0, petInfoList.get(finalI).getColour());
+//                    colorAdapter.notifyDataSetChanged();
+//                }
+//            });
 
             age.setText(petInfoList.get(i).getAge());
             marking.setText(petInfoList.get(i).getMarking());
@@ -160,33 +196,10 @@ public class EditPetInfoShelterFragment extends Fragment {
                 femaleRd.setChecked(true);
             }
 
-//            int radioSex = sexRdGroup.getCheckedRadioButtonId();
-//            sexRd = view.findViewById(radioSex);
-//            if(sexRd == view.findViewById(R.id.rd_male)){
-//                sex = maleRd.getText().toString();
-//            }
-//            else if(sexRd == view.findViewById(R.id.rd_female)){
-//                sex = femaleRd.getText().toString();
-//            }
         }
 
-//        btnInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.view_info)));
-//                btnInfo.setTypeface(null, Typeface.BOLD);
-//                btnStory.setTypeface(null, Typeface.NORMAL);
-//            }
-//        });
-//
-//        btnStory.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(view.findViewById(R.id.story)));
-//                btnStory.setTypeface(null, Typeface.BOLD);
-//                btnInfo.setTypeface(null, Typeface.NORMAL);
-//            }
-//        });
+
+
 
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,8 +222,6 @@ public class EditPetInfoShelterFragment extends Fragment {
                     sex = femaleRd.getText().toString();
                 }
 
-
-
                 final String finalSex = sex;
                 if(Uri != null){
                     final StorageReference fileReference = storageRef.child(name.getText().toString() + "." + getFileExtension(Uri));
@@ -220,6 +231,32 @@ public class EditPetInfoShelterFragment extends Fragment {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<android.net.Uri>() {
                                 @Override
                                 public void onSuccess(final android.net.Uri uri) {
+                                    if(type == "สุนัข"){
+                                        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
+                                                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
+                                                weight.getText().toString().equals("5")){
+                                            size1 = "S";
+                                        }
+                                        else if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
+                                                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
+                                                weight.getText().toString().equals("10")){
+                                            size1 = "M";
+                                        }
+                                        else if(weight.getText().toString().compareTo("11") > 0){
+                                            size1 = "L";
+                                        }
+                                    }
+                                    else if(type == "แมว"){
+                                        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") || weight.getText().toString().equals("3") ){
+                                            size1 = "S";
+                                        }
+                                        else if(weight.getText().toString().equals("4") || weight.getText().toString().equals("5") || weight.getText().toString().equals("6")){
+                                            size1 = "M";
+                                        }
+                                        else if(weight.getText().toString().compareTo("6") > 0){
+                                            size1 = "L";
+                                        }
+                                    }
                                     data.put("Name", name.getText().toString());
                                     data.put("Breed", breed.getText().toString());
                                     data.put("Color", colour);
@@ -290,24 +327,6 @@ public class EditPetInfoShelterFragment extends Fragment {
                     data1.put("OriginalLocation", foundLoc.getText().toString());
                     data1.put("Status", status.getText().toString());
                     data1.put("Story", story.getText().toString());
-                    if(type.equals("สุนัข")){
-                        if(weight.getText().toString().equals("1") || weight.getText().toString().equals("2") ||
-                                weight.getText().toString().equals("3") || weight.getText().toString().equals("4") ||
-                                weight.getText().toString().equals("5")){
-//                        size.setText("S");
-                            size1 = "S";
-                        }
-                        else if(weight.getText().toString().equals("6") || weight.getText().toString().equals("7") ||
-                                weight.getText().toString().equals("8") || weight.getText().toString().equals("9") ||
-                                weight.getText().toString().equals("10")){
-//                        size.setText("M");
-                            size1 = "M";
-                        }
-                        else if(weight.getText().toString().compareTo("11") > 0){
-//                        size.setText("L");
-                            size1 = "L";
-                        }
-                    }
                     data.put("Size", size1);
 
                     builder = new AlertDialog.Builder(getContext());

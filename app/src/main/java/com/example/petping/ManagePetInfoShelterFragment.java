@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +55,9 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private Button[] btns;
     private View view;
 
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+    private String type;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) { 
@@ -124,9 +130,49 @@ public class ManagePetInfoShelterFragment extends Fragment {
         btnAddPet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), new AddPetShelterFragment());
-                ft.addToBackStack(null).commit();
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("เลือกประเภทของสัตว์");
+
+
+                final String[] types = {"สุนัข","แมว"};
+                int check = -1;
+                builder.setSingleChoiceItems(types, check, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                type = types[0];
+                                break;
+                            case 1:
+                                type = types[1];
+                                break;
+                        }
+//                        Log.d("Test1", type);
+                    }
+                });
+
+                builder.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AddPetShelterFragment addPet = new AddPetShelterFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("petType", type);
+
+                        addPet.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(getId(), addPet);
+                        ft.addToBackStack(null).commit();
+                    }
+                });
+
+                dialog = builder.create();
+                dialog.show();
             }
         });
     

@@ -113,45 +113,45 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:padding="5dp"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:id="@+id/textView_type"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:text="ประเภทสัตว์" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/textView_type"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="16dp"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:text="ประเภทสัตว์" />-->
 
-                    <RadioGroup
-                        android:id="@+id/rd_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/rd_type"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/rd_dog"
-                            android:layout_width="70dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:text="สุนัข"
-                            android:textSize="16dp"
-                            android:textColor="#808080"/>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/rd_dog"-->
+                            <!--android:layout_width="70dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginEnd="10dp"-->
+                            <!--android:text="สุนัข"-->
+                            <!--android:textSize="16dp"-->
+                            <!--android:textColor="#808080"/>-->
 
-                        <RadioButton
-                            android:id="@+id/rd_cat"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
-                            android:text="แมว"
-                            android:textSize="16dp"
-                            android:textColor="#808080"/>
-                    </RadioGroup>
-                </LinearLayout>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/rd_cat"-->
+                            <!--android:layout_width="100dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginEnd="5dp"-->
+                            <!--android:text="แมว"-->
+                            <!--android:textSize="16dp"-->
+                            <!--android:textColor="#808080"/>-->
+                    <!--</RadioGroup>-->
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -334,13 +334,18 @@
 
                     <EditText
                         android:id="@+id/age"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="11"
                         android:hint="อายุ"
                         android:inputType="number"
                         android:textSize="16dp"
                         android:textColor="#808080"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="ปี"
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -32,6 +32,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -120,13 +122,15 @@ public class AddPetShelterFragment extends Fragment {
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinColor.setAdapter(colorAdapter);
         if(selectedType == "สุนัข"){
-            collection.document("Dog").get()
+            collection.document("Dog")
+                    .get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             for(Object key: documentSnapshot.getData().values()){
                                 colorList.add(key.toString());
                             }
+                            Collections.sort(colorList);
                             colorList.add(0,"เลือกสีของน้อง");
                             colorAdapter.notifyDataSetChanged();
                         }
@@ -140,6 +144,7 @@ public class AddPetShelterFragment extends Fragment {
                             for(Object key: documentSnapshot.getData().values()){
                                 colorList.add(key.toString());
                             }
+                            Collections.sort(colorList);
                             colorList.add(0,"เลือกสีของน้อง");
                             colorAdapter.notifyDataSetChanged();
                         }

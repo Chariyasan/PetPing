@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,8 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,7 +47,7 @@ public class DialogFiltering extends DialogFragment {
     private CheckBox sizeS;
     private CheckBox sizeM;
     private CheckBox sizeL;
-    private Spinner spinColor;
+    private Spinner spinColor, spinBreed;
     private RadioGroup radioGroupSex;
     private RadioButton radioButton;
     private RadioButton maleBtn;
@@ -55,6 +58,7 @@ public class DialogFiltering extends DialogFragment {
     private String type;
     private String sex;
     private String color;
+    private String breed;
     private TextView textS, textM, textL;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -79,28 +83,32 @@ public class DialogFiltering extends DialogFragment {
 //        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinColor.setAdapter(colorAdapter);
 
-//      Color
-        final CollectionReference collection = db.collection("Pet");
+        //Color
+        final CollectionReference collection = db.collection("PetColor");
         spinColor = view.findViewById(R.id.color_spinner);
         final List<String> colorList = new ArrayList<>();
         final ArrayAdapter<String> colorAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, colorList );
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinColor.setAdapter(colorAdapter);
-        collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String color = document.getString("Color");
-                    colorList.add(color);
-                }
-                Set<String> set = new HashSet<>(colorList);
-                colorList.clear();
-                colorList.addAll(set);
-                colorList.add(0,"ไม่ระบุ");
-                colorAdapter.notifyDataSetChanged();
-            }
-        });
 
+        //Breed
+//        spinBreed = view.findViewById(R.id.breed_spinner);
+//        final List<String> breedList = new ArrayList<>();
+//        final ArrayAdapter<String> breedAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, breedList );
+//        breedAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinBreed.setAdapter(breedAdapter);
+
+        final AutoCompleteTextView breedSelected = view.findViewById(R.id.select_breed);
+        final List<String> breedList = new ArrayList<>();
+        final ArrayAdapter<String> breedAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, breedList);
+        breedSelected.setAdapter(breedAdapter);
+
+//        breedSelected.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                breedSelected.showDropDown();
+//            }
+//        });
         //Sex
         radioGroupSex = view.findViewById(R.id.rd_sex);
         maleBtn = view.findViewById(R.id.rd_male);
@@ -120,6 +128,40 @@ public class DialogFiltering extends DialogFragment {
             textS.setVisibility(View.VISIBLE);
             textM.setVisibility(View.VISIBLE);
             textL.setVisibility(View.VISIBLE);
+
+            collection.document("Dog").get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            for(Object key: documentSnapshot.getData().values()){
+                                colorList.add(key.toString());
+                            }
+                            Collections.sort(colorList);
+                            colorList.add(0,"ไม่ระบุ");
+                            colorAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+            db.collection("Pet")
+                    .whereEqualTo("Type", "สุนัข")
+                    .whereEqualTo("Status", "กำลังหาบ้าน")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String breed = document.getString("Breed");
+                                    breedList.add(breed);
+                                }
+                                Set<String> set = new HashSet<>(breedList);
+                                breedList.clear();
+                                breedList.addAll(set);
+                                Collections.sort(breedList);
+//                                breedAdapter.notifyDataSetChanged();
+
+                        }
+                    });
         }
         if(type.equals("แมว")){
             textS.setText("1-3 กิโลกรัม");
@@ -128,6 +170,39 @@ public class DialogFiltering extends DialogFragment {
             textS.setVisibility(View.VISIBLE);
             textM.setVisibility(View.VISIBLE);
             textL.setVisibility(View.VISIBLE);
+
+            collection.document("Cat").get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            for(Object key: documentSnapshot.getData().values()){
+                                colorList.add(key.toString());
+                            }
+                            Collections.sort(colorList);
+                            colorList.add(0,"ไม่ระบุ");
+                            colorAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+            db.collection("Pet")
+                    .whereEqualTo("Type", "แมว")
+                    .whereEqualTo("Status", "กำลังหาบ้าน")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String breed = document.getString("Breed");
+                                    breedList.add(breed);
+                                }
+                                Set<String> set = new HashSet<>(breedList);
+                                breedList.clear();
+                                breedList.addAll(set);
+                                Collections.sort(breedList);
+//                                breedAdapter.notifyDataSetChanged();
+                        }
+                    });
         }
 
         builder.setView(view)
@@ -184,7 +259,9 @@ public class DialogFiltering extends DialogFragment {
                             radioGroupSex.clearCheck();
                         }
                         color = spinColor.getSelectedItem().toString();
-                        mOnInputSelected.sendFiltering(color, sex, petSearchAge, petSearchSize);
+                        breed = breedSelected.getText().toString();
+                        Log.d("Breed", breed);
+                        mOnInputSelected.sendFiltering(color, sex, petSearchAge, petSearchSize, breed);
                     }
                 });
         return builder.create();
@@ -202,6 +279,6 @@ public class DialogFiltering extends DialogFragment {
     }
 
     public interface filterSelected{
-        void sendFiltering(String color, String sex, ArrayList<String> petSearchAge, ArrayList<String> petSearchSize);
+        void sendFiltering(String color, String sex, ArrayList<String> petSearchAge, ArrayList<String> petSearchSize, String breed);
     }
 }

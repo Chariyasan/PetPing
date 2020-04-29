@@ -39,6 +39,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -133,9 +134,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                 for(Object key: documentSnapshot.getData().values()){
                                     colorList.add(key.toString());
                                 }
-                                Set<String> set = new HashSet<>(colorList);
-                                colorList.clear();
-                                colorList.addAll(set);
+                                Collections.sort(colorList);
                                 colorList.remove(petInfoList.get(finalI).getColour());
                                 colorList.add(0, petInfoList.get(finalI).getColour());
                                 colorAdapter.notifyDataSetChanged();
@@ -150,31 +149,13 @@ public class EditPetInfoShelterFragment extends Fragment {
                                 for(Object key: documentSnapshot.getData().values()){
                                     colorList.add(key.toString());
                                 }
-                                Set<String> set = new HashSet<>(colorList);
-                                colorList.clear();
-                                colorList.addAll(set);
+                                Collections.sort(colorList);
                                 colorList.remove(petInfoList.get(finalI).getColour());
                                 colorList.add(0, petInfoList.get(finalI).getColour());
                                 colorAdapter.notifyDataSetChanged();
                             }
                         });
             }
-//            final int finalI = i;
-//            collection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        String color = document.getString("Color");
-//                        colorList.add(color);
-//                    }
-//                    Set<String> set = new HashSet<>(colorList);
-//                    colorList.clear();
-//                    colorList.addAll(set);
-//                    colorList.remove(petInfoList.get(finalI).getColour());
-//                    colorList.add(0, petInfoList.get(finalI).getColour());
-//                    colorAdapter.notifyDataSetChanged();
-//                }
-//            });
 
             age.setText(petInfoList.get(i).getAge());
             marking.setText(petInfoList.get(i).getMarking());

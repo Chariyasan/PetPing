@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginRight="30px"
@@ -145,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:textColor="#808080"
-                    android:text="5-10 ปี" />
+                    android:text="6-10 ปี" />
                 <CheckBox
                     android:id="@+id/cb_age_10_up"
                     android:layout_width="wrap_content"
@@ -238,4 +239,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

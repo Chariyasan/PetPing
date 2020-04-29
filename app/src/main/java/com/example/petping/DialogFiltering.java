@@ -122,25 +122,25 @@ public class DialogFiltering extends DialogFragment {
         sizeM = view.findViewById(R.id.cb_size_m);
         sizeL = view.findViewById(R.id.cb_size_l);
         if(type.equals("สุนัข")){
-            textS.setText("1-5 กิโลกรัม");
-            textM.setText("5-10 กิโลกรัม");
-            textL.setText("10 กิโลกรัมชึ้นไป");
+            textS.setText(" (1-5 กิโลกรัม)");
+            textM.setText(" (6-10 กิโลกรัม)");
+            textL.setText(" (10กิโลกรัมขึ้นไป)");
             textS.setVisibility(View.VISIBLE);
             textM.setVisibility(View.VISIBLE);
             textL.setVisibility(View.VISIBLE);
 
-            collection.document("Dog").get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            for(Object key: documentSnapshot.getData().values()){
-                                colorList.add(key.toString());
-                            }
-                            Collections.sort(colorList);
-                            colorList.add(0,"ไม่ระบุ");
-                            colorAdapter.notifyDataSetChanged();
-                        }
-                    });
+//            collection.document("Dog").get()
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            for(Object key: documentSnapshot.getData().values()){
+//                                colorList.add(key.toString());
+//                            }
+//                            Collections.sort(colorList);
+//                            colorList.add(0,"ไม่ระบุ");
+//                            colorAdapter.notifyDataSetChanged();
+//                        }
+//                    });
 
             db.collection("Pet")
                     .whereEqualTo("Type", "สุนัข")
@@ -149,40 +149,49 @@ public class DialogFiltering extends DialogFragment {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String breed = document.getString("Breed");
+                                String color = document.getString("Color");
+                                breedList.add(breed);
+                                colorList.add(color);
+                            }
+                            Set<String> set1 = new HashSet<>(colorList);
+                            colorList.clear();
+                            colorList.addAll(set1);
+                            Collections.sort(colorList);
+                            colorList.add(0,"ไม่ระบุ");
+                            colorAdapter.notifyDataSetChanged();
 
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String breed = document.getString("Breed");
-                                    breedList.add(breed);
-                                }
-                                Set<String> set = new HashSet<>(breedList);
-                                breedList.clear();
-                                breedList.addAll(set);
-                                Collections.sort(breedList);
+                            Set<String> set = new HashSet<>(breedList);
+                            breedList.clear();
+                            breedList.addAll(set);
+                            Collections.sort(breedList);
 //                                breedAdapter.notifyDataSetChanged();
-
+                            }
                         }
                     });
         }
         if(type.equals("แมว")){
-            textS.setText("1-3 กิโลกรัม");
-            textM.setText("3-6 กิโลกรัม");
-            textL.setText("6 กิโลกรัมชึ้นไป");
+            textS.setText(" (1-3 กิโลกรัม)");
+            textM.setText(" (4-6 กิโลกรัม)");
+            textL.setText(" (6 กิโลกรัมชึ้นไป)");
             textS.setVisibility(View.VISIBLE);
             textM.setVisibility(View.VISIBLE);
             textL.setVisibility(View.VISIBLE);
 
-            collection.document("Cat").get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            for(Object key: documentSnapshot.getData().values()){
-                                colorList.add(key.toString());
-                            }
-                            Collections.sort(colorList);
-                            colorList.add(0,"ไม่ระบุ");
-                            colorAdapter.notifyDataSetChanged();
-                        }
-                    });
+//            collection.document("Cat").get()
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            for(Object key: documentSnapshot.getData().values()){
+//                                colorList.add(key.toString());
+//                            }
+//                            Collections.sort(colorList);
+//                            colorList.add(0,"ไม่ระบุ");
+//                            colorAdapter.notifyDataSetChanged();
+//                        }
+//                    });
 
             db.collection("Pet")
                     .whereEqualTo("Type", "แมว")
@@ -191,16 +200,27 @@ public class DialogFiltering extends DialogFragment {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
+                            if(task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     String breed = document.getString("Breed");
+                                    String color = document.getString("Color");
                                     breedList.add(breed);
+                                    colorList.add(color);
                                 }
+
+                                Set<String> set1 = new HashSet<>(colorList);
+                                colorList.clear();
+                                colorList.addAll(set1);
+                                Collections.sort(colorList);
+                                colorList.add(0,"ไม่ระบุ");
+                                colorAdapter.notifyDataSetChanged();
+
                                 Set<String> set = new HashSet<>(breedList);
                                 breedList.clear();
                                 breedList.addAll(set);
                                 Collections.sort(breedList);
-//                                breedAdapter.notifyDataSetChanged();
+                                //                                breedAdapter.notifyDataSetChanged();
+                            }
                         }
                     });
         }
@@ -217,36 +237,38 @@ public class DialogFiltering extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(ageLeastOne.isChecked()){
-                            petSearchAge.add("0 ปี");
+                            petSearchAge.add("0");
                         }
                         if(ageOnetoFive.isChecked()){
-                            petSearchAge.add("1 ปี");
-                            petSearchAge.add("2 ปี");
-                            petSearchAge.add("3 ปี");
-                            petSearchAge.add("4 ปี");
-                            petSearchAge.add("5 ปี");
+                            petSearchAge.add("1");
+                            petSearchAge.add("2");
+                            petSearchAge.add("3");
+                            petSearchAge.add("4");
+                            petSearchAge.add("5");
                         }
                         if(ageFivetoTen.isChecked()){
-                            petSearchAge.add("6 ปี");
-                            petSearchAge.add("7 ปี");
-                            petSearchAge.add("8 ปี");
-                            petSearchAge.add("9 ปี");
-                            petSearchAge.add("10 ปี");
+                            petSearchAge.add("6");
+                            petSearchAge.add("7");
+                            petSearchAge.add("8");
+                            petSearchAge.add("9");
+                            petSearchAge.add("10");
                         }
                         if(ageTenUp.isChecked()){
-                            petSearchAge.add("10 ปี");
+                            petSearchAge.add("11");
+                            petSearchAge.add("12");
+                            petSearchAge.add("13");
+                            petSearchAge.add("14");
+                            petSearchAge.add("15");
                         }
+
                         if(sizeS.isChecked()){
                             petSearchSize.add("S");
-                            petSearchSize.add("s");
                         }
                         if(sizeM.isChecked()){
                             petSearchSize.add("M");
-                            petSearchSize.add("m");
                         }
                         if(sizeL.isChecked()){
                             petSearchSize.add("L");
-                            petSearchSize.add("l");
                         }
                         int radioSex = radioGroupSex.getCheckedRadioButtonId();
                         radioButton = view.findViewById(radioSex);

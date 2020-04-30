@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:background="@android:color/transparent"
-                android:text="กำลังตรวจสอบข้อมูล"
+                android:text="กำลังตรวจสอบข้อมูล  "
                 android:textSize="16dp" />
 
             <Button
@@ -51,7 +51,7 @@
                 android:background="@android:color/transparent"
                 android:layout_weight="0.4"
                 android:textSize="16dp"
-                android:text="ดำเนินการสำเร็จ" />
+                android:text="ดำเนินการสำเร็จ  " />
             <Button
                 android:id="@+id/reject"
                 android:layout_width="match_parent"

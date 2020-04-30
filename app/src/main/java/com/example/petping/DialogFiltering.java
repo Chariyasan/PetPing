@@ -103,12 +103,12 @@ public class DialogFiltering extends DialogFragment {
         final ArrayAdapter<String> breedAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, breedList);
         breedSelected.setAdapter(breedAdapter);
 
-//        breedSelected.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                breedSelected.showDropDown();
-//            }
-//        });
+        breedSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                breedSelected.showDropDown();
+            }
+        });
         //Sex
         radioGroupSex = view.findViewById(R.id.rd_sex);
         maleBtn = view.findViewById(R.id.rd_male);
@@ -236,24 +236,77 @@ public class DialogFiltering extends DialogFragment {
                 .setPositiveButton("ค้นหา", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(ageLeastOne.isChecked()){
-                            petSearchAge.add("0");
-                        }
-                        if(ageOnetoFive.isChecked()){
+                        if(ageOnetoFive.isChecked() && ageFivetoTen.isChecked() && ageTenUp.isChecked()){
                             petSearchAge.add("1");
                             petSearchAge.add("2");
                             petSearchAge.add("3");
                             petSearchAge.add("4");
                             petSearchAge.add("5");
+                            petSearchAge.add("6");
+                            petSearchAge.add("7");
+                            petSearchAge.add("8");
+                            petSearchAge.add("9");
+                            petSearchAge.add("10");
+                            petSearchAge.add("11");
+                            petSearchAge.add("12");
+                            petSearchAge.add("13");
+                            petSearchAge.add("14");
+                            petSearchAge.add("15");
                         }
-                        if(ageFivetoTen.isChecked()){
+                        else if(ageOnetoFive.isChecked() && ageFivetoTen.isChecked()){
+                            petSearchAge.add("1");
+                            petSearchAge.add("2");
+                            petSearchAge.add("3");
+                            petSearchAge.add("4");
+                            petSearchAge.add("5");
                             petSearchAge.add("6");
                             petSearchAge.add("7");
                             petSearchAge.add("8");
                             petSearchAge.add("9");
                             petSearchAge.add("10");
                         }
-                        if(ageTenUp.isChecked()){
+                        else if(ageOnetoFive.isChecked() && ageTenUp.isChecked()){
+                            petSearchAge.add("1");
+                            petSearchAge.add("2");
+                            petSearchAge.add("3");
+                            petSearchAge.add("4");
+                            petSearchAge.add("5");
+                            petSearchAge.add("11");
+                            petSearchAge.add("12");
+                            petSearchAge.add("13");
+                            petSearchAge.add("14");
+                            petSearchAge.add("15");
+                        }
+                        else if(ageFivetoTen.isChecked() && ageTenUp.isChecked()){
+                            petSearchAge.add("6");
+                            petSearchAge.add("7");
+                            petSearchAge.add("8");
+                            petSearchAge.add("9");
+                            petSearchAge.add("10");
+                            petSearchAge.add("11");
+                            petSearchAge.add("12");
+                            petSearchAge.add("13");
+                            petSearchAge.add("14");
+                            petSearchAge.add("15");
+                        }
+                        else if(ageLeastOne.isChecked()){
+                            petSearchAge.add("0");
+                        }
+                        else if(ageOnetoFive.isChecked()){
+                            petSearchAge.add("1");
+                            petSearchAge.add("2");
+                            petSearchAge.add("3");
+                            petSearchAge.add("4");
+                            petSearchAge.add("5");
+                        }
+                        else if(ageFivetoTen.isChecked()){
+                            petSearchAge.add("6");
+                            petSearchAge.add("7");
+                            petSearchAge.add("8");
+                            petSearchAge.add("9");
+                            petSearchAge.add("10");
+                        }
+                        else if(ageTenUp.isChecked()){
                             petSearchAge.add("11");
                             petSearchAge.add("12");
                             petSearchAge.add("13");
@@ -261,15 +314,33 @@ public class DialogFiltering extends DialogFragment {
                             petSearchAge.add("15");
                         }
 
-                        if(sizeS.isChecked()){
+                        if(sizeS.isChecked() && sizeM.isChecked() && sizeL.isChecked()){
                             petSearchSize.add("S");
-                        }
-                        if(sizeM.isChecked()){
                             petSearchSize.add("M");
-                        }
-                        if(sizeL.isChecked()){
                             petSearchSize.add("L");
                         }
+                        else if(sizeS.isChecked() && sizeM.isChecked()){
+                            petSearchSize.add("S");
+                            petSearchSize.add("M");
+                        }
+                        else if(sizeS.isChecked() && sizeL.isChecked()){
+                            petSearchSize.add("S");
+                            petSearchSize.add("L");
+                        }
+                        else if(sizeM.isChecked() && sizeL.isChecked()){
+                            petSearchSize.add("M");
+                            petSearchSize.add("L");
+                        }
+                        else if(sizeS.isChecked()){
+                            petSearchSize.add("S");
+                        }
+                        else if(sizeM.isChecked()){
+                            petSearchSize.add("M");
+                        }
+                        else if(sizeL.isChecked()){
+                            petSearchSize.add("L");
+                        }
+
                         int radioSex = radioGroupSex.getCheckedRadioButtonId();
                         radioButton = view.findViewById(radioSex);
                         if(radioButton == view.findViewById(R.id.rd_male)){

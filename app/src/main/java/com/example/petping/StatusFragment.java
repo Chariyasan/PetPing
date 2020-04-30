@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,7 +40,7 @@ public class StatusFragment extends Fragment {
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Adoption")
-                .orderBy("DateTime")
+                .orderBy("DateTime", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -53,6 +54,7 @@ public class StatusFragment extends Fragment {
                                         document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
                                         document.get("petStory").toString(), document.get("ShelterID").toString());
                                 petList.add(petSearch);
+
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
                                 listView.setAdapter(petAdapter);
 

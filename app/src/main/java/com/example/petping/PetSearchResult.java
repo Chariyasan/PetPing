@@ -33,7 +33,7 @@ import java.util.Set;
 
 public class PetSearchResult extends Fragment implements DialogFiltering.filterSelected{
     private ArrayList<PetSearch> petSearchList;
-    private ArrayList<PetSearch> petSearchFilter;
+    private ArrayList<PetSearch> petSearchFilter = new ArrayList<>();;
     private GridView listView;
     private PetListViewAdapter petAdapter;
     private ArrayList<PetSearch> petItem;
@@ -125,9 +125,11 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
 
     @Override
     public void sendFiltering(String color, String sex, ArrayList<String> petSearchAge, ArrayList<String> petSearchSize, String breed) {
-        petSearchFilter = new ArrayList<>();
+        if(petSearchFilter != null){
+            petSearchFilter.clear();
+        }
         //Select all filter
-        if(!color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed != null){
+        if(!color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && !petSearchSize.isEmpty() && !breed.isEmpty()){
             int count = 0;
             for(int i=0; i<petSearchList.size(); i++){
                 for(int j=0; j<petSearchAge.size(); j++){
@@ -301,6 +303,83 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
             listView.setAdapter(petAdapter);
         }
 
+        //Not Choose Color & Breed
+        if(color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j=0; j<petSearchAge.size(); j++){
+                    for(int k=0; k<petSearchSize.size(); k++){
+                        if (petSearchList.get(i).getSex().equals(sex)
+                                && petSearchList.get(i).getAge().equals(petSearchAge.get(j))
+                                && petSearchList.get(i).getSize().equals(petSearchSize.get(k))) {
+                            petFilter(i);
+                            count++;
+                        }
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Not Choose Breed & Sex
+        if(!color.equals("ไม่ระบุ") && sex == null && !petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j=0; j<petSearchAge.size(); j++) {
+                    for (int k = 0; k < petSearchSize.size(); k++) {
+                        if (petSearchList.get(i).getColour().equals(color)
+                                && petSearchList.get(i).getAge().equals(petSearchAge.get(j))
+                                && petSearchList.get(i).getSize().equals(petSearchSize.get(k))) {
+                            petFilter(i);
+                            count++;
+                        }
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Not Choose Breed & Age
+        if(!color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j=0; j<petSearchSize.size(); j++){
+                    if (petSearchList.get(i).getColour().equals(color)
+                            && petSearchList.get(i).getSex().equals(sex)
+                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+        //Not Choose Breed & Size
+        if(!color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j=0; j<petSearchAge.size(); j++){
+                    if (petSearchList.get(i).getColour().equals(color)
+                            && petSearchList.get(i).getSex().equals(sex)
+                            && petSearchList.get(i).getAge().equals(petSearchAge.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+
+////////////////////////////////////////////////
         //Not Choose Age & Size
         if(!color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed!=null) {
             int count = 0;
@@ -353,65 +432,8 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
             listView.setAdapter(petAdapter);
         }
 
-        //Not Choose Size & Breed
-        if(!color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed.isEmpty()) {
-            int count = 0;
-            for (int i = 0; i < petSearchList.size(); i++) {
-                for (int j=0; j<petSearchAge.size(); j++){
-                    if (petSearchList.get(i).getColour().equals(color)
-                            && petSearchList.get(i).getSex().equals(sex)
-                            && petSearchList.get(i).getAge().equals(petSearchAge.get(j))) {
-                        petFilter(i);
-                        count++;
-                    }
-                }
-            }
-            resultFound.setText(String.valueOf(count));
-            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
-            listView.setAdapter(petAdapter);
-        }
-
-        //Not Choose Age & Breed
-        if(!color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
-            int count = 0;
-            for (int i = 0; i < petSearchList.size(); i++) {
-                for (int j=0; j<petSearchSize.size(); j++){
-                    if (petSearchList.get(i).getColour().equals(color)
-                            && petSearchList.get(i).getSex().equals(sex)
-                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
-                        petFilter(i);
-                        count++;
-                    }
-                }
-            }
-            resultFound.setText(String.valueOf(count));
-            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
-            listView.setAdapter(petAdapter);
-        }
-
-        //Not Choose Color & Breed
-        if(color.equals("ไม่ระบุ") && sex != null && !petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
-            int count = 0;
-            for (int i = 0; i < petSearchList.size(); i++) {
-                for (int j=0; j<petSearchSize.size(); j++){
-                    for(int k=0; k<petSearchAge.size(); k++){
-                        if (petSearchList.get(i).getSex().equals(sex)
-                                && petSearchList.get(i).getSize().equals(petSearchSize.get(j))
-                                && petSearchList.get(i).getAge().equals(petSearchAge.get(k))) {
-                            petFilter(i);
-                            count++;
-                        }
-                    }
-                }
-            }
-            resultFound.setText(String.valueOf(count));
-            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
-            listView.setAdapter(petAdapter);
-        }
-
-
         //Choose Color & Breed
-        if(!color.equals("ไม่ระบุ") && breed !=null) {
+        if(!color.equals("ไม่ระบุ") && breed !=null && sex==null && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 if (petSearchList.get(i).getColour().equals(color)
@@ -425,9 +447,161 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
             listView.setAdapter(petAdapter);
         }
 
+        //Choose Color & Sex
+        if(!color.equals("ไม่ระบุ") && sex !=null && breed.isEmpty() && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                if (petSearchList.get(i).getColour().equals(color)
+                        && petSearchList.get(i).getSex().equals(sex)) {
+                    petFilter(i);
+                    count++;
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Color & Age
+        if(!color.equals("ไม่ระบุ") && !petSearchAge.isEmpty() && sex==null && breed.isEmpty() && petSearchSize.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchAge.size(); j++) {
+                    if (petSearchList.get(i).getColour().equals(color)
+                            && petSearchList.get(i).getAge().equals(petSearchAge.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Color & Size
+        if(!color.equals("ไม่ระบุ") && !petSearchSize.isEmpty() && breed.isEmpty() && sex==null && petSearchAge.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchSize.size(); j++) {
+                    if (petSearchList.get(i).getColour().equals(color)
+                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Breed && Sex
+        if(sex!=null && breed!=null && color.equals("ไม่ระบุ") && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                if (petSearchList.get(i).getBreed().equals(breed)
+                        && petSearchList.get(i).getSize().equals(sex)) {
+                    petFilter(i);
+                    count++;
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Breed & Age
+        if(breed!=null && !petSearchAge.isEmpty() && color.equals("ไม่ระบุ") && sex==null && petSearchSize.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchAge.size(); j++) {
+                    if (petSearchList.get(i).getBreed().equals(breed)
+                            && petSearchList.get(i).getAge().equals(petSearchAge.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Breed & Size
+        if(breed!=null && !petSearchSize.isEmpty() && color.equals("ไม่ระบุ") && sex==null && petSearchAge.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchSize.size(); j++) {
+                    if (petSearchList.get(i).getBreed().equals(breed)
+                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Sex & Age
+        if(sex!=null && !petSearchSize.isEmpty() && color.equals("ไม่ระบุ") && breed.isEmpty() && petSearchAge.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchSize.size(); j++) {
+                    if (petSearchList.get(i).getAge().equals(sex)
+                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Sex & Size
+        if(sex!=null && !petSearchSize.isEmpty() && color.equals("ไม่ระบุ") && breed.isEmpty() && petSearchAge.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchSize.size(); j++) {
+                    if (petSearchList.get(i).getSex().equals(sex)
+                            && petSearchList.get(i).getSize().equals(petSearchSize.get(j))) {
+                        petFilter(i);
+                        count++;
+                    }
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
+        //Choose Age & Size
+        if(!petSearchAge.isEmpty() && !petSearchSize.isEmpty() && color.equals("ไม่ระบุ") && sex==null && breed.isEmpty()) {
+            int count = 0;
+            for (int i = 0; i < petSearchList.size(); i++) {
+                for (int j = 0; j < petSearchSize.size(); j++) {
+                    for (int k = 0; k < petSearchAge.size(); k++) {
+                        if (petSearchList.get(i).getSize().equals(petSearchSize.get(j))
+                            && petSearchList.get(i).getAge().equals(petSearchAge.get(k))) {
+                            petFilter(i);
+                            count++;
+                        }
+                    }
+
+                }
+            }
+            resultFound.setText(String.valueOf(count));
+            petAdapter = new PetListViewAdapter(getContext(), petSearchFilter);
+            listView.setAdapter(petAdapter);
+        }
+
 
         //Choose colour
-        if(!color.equals("ไม่ระบุ") && sex == null && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+        if(!color.equals("ไม่ระบุ") && sex == null && petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 if (petSearchList.get(i).getColour().equals(color)) {
@@ -442,7 +616,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         }
 
         //Choose sex
-        if(color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+        if(color.equals("ไม่ระบุ") && sex != null && petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 if (petSearchList.get(i).getSex().equals(sex)) {
@@ -457,7 +631,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         }
 
         //Choose age
-        if(color.equals("ไม่ระบุ") && sex == null && !petSearchAge.isEmpty() && petSearchSize.isEmpty()) {
+        if(color.equals("ไม่ระบุ") && sex == null && !petSearchAge.isEmpty() && petSearchSize.isEmpty() && breed.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 for (int j = 0; j < petSearchAge.size(); j++) {
@@ -473,7 +647,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
         }
 
         //Choose size
-        if(color.equals("ไม่ระบุ") && sex == null && petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed != null) {
+        if(color.equals("ไม่ระบุ") && sex == null && petSearchAge.isEmpty() && !petSearchSize.isEmpty() && breed.isEmpty()) {
             int count = 0;
             for (int i = 0; i < petSearchList.size(); i++) {
                 for (int j = 0; j < petSearchSize.size(); j++) {

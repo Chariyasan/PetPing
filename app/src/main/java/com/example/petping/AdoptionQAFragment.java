@@ -394,7 +394,7 @@ public class AdoptionQAFragment extends Fragment {
                             Log.d("update status", "DocumentSnapshot successfully updated!");
                         }
                     });
-            adop.put("UserName", documentSnapshot.get("adoptUserName").toString());
+            adop.put("adoptUserName", documentSnapshot.get("UserName").toString());
 //            adop.put("UserImage", documentSnapshot.get("Image").toString());
             adop.put("petID", petProfileList.get(i).getID());
             adop.put("petName", petProfileList.get(i).getName());

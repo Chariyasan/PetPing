@@ -47,12 +47,12 @@ public class ManageContentShelterAdapter extends BaseAdapter {
         TextView contentId, author, topic;
         ImageButton btn;
 
-        contentId = view.findViewById(R.id.contentID);
+//        contentId = view.findViewById(R.id.contentID);
         author = view.findViewById(R.id.author);
         topic = view.findViewById(R.id.topic);
         btn = view.findViewById(R.id.button);
 
-        contentId.setText(contentList.get(position).getID());
+//        contentId.setText(contentList.get(position).getID());
 //        author.setText(contentList.get(position).getShelterID());
         topic.setText(contentList.get(position).getTopic());
 

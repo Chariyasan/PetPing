@@ -109,6 +109,12 @@ public class ManagePetInfoShelterFragment extends Fragment {
 //                                petList1.add(petSearch);
                                 total++;
                             }
+                            Collections.sort(petList, new Comparator<PetSearch>() {
+                                @Override
+                                public int compare(PetSearch o1, PetSearch o2) {
+                                    return o1.getName().compareTo(o2.getName());
+                                }
+                            });
                             setButtonsForPagination(total);
                             result.setText(String.valueOf(total));
                             for(int i=0; i<ITEMS_IN_PAGE; i++) {

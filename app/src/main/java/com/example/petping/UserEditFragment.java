@@ -60,7 +60,7 @@ public class UserEditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu_edit, container, false);
         userName = view.findViewById(R.id.userName);
         telNo = view.findViewById(R.id.telNO);
-        password = view.findViewById(R.id.password);
+//        password = view.findViewById(R.id.password);
         image = view.findViewById(R.id.image);
         storageRef = FirebaseStorage.getInstance().getReference();
         btnSave = view.findViewById(R.id.btn_save);

@@ -94,30 +94,30 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:padding="5dp">-->
 
-                    <TextView
-                        android:layout_width="140dp"
-                        android:layout_height="wrap_content"
-                        android:text="รหัสผ่าน"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                    <!--<TextView-->
+                        <!--android:layout_width="140dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="รหัสผ่าน"-->
+                        <!--android:textSize="16dp"-->
+                        <!--android:textStyle="bold" />-->
 
-                    <EditText
-                        android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:inputType="textPassword"
-                        android:textColor="#808080"
-                        android:textSize="16dp" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/password"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentStart="true"-->
+                        <!--android:inputType="textPassword"-->
+                        <!--android:textColor="#808080"-->
+                        <!--android:textSize="16dp" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
             </LinearLayout>
 

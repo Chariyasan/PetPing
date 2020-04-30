@@ -20,20 +20,25 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserFAQFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView help;
-
+    private TextView what, shelter, adopter, how;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu_faq, null);
 
-        help = view.findViewById(R.id.help);
+        what = view.findViewById(R.id.what);
+        shelter = view.findViewById(R.id.shelter);
+        adopter = view.findViewById(R.id.adopter);
+        how = view.findViewById(R.id.how);
         db.collection("Information")
                 .document("Help")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Log.d("็Help", String.valueOf(documentSnapshot.get("consent")));
-                        help.setText(String.valueOf(documentSnapshot.get("consent")));
+                        Log.d("็Help", String.valueOf(documentSnapshot.get("what")));
+                        what.setText(String.valueOf(documentSnapshot.get("what")));
+                        shelter.setText(String.valueOf(documentSnapshot.get("shelter")));
+                        adopter.setText(String.valueOf(documentSnapshot.get("adopter")));
+                        how.setText(String.valueOf(documentSnapshot.get("how")));
                     }
                 });
 

@@ -50,11 +50,20 @@
                     android:id="@+id/pet_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="3dp"
                     android:gravity="start"
                     android:padding="5dp"
                     android:text="ชื่อ"
+                    android:textColor="#FFF"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start"
+                    android:padding="5dp"
+                    android:text="ปี"
                     android:textColor="#FFF"
                     android:textSize="18dp" />
 

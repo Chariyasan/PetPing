@@ -42,7 +42,7 @@
                 android:layout_weight="0.4"
                 android:background="@android:color/transparent"
                 android:text="กำลังตรวจสอบข้อมูล  "
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/success"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.4"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="ดำเนินการสำเร็จ  " />
             <Button
                 android:id="@+id/reject"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.4"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="ไม่ผ่านพิจารณา" />
         </LinearLayout>
         <LinearLayout

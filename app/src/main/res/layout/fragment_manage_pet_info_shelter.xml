@@ -85,8 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp"
-            android:gravity="center">
+            android:layout_marginBottom="5dp">
 
             <Button
                 android:id="@+id/finding"
@@ -94,17 +93,17 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.5"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="กำลังหาบ้าน" />
 
             <Button
                 android:id="@+id/waiting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:background="@android:color/transparent"
                 android:text="กำลังตรวจสอบข้อมูล"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/success"
@@ -112,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.5"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="หาบ้านสำเร็จ" />
 
         </LinearLayout>

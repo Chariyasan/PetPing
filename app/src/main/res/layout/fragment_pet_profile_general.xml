@@ -96,7 +96,7 @@
                 android:text="test"
                 android:textColor="#000"
                 android:textSize="18dp"
-                app:layout_constraintStart_toEndOf="@+id/info_age"
+                app:layout_constraintStart_toEndOf="@+id/year"
                 app:layout_constraintTop_toBottomOf="@+id/info_name" />
 
             <TextView
@@ -104,10 +104,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:text="test"
                 android:textColor="#000"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/info_name" />
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="ปี"
+                android:textColor="#000"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@+id/info_age"
                 app:layout_constraintTop_toBottomOf="@+id/info_name" />
 
             <TextView
@@ -116,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="status"
                 android:textColor="#000"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/info_age"
                 app:layout_constraintTop_toBottomOf="@+id/info_age" />
 

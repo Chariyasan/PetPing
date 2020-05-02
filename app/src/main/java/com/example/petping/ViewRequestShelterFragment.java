@@ -65,7 +65,6 @@ public class ViewRequestShelterFragment extends Fragment {
             uID = adoptionList.get(i).getuID();
             petID = adoptionList.get(i).getPetID();
             status = adoptionList.get(i).getPetStatus();
-//            Log.d("AdoptionList", adoptionList.get(i).getuID());
         }
 
         btnAdopter = view.findViewById(R.id.btn_adopter_info);
@@ -127,25 +126,6 @@ public class ViewRequestShelterFragment extends Fragment {
         btnBasicQ.setTextColor(Color.parseColor("#FFAFAFAF"));
         btnPet.setTypeface(null, Typeface.NORMAL);
         btnPet.setTextColor(Color.parseColor("#FFAFAFAF"));
-
-//        db.collection("User")
-//                .document(uID)
-//                .collection("Information")
-//                .document("Information")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                        Log.d("Flipper", documentSnapshot.getData().toString());
-//                        adoptName.setText(documentSnapshot.get("Name").toString());
-//                        adoptNid.setText(documentSnapshot.get("NID").toString());
-//                        adoptDOB.setText(documentSnapshot.get("DOB").toString());
-//                        adoptTel.setText(documentSnapshot.get("TelNo").toString());
-//                        adoptAddr.setText(documentSnapshot.get("Address").toString());
-//                        adoptJob.setText(documentSnapshot.get("Job").toString());
-//                        adoptSalary.setText(documentSnapshot.get("Salary").toString());
-//                    }
-//                });
 
         db.collection("RequestAdoption")
                 .document(uID)

@@ -15,8 +15,8 @@ import java.util.List;
 
 public class PetStatusAdapter extends BaseAdapter {
     private Context context;
-    private List<PetSearch> petList;
-    public PetStatusAdapter(Context context, ArrayList<PetSearch> petList) {
+    private List<Status> petList;
+    public PetStatusAdapter(Context context, ArrayList<Status> petList) {
         this.context = context;
         this.petList = petList;
     }
@@ -45,18 +45,20 @@ public class PetStatusAdapter extends BaseAdapter {
                 .load(petList.get(position).getUrl())
                 .into((ImageView) imgView);
 
-        TextView name, breed, status;
+        TextView name, breed, status, date;
         name = view.findViewById(R.id.status_name);
         breed = view.findViewById(R.id.status_breed);
         status = view.findViewById(R.id.status_status);
+        date = view.findViewById(R.id.status_date);
 
         name.setText(petList.get(position).getName());
         breed.setText(petList.get(position).getBreed());
         status.setText(petList.get(position).getStatus());
+        date.setText(petList.get(position).getDateTime());
 
         String status1 = petList.get(position).getStatus();
         if(status1.equals("กำลังดำเนินการ")){
-            status.setTextColor(Color.parseColor("#ffa41b"));
+            status.setTextColor(Color.parseColor("#FFCC00"));
         }
         if(status1.equals("ดำเนินการสำเร็จ")){
             status.setTextColor(Color.parseColor("#00574B"));

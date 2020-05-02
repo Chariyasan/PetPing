@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public class ViewStatusFragment extends Fragment {
-    private ArrayList<PetSearch> statusList = new ArrayList<>();
+    private ArrayList<Status> statusList = new ArrayList<>();
     private TextView petName, petBreed, petAge, petSex, petColour, petMarking;
     private TextView petHealth, petWeight, petSize, petCharacter, petFoundLoc;
     private TextView qOne, qTwo, qThree, qFour, qFive;

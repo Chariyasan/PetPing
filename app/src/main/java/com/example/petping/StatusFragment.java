@@ -29,8 +29,8 @@ public class StatusFragment extends Fragment {
     private ListView listView;
     private PetStatusAdapter petAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayList<PetSearch> petList = new ArrayList<>();
-    private ArrayList<PetSearch> statusList = new ArrayList<>();
+    private ArrayList<Status> petList = new ArrayList<>();
+    private ArrayList<Status> statusList = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,20 +40,21 @@ public class StatusFragment extends Fragment {
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Adoption")
-                .orderBy("DateTime", Query.Direction.DESCENDING)
+                .orderBy("DateTime", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             if(task.isSuccessful()){
-                                PetSearch petSearch = new PetSearch(document.get("petID").toString(), document.get("petName").toString(), document.get("petType").toString(),
+                                Status petSearch = new Status(document.get("petID").toString(), document.get("petName").toString(), document.get("petType").toString(),
                                         document.get("petColor").toString(), document.get("petSex").toString(), document.get("petAge").toString(),
                                         document.get("petBreed").toString(), document.get("petSize").toString(), document.get("petURL").toString(),
                                         document.get("petWeight").toString(), document.get("petCharacter").toString(), document.get("petMarking").toString(),
                                         document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
-                                        document.get("petStory").toString(), document.get("ShelterID").toString());
+                                        document.get("petStory").toString(), document.get("ShelterID").toString(), document.get("DateTime").toString());
                                 petList.add(petSearch);
+
 
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
                                 listView.setAdapter(petAdapter);

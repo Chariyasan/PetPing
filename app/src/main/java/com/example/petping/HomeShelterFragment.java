@@ -171,9 +171,9 @@ public class HomeShelterFragment extends Fragment {
                                 for(int i=0; i<homeList.size(); i++){
                                     if(homeList.get(i).getPetStatus().equals("กำลังตรวจสอบข้อมูล")){
                                         num++;
-                                        count.setText(String.valueOf(num));
                                     }
                                 }
+                                count.setText(String.valueOf(num));
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
                                 adapter.filterWaiting();
                                 listView.setAdapter(adapter);

@@ -36,7 +36,9 @@ public class StatusFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_status, null);
         listView = view.findViewById(R.id.listView_status);
-
+        if(!petList.isEmpty()){
+            petList.clear();
+        }
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Adoption")
@@ -54,7 +56,6 @@ public class StatusFragment extends Fragment {
                                         document.get("petHealth").toString(), document.get("petFoundLoc").toString(), document.get("petStatus").toString(),
                                         document.get("petStory").toString(), document.get("ShelterID").toString(), document.get("DateTime").toString());
                                 petList.add(petSearch);
-
 
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
                                 listView.setAdapter(petAdapter);

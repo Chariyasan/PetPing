@@ -1,6 +1,7 @@
 package com.example.petping;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class RecommendPetAdapter extends BaseAdapter {
     private Context context;
@@ -41,9 +43,9 @@ public class RecommendPetAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = View.inflate(context, R.layout.recommend_pet_adapter, null);
-        TextView name, breed, age;
+        TextView name, breed, age, rank;
         ImageView imageView, sex;
 
         imageView = convertView.findViewById(R.id.image);
@@ -51,6 +53,9 @@ public class RecommendPetAdapter extends BaseAdapter {
         breed = convertView.findViewById(R.id.breed);
         age = convertView.findViewById(R.id.age);
         sex = convertView.findViewById(R.id.sex);
+        rank = convertView.findViewById(R.id.rank);
+
+        rank.setText(String.valueOf(position+1));
 
         Glide.with(context)
                 .load(petList.get(position).getUrl())
@@ -64,6 +69,21 @@ public class RecommendPetAdapter extends BaseAdapter {
         name.setText(petList.get(position).getName());
         breed.setText(petList.get(position).getBreed());
         age.setText(petList.get(position).getAge());
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PetProfileGeneralFragment petProfile = new PetProfileGeneralFragment();
+                Bundle bundle = new Bundle();
+                ArrayList<PetSearch> list = new ArrayList<>();
+                list.add(petList.get(position));
+                bundle.putParcelableArrayList("petProfile", list);
+                petProfile.setArguments(bundle);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(id, petProfile);
+                ft.addToBackStack(null).commit();
+            }
+        });
         return convertView;
     }
 }

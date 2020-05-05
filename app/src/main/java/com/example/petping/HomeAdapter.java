@@ -79,28 +79,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return petList.size();
+        return 6;
     }
 
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = View.inflate(context, R.layout.home_adapter, null);
-//        ImageView imgView = (ImageView) view.findViewById(R.id.home_img);
-//        TextView textViewName, textViewBreed, textViewAge;
-//        Glide.with(context)
-//                .load(petList.get(position).getUrl())
-//                .into((ImageView) imgView);
-//
-//
-//        textViewName = view.findViewById(R.id.home_name);
-//        textViewAge = view.findViewById(R.id.home_age);
-//        textViewBreed = view.findViewById(R.id.home_breed);
-//
-//        textViewName.setText(petList.get(position).getName());
-//        textViewAge.setText(petList.get(position).getAge());
-//        textViewBreed.setText(petList.get(position).getBreed());
-//        return view;
-//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;

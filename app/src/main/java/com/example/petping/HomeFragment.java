@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,17 +32,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeFragment extends Fragment {
-    private ViewFlipper flipper, flipperPet;
-    private Button dogBtn, catBtn;
+    private ViewFlipper flipper;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayList<PetSearch> petListDog = new ArrayList<>();
-    private ArrayList<PetSearch> petListCat = new ArrayList<>();
     private ArrayList<PetSearch> petList = new ArrayList<>();
     private ArrayList<Content> contentList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private ContentHomeAdapter contentAdapter;
-    private GridView gridDog, gridCat, gridAll;
     private RecyclerView pet_rec, contentView;
+    private TextView seePet;
 
     @Nullable
     @Override
@@ -49,14 +47,7 @@ public class HomeFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_home, null);
         int image[]= {R.drawable.flip1, R.drawable.flip2, R.drawable.flip3};
         flipper = view.findViewById(R.id.flipper_home);
-//        flipperPet = view.findViewById(R.id.flipper_home_pet);
-//
-//        dogBtn = view.findViewById(R.id.home_dog_btn);
-//        catBtn = view.findViewById(R.id.home_cat_btn);
-//
-//        gridAll = view.findViewById(R.id.grid_all);
-//        gridDog = view.findViewById(R.id.grid_dog);
-//        gridCat = view.findViewById(R.id.grid_cat);
+        seePet = view.findViewById(R.id.see_pet);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pet_rec = view.findViewById(R.id.pet_rec);
@@ -65,10 +56,6 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         contentView = view.findViewById(R.id.content);
         contentView.setLayoutManager(layoutManager1);
-        //HomeAdapter adapter = new HomeAdapter(getContext(), petList);
-        //petView.setAdapter(adapter);
-//        pet_all = view.findViewById(R.id.pet_all);
-//        pet_all.setLayoutManager(layoutManager);
 
         for(int i=0; i<image.length; i++){
             flipperImages(image[i]);
@@ -102,7 +89,6 @@ public class HomeFragment extends Fragment {
                 });
 
         db.collection("Pet")
-                .whereEqualTo("Type", "สุนัข")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -116,16 +102,26 @@ public class HomeFragment extends Fragment {
                                         document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
                                         document.get("Story").toString(), document.get("ShelterID").toString());
-                                petListDog.add(petSearch);
                                 petList.add(petSearch);
                             }
                             homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
                             pet_rec.setAdapter(homeAdapter);
-
                         }
-
                     }
                 });
+
+        seePet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecommendPetFragment pet = new RecommendPetFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("recommendPet", petList);
+                pet.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(), pet);
+                ft.addToBackStack(null).commit();
+            }
+        });
 
         return view;
     }

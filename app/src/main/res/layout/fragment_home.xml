@@ -39,15 +39,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:padding="10dp"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="น้องที่แนะนำสำหรับคุณ" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="น้องที่แนะนำสำหรับคุณ" />
+
+                <TextView
+                    android:id="@+id/see_pet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:padding="10dp"
+                    android:text="ดูทั้งหมด"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pet_rec"
@@ -73,6 +87,7 @@
                 android:textSize="18dp"
                 android:text="บทความที่น่าสนใจ" />
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/content"
                 android:layout_width="match_parent"
@@ -82,7 +97,6 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 

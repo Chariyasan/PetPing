@@ -26,6 +26,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,7 +101,13 @@ public class AddContentShelterFragment extends Fragment {
                                             data.put("Story", story.getText().toString());
                                             data.put("URL", uri.toString());
                                             data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
-//                                            data.put("Tag", tag.getText().toString());
+//
+                                            long yourmilliseconds = System.currentTimeMillis();
+                                            SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                                            SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+                                            Date resultdate = new Date(yourmilliseconds);
+                                            data.put("Date", date.format(resultdate));
+                                            data.put("Time", time.format(resultdate));
 
                                             builder = new AlertDialog.Builder(getContext());
                                             builder.setTitle("คุณต้องการเพิ่มข้อมูลบทความใช่หรือไม่");

@@ -27,7 +27,13 @@
         <TextView
             android:id="@+id/topic"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="1"/>
 
         <ImageButton
@@ -36,11 +42,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_description_black_24dp"/>
-<!--        <Button-->
-<!--            android:id="@+id/button"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="..."/>-->
+
     </LinearLayout>
 
 </LinearLayout>

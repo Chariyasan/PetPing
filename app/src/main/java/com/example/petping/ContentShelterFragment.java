@@ -63,8 +63,8 @@ public class ContentShelterFragment extends Fragment {
                         topic.setText(documentSnapshot.get("Topic").toString());
                         story.setText(documentSnapshot.get("Story").toString());
                         Content content = new Content(documentSnapshot.getId(), documentSnapshot.get("Topic").toString(),
-                                documentSnapshot.get("Story").toString(), documentSnapshot.get("URL").toString(),
-                                documentSnapshot.get("Tag").toString(), documentSnapshot.get("ShelterID").toString());
+                                documentSnapshot.get("Story").toString(), documentSnapshot.get("URL").toString(), documentSnapshot.get("ShelterID").toString(),
+                                documentSnapshot.get("Date").toString(), documentSnapshot.get("Time").toString());
                         contentL.add(content);
                     }
                 });

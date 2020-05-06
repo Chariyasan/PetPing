@@ -25,7 +25,9 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,7 +77,6 @@ public class EditContentShelterFragment extends Fragment{
             topic.setText(contentList.get(i).getTopic());
             story.setText(contentList.get(i).getStory());
             ID = contentList.get(i).getID();
-            tag = contentList.get(i).getTag();
             author = contentList.get(i).getShelterID();
             imageUrl = contentList.get(i).getUrl();
         }
@@ -103,6 +104,13 @@ public class EditContentShelterFragment extends Fragment{
                                             data.put("Story", story.getText().toString());
                                             data.put("URL", uri.toString());
 
+                                            long yourmilliseconds = System.currentTimeMillis();
+                                            final SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                                            final SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+                                            final Date resultdate = new Date(yourmilliseconds);
+                                            data.put("Date", date.format(resultdate));
+                                            data.put("Time", time.format(resultdate));
+
                                             builder = new AlertDialog.Builder(getContext());
                                             builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
 
@@ -123,7 +131,8 @@ public class EditContentShelterFragment extends Fragment{
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
                                                                     Content content = new Content(ID, topic.getText().toString(),
-                                                                            story.getText().toString(), uri.toString(), tag, author);
+                                                                            story.getText().toString(), uri.toString(), author,
+                                                                            date.format(resultdate),  time.format(resultdate));
                                                                     contentL.add(content);
                                                                     ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                                                     Bundle bundle = new Bundle();
@@ -148,6 +157,13 @@ public class EditContentShelterFragment extends Fragment{
                     data1.put("Topic", topic.getText().toString());
                     data1.put("Story", story.getText().toString());
 
+                    long yourmilliseconds = System.currentTimeMillis();
+                    final SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                    final SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+                    final Date resultdate = new Date(yourmilliseconds);
+                    data1.put("Date", date.format(resultdate));
+                    data1 .put("Time", time.format(resultdate));
+
                     builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("คุณต้องการแก้ไขข้อมูลใช่หรือไม่");
 
@@ -161,7 +177,8 @@ public class EditContentShelterFragment extends Fragment{
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Content content = new Content(ID, topic.getText().toString(),
-                                                    story.getText().toString(), imageUrl, tag, author);
+                                                    story.getText().toString(), imageUrl, author,
+                                                    date.format(resultdate),  time.format(resultdate));
                                             contentL.add(content);
                                             ContentShelterFragment contentShelterFragment = new ContentShelterFragment();
                                             Bundle bundle = new Bundle();

@@ -39,9 +39,12 @@ public class UserLikeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_menu_like, container, false);
         listView = view.findViewById(R.id.listView_like);
+        if(!petFavList.isEmpty()){
+            petFavList.clear();
+        }
+
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")
@@ -79,7 +82,7 @@ public class UserLikeFragment extends Fragment {
                                                 petProfile.setArguments(bundle);
                                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                 ft.replace(getId(), petProfile);
-                                                ft.commit();
+                                                ft.addToBackStack(null).commit();
                                             }
                                         });
                                     }

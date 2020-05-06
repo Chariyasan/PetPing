@@ -10,8 +10,9 @@ public class Content implements Parcelable {
     private String topic;
     private String story;
     private String url;
-    private String tag;
     private String shelterID;
+    private String date;
+    private String time;
 
     public Content(Parcel in) {
         super();
@@ -30,14 +31,14 @@ public class Content implements Parcelable {
 
     };
 
-    public Content(String ID, String topic, String story, String url, String tag, String shelterID) {
+    public Content(String ID, String topic, String story, String url, String shelterID, String date, String time) {
         this.ID = ID;
         this.topic = topic;
         this.story = story;
         this.url = url;
-        this.tag = tag;
         this.shelterID = shelterID;
-
+        this.date = date;
+        this.time = time;
     }
 
     public void readFromParcel(Parcel in) {
@@ -45,7 +46,6 @@ public class Content implements Parcelable {
         topic = in.readString();
         story = in.readString();
         url = in.readString();
-        tag = in.readString();
         shelterID = in.readString();
     }
 
@@ -82,14 +82,6 @@ public class Content implements Parcelable {
         this.url = url;
     }
 
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     public String getShelterID() {
         return shelterID;
     }
@@ -100,6 +92,22 @@ public class Content implements Parcelable {
 
     public static Creator<Content> getCREATOR() {
         return CREATOR;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
@@ -113,7 +121,8 @@ public class Content implements Parcelable {
         dest.writeString(topic);
         dest.writeString(story);
         dest.writeString(url);
-        dest.writeString(tag);
         dest.writeString(shelterID);
+        dest.writeString(date);
+        dest.writeString(time);
     }
 }

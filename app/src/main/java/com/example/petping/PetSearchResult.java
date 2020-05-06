@@ -125,7 +125,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
 
     @Override
     public void sendFiltering(String color, String sex, ArrayList<String> petSearchAge, ArrayList<String> petSearchSize, String breed) {
-        if(petSearchFilter != null){
+        if(!petSearchFilter.isEmpty()){
             petSearchFilter.clear();
         }
         //Select all filter

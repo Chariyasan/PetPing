@@ -179,54 +179,6 @@ public class UserEditFragment extends Fragment {
             }
         });
 
-//        btnUserName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), PopUpEditUserNameActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), PopUpEditNameActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnTel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), PopUpEditTelActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnJob.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), PopUpEditJobActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        btnAddr.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), PopUpEditAddressActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        edit_back_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.replace(getId(), new MenuFragment());
-//                ft.commit();
-//            }
-//        });
         return view;
     }
 

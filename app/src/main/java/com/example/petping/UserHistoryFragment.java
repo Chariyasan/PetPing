@@ -41,6 +41,9 @@ public class UserHistoryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_history, container, false);
         listView = view.findViewById(R.id.listView_history);
+        if(!petHistList.isEmpty()){
+            petHistList.clear();
+        }
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("History")
@@ -78,7 +81,7 @@ public class UserHistoryFragment extends Fragment {
                                                 petProfile.setArguments(bundle);
                                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                                 ft.replace(getId(), petProfile);
-                                                ft.commit();
+                                                ft.addToBackStack(null).commit();
                                             }
                                         });
                                     }

@@ -148,7 +148,7 @@ public class HomeShelterFragment extends Fragment {
 //            Log.d("uid", value.get(i));
             final int finalI1 = i;
             final int finalI = i;
-            if(homeList != null){
+            if(!homeList.isEmpty()){
                 homeList.clear();
             }
             db.collection("RequestAdoption")

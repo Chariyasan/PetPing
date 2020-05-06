@@ -18,6 +18,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +41,7 @@ public class ManageContentShelterFragment extends Fragment {
         listView = view.findViewById(R.id.listView_content_shelter);
         btnAdd = view.findViewById(R.id.btn_add_content);
         result = view.findViewById(R.id.result);
-        if(contentList != null){
+        if(!contentList.isEmpty()){
             contentList.clear();
         }
         db.collection("Content")
@@ -52,12 +54,14 @@ public class ManageContentShelterFragment extends Fragment {
                             int count = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Content content = new Content(document.getId(), document.get("Topic").toString(),
-                                        document.get("Story").toString(), document.get("URL").toString(),
-                                        document.get("Tag").toString(), document.get("ShelterID").toString());
+                                        document.get("Story").toString(), document.get("URL").toString(), document.get("ShelterID").toString(),
+                                        document.get("Date").toString(), document.get("Time").toString());
                                 contentList.add(content);
                                 count++;
                             }
+
                             adapter = new ManageContentShelterAdapter(getFragmentManager(),getId(), getContext(), contentList);
+                            adapter.sortDate();
                             listView.setAdapter(adapter);
                             result.setText(String.valueOf(count));
                         }

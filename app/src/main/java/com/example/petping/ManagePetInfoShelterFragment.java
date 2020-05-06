@@ -83,10 +83,10 @@ public class ManagePetInfoShelterFragment extends Fragment {
         btnSuccess.setTextColor(Color.parseColor("#FFAFAFAF"));
 
 
-        if(petList != null){
+        if(!petList.isEmpty()){
             petList.clear();
         }
-        if(tempList != null){
+        if(!tempList.isEmpty()){
             tempList.clear();
         }
         db.collection("Pet")
@@ -139,7 +139,6 @@ public class ManagePetInfoShelterFragment extends Fragment {
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("เลือกประเภทของสัตว์");
-
 
                 final String[] types = {"สุนัข","แมว"};
                 int check = -1;
@@ -322,7 +321,6 @@ public class ManagePetInfoShelterFragment extends Fragment {
     private void CheckBtnBackGround(int j) {
         for (int i = 0; i < noOfBtns; i++) {
             if (i == j) {
-                // btns[index].setBackgroundDrawable(getResources().getDrawable(R.drawable.box_green));
                 btns[j].setBackgroundColor(Color.DKGRAY);
                 btns[i].setTextColor(Color.WHITE);
             } else {

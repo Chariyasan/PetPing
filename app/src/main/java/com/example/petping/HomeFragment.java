@@ -61,10 +61,10 @@ public class HomeFragment extends Fragment {
             flipperImages(image[i]);
         }
 
-        if(petList != null){
+        if(!petList.isEmpty()){
             petList.clear();
         }
-        if(contentList != null){
+        if(!contentList.isEmpty()){
             contentList.clear();
         }
 
@@ -77,8 +77,8 @@ public class HomeFragment extends Fragment {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Content content = new Content(document.getId(), document.get("Topic").toString(),
-                                        document.get("Story").toString(), document.get("URL").toString(),
-                                        document.get("Tag").toString(), document.get("ShelterID").toString());
+                                        document.get("Story").toString(), document.get("URL").toString(), document.get("ShelterID").toString(),
+                                        document.get("Date").toString(), document.get("Time").toString());
                                 contentList.add(content);
 //                                Log.d("Content",document.get("Topic").toString());
                             }

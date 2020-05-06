@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ import java.util.Map;
 
 public class PetProfileGeneralFragment extends Fragment {
     private ArrayList<PetSearch> petProfileList;
-    private ImageView imageView, imageSex;
+    private ImageView imageView, imageSex, imageFav;
     private TextView infoName, infoAge, infoBreed,infoStory;
     private TextView infoColor, infoSize, infoMarking, infoChar;
     private TextView infoWeight, infoFoundLoc, infoStatus, infoMap, infohealth;
@@ -135,6 +136,7 @@ public class PetProfileGeneralFragment extends Fragment {
             }
         });
 
+//        imageFav = view.findViewById(R.id.fav);
         imageView = view.findViewById(R.id.img_pet_profile);
         infoName = view.findViewById(R.id.info_name);
         infoAge = view.findViewById(R.id.info_age);
@@ -186,26 +188,27 @@ public class PetProfileGeneralFragment extends Fragment {
             else {
                 imageSex.setImageResource(R.drawable.sex_female);
             }
+
             toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
-            final int finalI = i;
-            toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    if(isChecked){
-                        toggleButtonFav.setChecked(true);
-                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
-                        isStateSaved();
-                        saveIntoLike(petProfileList.get(finalI).getID());
-
-                    }
-                    else if (!isChecked){
-                        toggleButtonFav.setChecked(false);
-                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
-                        isStateSaved();
-                    }
-
-                }
-            });
+//            final int finalI = i;
+//            toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                    if(isChecked){
+//                        toggleButtonFav.setChecked(true);
+//                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
+//                        isStateSaved();
+//                        saveIntoLike(petProfileList.get(finalI).getID());
+//
+//                    }
+//                    else if (!isChecked){
+//                        toggleButtonFav.setChecked(false);
+//                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
+//                        isStateSaved();
+//                    }
+//
+//                }
+//            });
 
             PetSearch petProfile = new PetSearch(petProfileList.get(i).getID(), petProfileList.get(i).getName(),
                     petProfileList.get(i).getType(), petProfileList.get(i).getColour(), petProfileList.get(i).getSex(),
@@ -214,7 +217,63 @@ public class PetProfileGeneralFragment extends Fragment {
                     petProfileList.get(i).getHealth(), petProfileList.get(i).getFoundLoc(), petProfileList.get(i).getStatus(),
                     petProfileList.get(i).getStory(), petProfileList.get(i).getShelterID());
             petItem.add(petProfile);
+
+            final int finalI = i;
+            db.collection("User")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .collection("Like")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(final QueryDocumentSnapshot document : task.getResult()){
+                                    final String ID = document.getId();
+                                    Log.d("ID", document.getId());
+                                    if(petProfileList.get(finalI).getID().equals(ID)){
+//                                        imageFav.setImageResource(R.drawable.ic_favorite_red_24dp);
+                                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
+                                    }
+//                                    imageFav.setOnClickListener(new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            Log.d("PetProfile", petProfileList.get(finalI).getID());
+//
+//                                            if(!petProfileList.get(finalI).getID().equals(ID)){
+//                                                Log.d("1", "1");
+////                                                saveIntoLike(petProfileList.get(finalI).getID());
+//                                                imageFav.setImageResource(R.drawable.ic_favorite_red_24dp);
+//                                            }
+//                                            else {
+//                                                Log.d("3", "3");
+//                                                imageFav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+//                                            }
+//                                        }
+//                                    });
+                                    toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                                            if(isChecked){
+                                                toggleButtonFav.setChecked(true);
+                                                toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
+                                                saveIntoLike(petProfileList.get(finalI).getID());
+
+                                            }
+                                            else if (!isChecked){
+                                                toggleButtonFav.setChecked(false);
+                                                toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
+                                                deleteFromLike(petProfileList.get(finalI).getID());
+                                            }
+
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
         }
+
+
 
         db.collection("Shelter")
                 .document(shelterID)
@@ -269,23 +328,12 @@ public class PetProfileGeneralFragment extends Fragment {
                 dialog.show();
 
 
-//                AdoptionRegulationFragment adoptionRegulation = new AdoptionRegulationFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelableArrayList("petProfile", petItem);
-//
-//                adoptionRegulation.setArguments(bundle);
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.replace(getId(), adoptionRegulation);
-//                ft.addToBackStack(null).commit();
-
-                //                FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                ft.replace(getId(), new AdoptionRegulationFragment());
-//                ft.commit();
             }
         });
 
         return view;
     }
+
     private void InfoMap(final String latitude, final String longitude, final String address) {
 
         infoMap.setOnClickListener(new View.OnClickListener() {
@@ -310,14 +358,15 @@ public class PetProfileGeneralFragment extends Fragment {
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")
                 .document(ID)
-                .set(dataToSave)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                .set(dataToSave);
+    }
 
-                    }
-                });
-
+    private void deleteFromLike(String id) {
+        db.collection("User")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("Like")
+                .document(id)
+                .delete();
     }
 
 

@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PetStatusAdapter extends BaseAdapter {
@@ -19,6 +23,20 @@ public class PetStatusAdapter extends BaseAdapter {
     public PetStatusAdapter(Context context, ArrayList<Status> petList) {
         this.context = context;
         this.petList = petList;
+    }
+
+    public void sortStatus(){
+        Collections.sort(petList, new Comparator<Status>() {
+            @Override
+            public int compare(Status o1, Status o2) {
+                try {
+                    return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o2.getDateTime()).compareTo(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o1.getDateTime()));
+                } catch (ParseException e) {
+                    return 0;
+                }
+            }
+        });
+        notifyDataSetChanged();
     }
 
     @Override
@@ -57,7 +75,7 @@ public class PetStatusAdapter extends BaseAdapter {
         date.setText(petList.get(position).getDateTime());
 
         String status1 = petList.get(position).getStatus();
-        if(status1.equals("กำลังดำเนินการ")){
+        if(status1.equals("กำลังตรวจสอบข้อมูล")){
             status.setTextColor(Color.parseColor("#FFCC00"));
         }
         if(status1.equals("ดำเนินการสำเร็จ")){

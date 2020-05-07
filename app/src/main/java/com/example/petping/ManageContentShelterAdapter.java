@@ -56,7 +56,7 @@ public class ManageContentShelterAdapter extends BaseAdapter {
                 }
             }
         });
-               notifyDataSetChanged();
+        notifyDataSetChanged();
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {

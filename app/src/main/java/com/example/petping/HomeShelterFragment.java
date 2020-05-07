@@ -175,6 +175,7 @@ public class HomeShelterFragment extends Fragment {
                                 }
                                 count.setText(String.valueOf(num));
                                 adapter = new HomeShelterAdapter(getContext(), homeList);
+                                adapter.sortHomeShelter();
                                 adapter.filterWaiting();
                                 listView.setAdapter(adapter);
                             }

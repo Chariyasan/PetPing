@@ -15,7 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -76,6 +80,19 @@ public class HomeShelterAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void sortHomeShelter(){
+        Collections.sort(filterList, new Comparator<HomeShelter>() {
+            @Override
+            public int compare(HomeShelter o1, HomeShelter o2) {
+                try {
+                    return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o2.getDate()).compareTo(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o1.getDate()));
+                } catch (ParseException e) {
+                    return 0;
+                }
+            }
+        });
+        notifyDataSetChanged();
+    }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 //        View view = View.inflate(context, R.layout.home_shelter_adapter, null);
@@ -84,7 +101,6 @@ public class HomeShelterAdapter extends BaseAdapter {
         ImageView imgPet, imgUser;
         user = convertView.findViewById(R.id.user);
         petName = convertView.findViewById(R.id.pet_name);
-//        petStatus = convertView.findViewById(R.id.pet_status);
         imgPet = convertView.findViewById(R.id.img_pet);
         imgUser = convertView.findViewById(R.id.img_user);
         petDate = convertView.findViewById(R.id.pet_date);
@@ -92,7 +108,6 @@ public class HomeShelterAdapter extends BaseAdapter {
 
         user.setText(filterList.get(position).getUserName());
         petName.setText(filterList.get(position).getPetName());
-//        petStatus.setText(filterList.get(position).getPetStatus());
         petDate.setText(filterList.get(position).getPetDate());
         Glide.with(context)
                 .load(filterList.get(position).getURL())

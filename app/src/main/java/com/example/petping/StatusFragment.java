@@ -42,7 +42,6 @@ public class StatusFragment extends Fragment {
         db.collection("RequestAdoption")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Adoption")
-                .orderBy("DateTime", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -58,6 +57,7 @@ public class StatusFragment extends Fragment {
                                 petList.add(petSearch);
 
                                 petAdapter = new PetStatusAdapter(getContext(), petList);
+                                petAdapter.sortStatus();
                                 listView.setAdapter(petAdapter);
 
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 public class ContentHomeFragment extends Fragment {
     private ArrayList<Content> contentList;
-    private TextView topic, story, author;
+    private TextView topic, story;
     private ImageView image;
     @Nullable
     @Override
@@ -29,7 +29,7 @@ public class ContentHomeFragment extends Fragment {
         image = view.findViewById(R.id.image);
         topic = view.findViewById(R.id.topic);
         story = view.findViewById(R.id.story);
-        author = view.findViewById(R.id.author);
+
 
         for(int i=0; i<contentList.size(); i++){
             Glide.with(getContext())

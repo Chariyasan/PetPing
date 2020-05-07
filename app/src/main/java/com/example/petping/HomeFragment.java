@@ -1,5 +1,7 @@
 package com.example.petping;
 
+import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,10 +18,15 @@ import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,16 +37,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import org.tensorflow.lite.Interpreter;
 
 public class HomeFragment extends Fragment {
     private ViewFlipper flipper;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petList = new ArrayList<>();
+    private ArrayList<PetSearch> petRec = new ArrayList<>();
     private ArrayList<Content> contentList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private ContentHomeAdapter contentAdapter;
     private RecyclerView pet_rec, contentView;
     private TextView seePet;
+    private String modelFile="C:/Users/User/Downloads/graph.tflite";
+    private Interpreter tflite;
 
     @Nullable
     @Override
@@ -48,6 +59,13 @@ public class HomeFragment extends Fragment {
         int image[]= {R.drawable.flip1, R.drawable.flip2, R.drawable.flip3};
         flipper = view.findViewById(R.id.flipper_home);
         seePet = view.findViewById(R.id.see_pet);
+
+        try {
+            tflite = new Interpreter(loadModelFile());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pet_rec = view.findViewById(R.id.pet_rec);
@@ -60,7 +78,7 @@ public class HomeFragment extends Fragment {
         for(int i=0; i<image.length; i++){
             flipperImages(image[i]);
         }
-
+        Log.d("TFFF", String.valueOf(tflite));
         if(!petList.isEmpty()){
             petList.clear();
         }
@@ -68,7 +86,23 @@ public class HomeFragment extends Fragment {
             contentList.clear();
         }
 
-
+//        db.collection("User")
+//                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .collection("Like")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if(task.isSuccessful()){
+//                            for(final QueryDocumentSnapshot document : task.getResult()){
+//                                String petID = document.getId();
+//                                String[][] in = new String[][]{{petID,petID}};
+//                                String[][] out =new String[][]{{"0"}};
+//                                tflite.run(in, out);
+//                            }
+//                        }
+//                    }
+//                });
         db.collection("Content")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -87,6 +121,7 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
 
         db.collection("Pet")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
@@ -132,5 +167,15 @@ public class HomeFragment extends Fragment {
         flipper.addView(img);
         flipper.setFlipInterval(4000);
         flipper.setAutoStart(true);
+    }
+
+    private MappedByteBuffer loadModelFile() throws IOException {
+        AssetFileDescriptor fileDescriptor = getActivity().getAssets().openFd(modelFile);
+        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = inputStream.getChannel();
+        long startOffset = fileDescriptor.getStartOffset();
+        long declaredLength = fileDescriptor.getDeclaredLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+
     }
 }

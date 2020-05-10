@@ -52,7 +52,8 @@ dependencies {
     implementation 'com.github.dimorinny:floating-text-button:0.0.4'
     implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
 
-    implementation 'org.tensorflow:tensorflow-lite:+'
-}
+//    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite:0.1.2-nightly'
+    }
 
 apply plugin: 'com.google.gms.google-services'

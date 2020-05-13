@@ -54,11 +54,13 @@ public class HomeFragment extends Fragment {
     private String modelFile="converted_model_test.tflite";
 
     private Interpreter tflite;
-    private String modelFile2="db_test_2803_1.xls";
+    private String modelFile2="output_v4.xls";
     private String text;
     private int rows ;
     private int cols ;
-
+    double dotProduct = 0.0;
+    double magnitude1 = 0.0;
+    double magnitude2 = 0.0;
 
     @Nullable
     @Override
@@ -74,7 +76,6 @@ public class HomeFragment extends Fragment {
         }
         final float[][][][] inp = new float[1][224][224][3];
         final float[][] out = new float[1][1000];
-        getCosineSimilarity();
 
 //        Random rand = new Random();
 //        for(int i=0; i<1; i++){
@@ -174,32 +175,45 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            tflite.resizeInput(0, new int[]{1, 96, 96, 3});
-                            ArrayList<Float> inputList = new ArrayList<>();
-                            int count = 0;
+                            String[][] item = readfile();
+
                             for(final QueryDocumentSnapshot document : task.getResult()){
-                                count++;
-                                inputList.add(Float.valueOf(document.get("Rec").toString()));
-                            }
-
-                            Random rand = new Random();
-
-
-                            for(int in=0; in<inputList.size(); in++){
-                                for(int i=0; i<1; i++) {
-                                    for (int j = 0; j < 224; j++) {
-                                        for (int k = 0; k < 224; k++) {
-                                            for (int l = 0; l < 3; l++) {
-                                                inp[i][j][k][l] = rand.nextInt(2);
-                                            }
+                                String recID =  document.get("Rec").toString();
+                                for(int i=0; i<rows; i++){
+                                    for(int j=0; j<cols; j++){
+                                        if(recID.equals(String.valueOf(i))){
+                                            Log.d("ItemP", item[i][j]);
                                         }
                                     }
                                 }
                             }
 
-                            tflite.run(inp, out);
-
-                            recommend(out);
+//                            tflite.resizeInput(0, new int[]{1, 96, 96, 3});
+//                            ArrayList<Float> inputList = new ArrayList<>();
+//                            int count = 0;
+//                            for(final QueryDocumentSnapshot document : task.getResult()){
+//                                count++;
+//                                inputList.add(Float.valueOf(document.get("Rec").toString()));
+//                            }
+//
+//                            Random rand = new Random();
+//
+//
+//                            for(int in=0; in<inputList.size(); in++){
+//                                for(int i=0; i<1; i++) {
+//                                    for (int j = 0; j < 224; j++) {
+//                                        for (int k = 0; k < 224; k++) {
+//                                            for (int l = 0; l < 3; l++) {
+//                                                inp[i][j][k][l] = rand.nextInt(2);
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//
+//                            tflite.run(inp, out);
+//
+//                            recommend(out);
                         }
                     }
                 });
@@ -219,69 +233,69 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
-    private void recommend(final float[][] out) {
-                db.collection("Pet")
-                .whereEqualTo("Status", "กำลังหาบ้าน")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int[] output = new int[1000];
-                            float total =0;
-                            for(int i=0; i<1 ;i++){
-                                for(int j=0; j<1000; j++){
-                                    BigDecimal bigNum = new BigDecimal(out[i][j]);
-                                    String num = bigNum.toPlainString();
-//                                    Log.d("Number", num);
-                                    total += Float.valueOf(num);
-//                                    String num = String.valueOf(out[i][j]);
-//                                    String[] parts = num.split(Pattern.quote("."));
-//                                    String part = parts[0]; // 004
-//                                    output[j] = Integer.parseInt(num);
-//                                    Log.d("Num", String.valueOf(output[j] ));
-                                }
-                            }
-//                            Log.d("Total", String.valueOf(total));
-
-                            Map<Integer,Integer> countMap = new HashMap<>();
-                            for(int i=0;i<output.length;i++){
-                                if(countMap.containsKey(output[i])){
-                                    countMap.put(output[i], countMap.get(output[i])+1 );
-                                }else{
-                                    countMap.put(output[i], 1);
-                                }
-                            }
-
-                            String key = null;
-                            String value=null;
-                            for (Integer in: countMap.keySet()){
-                                key = in.toString();
-                                value = countMap.get(in).toString();
-//                                Log.d("key", key);
-//                                Log.d("value", value);
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if(document.get("Rec").toString().equals(key)){
-                                        PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                        document.get("Story").toString(), document.get("ShelterID").toString());
-                                        petList.add(petSearch);
-//                                        Log.d("PetName", document.get("Name").toString());
-                                    }
-                                }
-                            }
-
-//                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
-//                            pet_rec.setAdapter(homeAdapter);
-                        }
-                    }
-                });
-
-    }
+//
+//    private void recommend(final float[][] out) {
+//                db.collection("Pet")
+//                .whereEqualTo("Status", "กำลังหาบ้าน")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            int[] output = new int[1000];
+//                            float total =0;
+//                            for(int i=0; i<1 ;i++){
+//                                for(int j=0; j<1000; j++){
+//                                    BigDecimal bigNum = new BigDecimal(out[i][j]);
+//                                    String num = bigNum.toPlainString();
+////                                    Log.d("Number", num);
+//                                    total += Float.valueOf(num);
+////                                    String num = String.valueOf(out[i][j]);
+////                                    String[] parts = num.split(Pattern.quote("."));
+////                                    String part = parts[0]; // 004
+////                                    output[j] = Integer.parseInt(num);
+////                                    Log.d("Num", String.valueOf(output[j] ));
+//                                }
+//                            }
+////                            Log.d("Total", String.valueOf(total));
+//
+//                            Map<Integer,Integer> countMap = new HashMap<>();
+//                            for(int i=0;i<output.length;i++){
+//                                if(countMap.containsKey(output[i])){
+//                                    countMap.put(output[i], countMap.get(output[i])+1 );
+//                                }else{
+//                                    countMap.put(output[i], 1);
+//                                }
+//                            }
+//
+//                            String key = null;
+//                            String value=null;
+//                            for (Integer in: countMap.keySet()){
+//                                key = in.toString();
+//                                value = countMap.get(in).toString();
+////                                Log.d("key", key);
+////                                Log.d("value", value);
+//                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                    if(document.get("Rec").toString().equals(key)){
+//                                        PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+//                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+//                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+//                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+//                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+//                                        document.get("Story").toString(), document.get("ShelterID").toString());
+//                                        petList.add(petSearch);
+////                                        Log.d("PetName", document.get("Name").toString());
+//                                    }
+//                                }
+//                            }
+//
+////                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
+////                            pet_rec.setAdapter(homeAdapter);
+//                        }
+//                    }
+//                });
+//
+//    }
 
 
     public void flipperImages(int image){
@@ -301,21 +315,16 @@ public class HomeFragment extends Fragment {
         return fileChannel.map( FileChannel.MapMode.READ_ONLY , startoffset , declaredLength) ;
     }
 
-    public void getCosineSimilarity()
-    {
-        float dotProduct = 0;
-        float magnitude1 = 0;
-        float magnitude2 = 0;
-        float cosineSimilarity = 0;
+    private String[][] readfile(){
+        String[][] item = new String[0][];
         try {
             AssetManager assetManager = getActivity().getAssets();
             InputStream inputStream = assetManager.open(modelFile2);
             Workbook workbook = Workbook.getWorkbook(inputStream);
-            Sheet sheet = workbook.getSheet("db_test_2803");
+            Sheet sheet = workbook.getSheet(0);
             rows = sheet.getRows();
             cols = sheet.getColumns();
-            int vec1[][] = new int[rows][cols];
-            int vec2[][] = new int[rows][cols];
+            item = new String[rows][cols];
 
             String str = "";
             for(int i=0; i<rows; i++){
@@ -323,51 +332,29 @@ public class HomeFragment extends Fragment {
                     Cell cell = sheet.getCell(j,i);
 //                    str += cell.getContents();
                     str = cell.getContents();
-                    vec1[i][j] = Integer.parseInt(str);
-                    vec2[i][j] = Integer.parseInt(str);
+                    item[i][j] = str;
+//                    CosineSimilarity(item, item);
+//                    Log.d("Text", "Row"+i+"COl"+" "+String.valueOf(item[i][j]));
 //                    Log.d("Num", str);
                 }
-
-            }
-
-            for(int i=0; i<rows; i++){
-                for(int j=0; j<cols; j++){
-                    dotProduct += vec1[i][j] * vec2[i][j];  //a.b
-                    magnitude1 += Math.pow(vec1[i][j], 2);  //(a^2)
-                    magnitude2 += Math.pow(vec2[i][j], 2); //(b^2)
-                    Log.d("DataT", "Row"+i+"Col"+j+String.valueOf(vec1[i][j]));
-                }
-
-            }
-
-            magnitude1 = (float) Math.sqrt(magnitude1);//sqrt(a^2)
-            magnitude2 = (float) Math.sqrt(magnitude2);//sqrt(b^2)
-
-            if (magnitude1 != 0.0 | magnitude2 != 0.0)
-            {
-                cosineSimilarity = dotProduct / (magnitude1 * magnitude2);
-            }
-            else
-            {
-                cosineSimilarity = 0;
             }
 
 
-//            int inpSize = inputStream.available();
-//            byte[] buffer = new byte[inpSize];
-//            inputStream.read(buffer);
-//            text = new String(buffer);
-//            BigInteger BigInt = new BigInteger(text.s);
-//            String csvLine;
-//            int count =0;
-//            String[] line = new String[0];
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//            while ((csvLine = reader.readLine()) != null) {
-//                line = csvLine.split(",");
-//
-//
+
+//            double item_item[][] = new double[cols][cols];
+//            int count=0;
+//            for(int i=0; i<cols; i++){
+//                for(int j=0; j<cols; j++){
+//                    if (i == j) {
+//                        item_item[i][j] = 0.0;
+//                    } else {
+//                        item_item[i][j] =  CosineSimilarity(item, item);
+//                        Log.d("Cosine", String.valueOf(item_item[i][j]));
+//                        count++;
+//                    }
+//                }
 //            }
-
+//            Log.d("Count", String.valueOf(count));
 
         }  catch (
                 IOException e) {
@@ -375,22 +362,38 @@ public class HomeFragment extends Fragment {
         } catch (BiffException e) {
             e.printStackTrace();
         }
+        return item;
 
-//        return cosineSimilarity;
     }
 
-//    private void newMatrix(){
-//
-//        int rowNew = cols;
-//        int colNew = cols;
-//        float cosineMatrix[][] = new float[rowNew][colNew];
-//        for(int i=0; i<rowNew; i++){
-//            for(int j=0; j<colNew; j++){
-//                cosineMatrix[i][j] = getCosineSimilarity();
-//                Log.d("Cosine", "Row"+i+"Col"+j+" "+String.valueOf(cosineMatrix[i][j]));
-//            }
-//        }
-//    }
 
+
+//    public double CosineSimilarity(int[][] vec1, int[][] vec2) {
+//
+//        double cosineSimilarity = 0;
+//
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < cols; j++) {
+//                dotProduct += vec1[i][j] * vec2[i][j];
+//                magnitude1 += Math.pow(vec1[i][j], 2);
+//                magnitude2 += Math.pow(vec2[i][j], 2);
+//            }
+//
+//        }
+//
+//        magnitude1 = Math.sqrt(magnitude1);//sqrt(a^2)
+//        magnitude2 = Math.sqrt(magnitude2);//sqrt(b^2)
+//
+//        if (magnitude1 != 0.0 | magnitude2 != 0.0)
+//        {
+//            cosineSimilarity = dotProduct / (magnitude1 * magnitude2);
+//        }
+//        else
+//        {
+//            cosineSimilarity = 0.0;
+//        }
+//
+//        return cosineSimilarity;
+//    }
 
 }

@@ -99,7 +99,7 @@ public class SearchFragment extends Fragment {
                     document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                     document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                     document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                    document.get("Story").toString(), document.get("ShelterID").toString());
+                    document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString());
             petList.add(petSearch);
         }
 

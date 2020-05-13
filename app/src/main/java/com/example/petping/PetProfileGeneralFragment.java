@@ -215,7 +215,7 @@ public class PetProfileGeneralFragment extends Fragment {
                     petProfileList.get(i).getAge(), petProfileList.get(i).getBreed(), petProfileList.get(i).getSize(), petProfileList.get(i).getUrl(),
                     petProfileList.get(i).getWeight(), petProfileList.get(i).getCharacter(), petProfileList.get(i).getMarking(),
                     petProfileList.get(i).getHealth(), petProfileList.get(i).getFoundLoc(), petProfileList.get(i).getStatus(),
-                    petProfileList.get(i).getStory(), petProfileList.get(i).getShelterID());
+                    petProfileList.get(i).getStory(), petProfileList.get(i).getShelterID(), petProfileList.get(i).getRecommend());
             petItem.add(petProfile);
 
             final int finalI = i;

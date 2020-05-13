@@ -64,7 +64,7 @@ public class EditPetInfoShelterFragment extends Fragment {
     private RadioButton sexRd, maleRd, femaleRd;
     private ImageView image;
     private Button btnSaveInfo;
-    private String ID, type, size1, url, health, colour;
+    private String ID, type, size1, url, health, colour, rec;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private Map<String, Object> data = new HashMap<>();
@@ -107,6 +107,7 @@ public class EditPetInfoShelterFragment extends Fragment {
         for (int i=0; i<petInfoList.size(); i++){
             ID = petInfoList.get(i).getID();
             type = petInfoList.get(i).getType();
+            rec = petInfoList.get(i).getRecommend();
 //            size1 = petInfoList.get(i).getSize();
             url = petInfoList.get(i).getUrl();
             health = petInfoList.get(i).getHealth();
@@ -269,7 +270,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                                 breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
                                                                 character.getText().toString(), marking.getText().toString(),
                                                                 health, foundLoc.getText().toString(), status.getText().toString(),
-                                                                story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                                story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec);
                                                         petList.add(pet);
                                                         PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                                         Bundle bundle = new Bundle();
@@ -333,7 +334,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                     breed.getText().toString(), size1, url1, weight.getText().toString(),
                                                     character.getText().toString(), marking.getText().toString(),
                                                     health, foundLoc.getText().toString(), status.getText().toString(),
-                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec);
                                             petList.add(pet);
                                             PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                             Bundle bundle = new Bundle();

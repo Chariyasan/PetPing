@@ -64,27 +64,27 @@ public class AdoptionRegulationFragment extends Fragment {
                     }
                 });
 
-cbBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-   @Override
-   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-       if(isChecked){
-           regBox.setEnabled(true);
-           regBox.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   AdoptionInfoFragment adoptionInfo = new AdoptionInfoFragment();
-                   Bundle bundle = new Bundle();
-                   bundle.putParcelableArrayList("petProfile", petProfileList);
+        cbBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if(isChecked){
+                   regBox.setEnabled(true);
+                   regBox.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           AdoptionInfoFragment adoptionInfo = new AdoptionInfoFragment();
+                           Bundle bundle = new Bundle();
+                           bundle.putParcelableArrayList("petProfile", petProfileList);
 
-                   adoptionInfo.setArguments(bundle);
-                   FragmentTransaction ft = getFragmentManager().beginTransaction();
-                   ft.replace(getId(), adoptionInfo);
-                   ft.addToBackStack(null).commit();
-//                           FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                           ft.replace(getId(), new AdoptionInfoFragment());
-//                           ft.commit();
-               }
-           });
+                           adoptionInfo.setArguments(bundle);
+                           FragmentTransaction ft = getFragmentManager().beginTransaction();
+                           ft.replace(getId(), adoptionInfo);
+                           ft.addToBackStack(null).commit();
+        //                           FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //                           ft.replace(getId(), new AdoptionInfoFragment());
+        //                           ft.commit();
+                       }
+                   });
        }
        else {
            regBox.setEnabled(false);

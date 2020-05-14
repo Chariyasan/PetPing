@@ -21,13 +21,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Random;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,7 +48,7 @@ public class HomeFragment extends Fragment {
     private ViewFlipper flipper;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petList = new ArrayList<>();
-      private ArrayList<Content> contentList = new ArrayList<>();
+    private ArrayList<Content> contentList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private ContentHomeAdapter contentAdapter;
     private RecyclerView pet_rec, contentView;
@@ -54,13 +56,11 @@ public class HomeFragment extends Fragment {
     private String modelFile="converted_model_test.tflite";
 
     private Interpreter tflite;
-    private String modelFile2="output_v4.xls";
+    private String modelFile2 = "ranking_v1.xls";
     private String text;
     private int rows ;
     private int cols ;
-    double dotProduct = 0.0;
-    double magnitude1 = 0.0;
-    double magnitude2 = 0.0;
+    int count =0;
 
     @Nullable
     @Override
@@ -175,18 +175,48 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            String[][] item = readfile();
-
+                            Map<Integer, ArrayList<String>> map = readfile();
+                            ArrayList<String> recommend =  new ArrayList<>();
                             for(final QueryDocumentSnapshot document : task.getResult()){
                                 String recID =  document.get("Rec").toString();
-                                for(int i=0; i<rows; i++){
-                                    for(int j=0; j<cols; j++){
-                                        if(recID.equals(String.valueOf(i))){
-                                            Log.d("ItemP", item[i][j]);
-                                        }
-                                    }
+//                                String[] parts = recID.split("_");
+//                                String part = parts[1];
+//                                Log.d("Part", part);
+                                recommend.add(recID);
+                            }
+
+
+                            int index =0;
+                            for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+                                if(recommend.containsAll(entry.getValue())){
+                                    index = entry.getKey();
+                                }
+                                for(String o : entry.getValue()){
+                                    Log.d("value3",String.valueOf(entry.getKey())+" "+o);
                                 }
                             }
+                            recommendPet(index);
+
+//                            for (Integer i : map.keySet()){
+//                                for (String s : map.get(i)){
+//                                    Log.d("value2", String.valueOf(s));
+//                                    if(map.get(i).equals(recommend)){
+//                                        recommendPet(i);
+//                                    }
+//                                }
+//
+//                            }
+
+
+
+//                            for(int i=0; i< recommend.size(); i++){
+//                                for(ArrayList<String> j: map.values()){
+//                                    Log.d("TesP", j.get(i));
+//                                    if(recommend.get(i).equals(j.get(i))){
+//                                        Log.d("Testt", j.get(i));
+//                                    }
+//                                }
+//                            }
 
 //                            tflite.resizeInput(0, new int[]{1, 96, 96, 3});
 //                            ArrayList<Float> inputList = new ArrayList<>();
@@ -233,6 +263,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 //
 //    private void recommend(final float[][] out) {
 //                db.collection("Pet")
@@ -315,8 +346,9 @@ public class HomeFragment extends Fragment {
         return fileChannel.map( FileChannel.MapMode.READ_ONLY , startoffset , declaredLength) ;
     }
 
-    private String[][] readfile(){
+    private Map<Integer, ArrayList<String>> readfile(){
         String[][] item = new String[0][];
+        Map<Integer, ArrayList<String>> map = new HashMap<>();
         try {
             AssetManager assetManager = getActivity().getAssets();
             InputStream inputStream = assetManager.open(modelFile2);
@@ -326,19 +358,32 @@ public class HomeFragment extends Fragment {
             cols = sheet.getColumns();
             item = new String[rows][cols];
 
+
             String str = "";
+
             for(int i=0; i<rows; i++){
+                ArrayList<String> value =  new ArrayList<>();
                 for(int j=0; j<cols; j++){
                     Cell cell = sheet.getCell(j,i);
 //                    str += cell.getContents();
                     str = cell.getContents();
                     item[i][j] = str;
+                    value.add(item[i][j]);
 //                    CosineSimilarity(item, item);
 //                    Log.d("Text", "Row"+i+"COl"+" "+String.valueOf(item[i][j]));
 //                    Log.d("Num", str);
                 }
+                map.put(i, value);
             }
 
+            for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+                for(String o : entry.getValue()){
+                    if(o == null){
+                        map.get(entry).remove(o);
+                    }
+                    Log.d("value",String.valueOf(entry.getKey())+" "+o);
+                }
+            }
 
 
 //            double item_item[][] = new double[cols][cols];
@@ -362,10 +407,74 @@ public class HomeFragment extends Fragment {
         } catch (BiffException e) {
             e.printStackTrace();
         }
-        return item;
+        return map;
 
     }
 
+
+    private void recommendPet(Integer index) {
+        String[] pet = new String[0];
+        Cell[] cell1 = new Cell[0];
+        String str = "";
+        Log.d("IndexP", String.valueOf(index));
+        Map<Integer, ArrayList<String>> map = new HashMap<>();
+        try {
+            AssetManager assetManager = getActivity().getAssets();
+            InputStream inputStream = assetManager.open(modelFile2);
+            Workbook workbook = Workbook.getWorkbook(inputStream);
+            Sheet sheet = workbook.getSheet(1);
+            rows = sheet.getRows();
+            cols = sheet.getColumns();
+            pet = new String[cols];
+
+            for(int i=0; i<pet.length; i++){
+                cell1 = sheet.getRow(index);
+            }
+        }  catch (
+                IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+
+        for(int i=0; i<pet.length; i++){
+            str = cell1[i].getContents();
+            pet[i] = str;
+            Log.d("Pet", pet[i]);
+            final String[] finalPet = pet;
+            final Cell[] finalCell = cell1;
+            final String[] finalPet1 = pet;
+            final int finalI = i;
+            db.collection("Pet")
+                    .whereEqualTo("Rec", pet[i])
+                    .whereEqualTo("Status", "กำลังหาบ้าน")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                Log.d("Pet", finalPet1[finalI]);
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                            document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+                                            document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+                                            document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+                                            document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+                                            document.get("Story").toString(), document.get("ShelterID").toString(),document.get("Rec").toString());
+                                    petList.add(petSearch);
+                                }
+
+                                count++;
+                                if(count == finalCell.length){
+                                    homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList, finalPet);
+                                    pet_rec.setAdapter(homeAdapter);
+                                }
+                            }
+                        }
+                    });
+        }
+
+    }
 
 
 //    public double CosineSimilarity(int[][] vec1, int[][] vec2) {

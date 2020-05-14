@@ -13,22 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import jxl.Cell;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private Context context;
-    private List<PetSearch> petList;
+    private ArrayList<PetSearch> petList;
     private FragmentManager fragmentManager;
     private int id;
-    public HomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<PetSearch> petList) {
+    String[] finalCell;
+    public HomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<PetSearch> petList, String[] finalCell) {
         this.context = context;
         this.petList = petList;
         this.fragmentManager = fragmentManager;
         this.id = id;
+        this.finalCell = finalCell;
     }
 
 //    @Override
@@ -79,9 +84,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 6;
+        return petList.size();
     }
 
+    public void sortReccomendPet(){
+
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View mView;

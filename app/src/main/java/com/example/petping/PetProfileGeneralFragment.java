@@ -256,7 +256,7 @@ public class PetProfileGeneralFragment extends Fragment {
                                             if(isChecked){
                                                 toggleButtonFav.setChecked(true);
                                                 toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
-                                                saveIntoLike(petProfileList.get(finalI).getID());
+                                                saveIntoLike(petProfileList.get(finalI).getID(), petProfileList.get(finalI).getRecommend());
 
                                             }
                                             else if (!isChecked){
@@ -352,8 +352,9 @@ public class PetProfileGeneralFragment extends Fragment {
             }
         });
     }
-    private void saveIntoLike(String ID){
+    private void saveIntoLike(String ID, String recommend){
         dataToSave.put("petID", ID);
+        dataToSave.put("Rec", recommend);
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")

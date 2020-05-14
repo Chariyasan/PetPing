@@ -258,7 +258,7 @@ public class AddPetShelterFragment extends Fragment {
                                                 else if(weight.getText().toString().equals("4") || weight.getText().toString().equals("5") || weight.getText().toString().equals("6")){
                                                     size1 = "M";
                                                 }
-                                                else if(weight.getText().toString().compareTo("6") > 0){
+                                                else if(weight.getText().toString().compareTo("7") > 0){
                                                     size1 = "L";
                                                 }
                                             }

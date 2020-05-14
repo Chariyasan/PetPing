@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
     private ViewFlipper flipper;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<PetSearch> petList = new ArrayList<>();
+    private ArrayList<PetSearch> petRec = new ArrayList<>();
     private ArrayList<Content> contentList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private ContentHomeAdapter contentAdapter;
@@ -60,7 +63,8 @@ public class HomeFragment extends Fragment {
     private String text;
     private int rows ;
     private int cols ;
-    int count =0;
+    int count = -1;
+    private String[] pet;
 
     @Nullable
     @Override
@@ -186,26 +190,21 @@ public class HomeFragment extends Fragment {
                             }
 
 
-                            int index =0;
+
+                            int index=0;
                             for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-                                if(recommend.containsAll(entry.getValue())){
+                                if(recommend.contains(entry.getValue())){
                                     index = entry.getKey();
+                                    Log.d("Index1", String.valueOf(index));
                                 }
-                                for(String o : entry.getValue()){
-                                    Log.d("value3",String.valueOf(entry.getKey())+" "+o);
-                                }
+//                                for(String o : entry.getValue()){
+//                                    Log.d("value3",String.valueOf(entry.getKey())+" "+o);
+//                                }
                             }
+
                             recommendPet(index);
 
-//                            for (Integer i : map.keySet()){
-//                                for (String s : map.get(i)){
-//                                    Log.d("value2", String.valueOf(s));
-//                                    if(map.get(i).equals(recommend)){
-//                                        recommendPet(i);
-//                                    }
-//                                }
-//
-//                            }
+
 
 
 
@@ -377,12 +376,8 @@ public class HomeFragment extends Fragment {
             }
 
             for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-                for(String o : entry.getValue()){
-                    if(o == null){
-                        map.get(entry).remove(o);
-                    }
-                    Log.d("value",String.valueOf(entry.getKey())+" "+o);
-                }
+
+                Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
             }
 
 
@@ -413,8 +408,7 @@ public class HomeFragment extends Fragment {
 
 
     private void recommendPet(Integer index) {
-        String[] pet = new String[0];
-        Cell[] cell1 = new Cell[0];
+
         String str = "";
         Log.d("IndexP", String.valueOf(index));
         Map<Integer, ArrayList<String>> map = new HashMap<>();
@@ -426,10 +420,13 @@ public class HomeFragment extends Fragment {
             rows = sheet.getRows();
             cols = sheet.getColumns();
             pet = new String[cols];
-
+            Cell[] cell1 = sheet.getRow(index);
             for(int i=0; i<pet.length; i++){
-                cell1 = sheet.getRow(index);
+                str = cell1[i].getContents();
+                pet[i] = str;
+                Log.d("Pet1", pet[i]);
             }
+
         }  catch (
                 IOException e) {
             e.printStackTrace();
@@ -437,43 +434,84 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        for(int i=0; i<pet.length; i++){
-            str = cell1[i].getContents();
-            pet[i] = str;
-            Log.d("Pet", pet[i]);
-            final String[] finalPet = pet;
-            final Cell[] finalCell = cell1;
-            final String[] finalPet1 = pet;
-            final int finalI = i;
-            db.collection("Pet")
-                    .whereEqualTo("Rec", pet[i])
-                    .whereEqualTo("Status", "กำลังหาบ้าน")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                Log.d("Pet", finalPet1[finalI]);
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-                                            document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-                                            document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-                                            document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-                                            document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                            document.get("Story").toString(), document.get("ShelterID").toString(),document.get("Rec").toString());
-                                    petList.add(petSearch);
-                                }
 
-                                count++;
-                                if(count == finalCell.length){
-                                    homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList, finalPet);
-                                    pet_rec.setAdapter(homeAdapter);
-                                }
+
+        final String[] finalPet1 = pet;
+        db.collection("Pet")
+                .whereEqualTo("Status", "กำลังหาบ้าน")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+                                        document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString());
+                                petList.add(petSearch);
                             }
+                            showRecommendPet(pet, petList);
                         }
-                    });
-        }
+                    }
+                });
 
+
+//        for(int i=0; i<pet.length; i++){
+//            str = cell1[i].getContents();
+//            pet[i] = str;
+//            Log.d("Pet1", pet[i]);
+//            final String[] finalPet = pet;
+//            final Cell[] finalCell = cell1;
+//            final String[] finalPet2 = pet;
+//            final int finalI = i;
+//            count++;
+
+
+//            db.collection("Pet")
+//                    .whereEqualTo("Rec", pet[i])
+//                    .whereEqualTo("Status", "กำลังหาบ้าน")
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if(task.isSuccessful()){
+//                                Log.d("Pet2", finalPet2[finalI]);
+//                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                    PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+//                                            document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+//                                            document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+//                                            document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+//                                            document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+//                                            document.get("Story").toString(), document.get("ShelterID").toString(),document.get("Rec").toString());
+//                                    petList.add(petSearch);
+//                                }
+//                                if(count == finalCell.length){
+//                                    Log.d("CountLe", String.valueOf(count));
+//                                    homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList, finalPet);
+//                                    pet_rec.setAdapter(homeAdapter);
+//                                }
+//                            }
+//                        }
+//                    });
+//        }
+
+    }
+
+    private void showRecommendPet(String[] pet, ArrayList<PetSearch> petList) {
+        Log.d("petLenght", String.valueOf(pet.length));
+        for(int i=0; i<pet.length; i++){
+            Log.d("Pet[i]", pet[i]);
+            for(int j=0; j<petList.size(); j++){
+                if(pet[i].equals(petList.get(j).getRecommend())){
+                    petRec.add(petList.get(j));
+                }
+            }
+        }
+        homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petRec);
+        pet_rec.setAdapter(homeAdapter);
     }
 
 

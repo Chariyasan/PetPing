@@ -27,13 +27,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private ArrayList<PetSearch> petList;
     private FragmentManager fragmentManager;
     private int id;
-    String[] finalCell;
-    public HomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<PetSearch> petList, String[] finalCell) {
+    public HomeAdapter(FragmentManager fragmentManager, int id, Context context, ArrayList<PetSearch> petList) {
         this.context = context;
         this.petList = petList;
         this.fragmentManager = fragmentManager;
         this.id = id;
-        this.finalCell = finalCell;
     }
 
 //    @Override

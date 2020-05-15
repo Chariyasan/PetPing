@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
 
                             int index=0;
                             for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-                                if(recommend.contains(entry.getValue())){
+                                if(recommend.equals(entry.getValue())){
                                     index = entry.getKey();
                                     Log.d("Index1", String.valueOf(index));
                                 }
@@ -356,29 +356,22 @@ public class HomeFragment extends Fragment {
             rows = sheet.getRows();
             cols = sheet.getColumns();
             item = new String[rows][cols];
-
-
             String str = "";
 
             for(int i=0; i<rows; i++){
                 ArrayList<String> value =  new ArrayList<>();
-                for(int j=0; j<cols; j++){
-                    Cell cell = sheet.getCell(j,i);
-//                    str += cell.getContents();
-                    str = cell.getContents();
-                    item[i][j] = str;
-                    value.add(item[i][j]);
-//                    CosineSimilarity(item, item);
-//                    Log.d("Text", "Row"+i+"COl"+" "+String.valueOf(item[i][j]));
-//                    Log.d("Num", str);
-                }
+               Log.d("RowL", String.valueOf(sheet.getRow(i).length));
+               for(int j=0; j<cols; j++){
+                   Cell cell = sheet.getCell(j,i);
+                   str = cell.getContents();
+                   item[i][j] = str;
+                   if(!item[i][j] .isEmpty()){
+                       value.add(item[i][j]);
+                   }
+               }
                 map.put(i, value);
             }
 
-            for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-
-                Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
-            }
 
 
 //            double item_item[][] = new double[cols][cols];
@@ -402,16 +395,23 @@ public class HomeFragment extends Fragment {
         } catch (BiffException e) {
             e.printStackTrace();
         }
+
+        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+            entry.getValue().removeAll(Collections.singleton(null));
+//            for(String o : entry.getValue()){
+                Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
+//            }
+
+        }
+
         return map;
 
     }
 
 
     private void recommendPet(Integer index) {
-
         String str = "";
         Log.d("IndexP", String.valueOf(index));
-        Map<Integer, ArrayList<String>> map = new HashMap<>();
         try {
             AssetManager assetManager = getActivity().getAssets();
             InputStream inputStream = assetManager.open(modelFile2);
@@ -424,7 +424,7 @@ public class HomeFragment extends Fragment {
             for(int i=0; i<pet.length; i++){
                 str = cell1[i].getContents();
                 pet[i] = str;
-                Log.d("Pet1", pet[i]);
+//                Log.d("Pet1", pet[i]);
             }
 
         }  catch (
@@ -445,6 +445,7 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("PetID", document.getId());
                                 PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                         document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
                                         document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),

@@ -76,7 +76,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
 
                 PetSearch petSearch = new PetSearch(pet.getID(), pet.getName(), pet.getType(), pet.getColour(), pet.getSex(),
                         pet.getAge(), pet.getBreed(), pet.getSize(), pet.getUrl(), pet.getWeight(), pet.getCharacter(), pet.getMarking(),
-                        pet.getHealth(), pet.getFoundLoc(), pet.getStatus(), pet.getStory(), pet.getShelterID(), pet.getRecommend());
+                        pet.getHealth(), pet.getFoundLoc(), pet.getStatus(), pet.getStory(), pet.getShelterID(), pet.getRecommend(), pet.getAddDataTime());
 
                 petSearchArrayList.add(petSearch);
 
@@ -697,7 +697,7 @@ public class PetSearchResult extends Fragment implements DialogFiltering.filterS
                 petSearchList.get(i).getAge(), petSearchList.get(i).getBreed(), petSearchList.get(i).getSize(),petSearchList.get(i).getUrl(),
                 petSearchList.get(i).getWeight(), petSearchList.get(i).getCharacter(), petSearchList.get(i).getMarking(),
                 petSearchList.get(i).getHealth(), petSearchList.get(i).getFoundLoc(), petSearchList.get(i).getStatus(),
-                petSearchList.get(i).getStory(), petSearchList.get(i).getShelterID(), petSearchList.get(i).getRecommend());
+                petSearchList.get(i).getStory(), petSearchList.get(i).getShelterID(), petSearchList.get(i).getRecommend(), petSearchList.get(i).getAddDataTime());
         petSearchFilter.add(petFilter);
     }
 

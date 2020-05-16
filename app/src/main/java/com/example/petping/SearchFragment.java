@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -99,7 +101,7 @@ public class SearchFragment extends Fragment {
                     document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                     document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                     document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                    document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString());
+                    document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString(), document.get("AddDateTime").toString());
             petList.add(petSearch);
         }
 

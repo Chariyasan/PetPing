@@ -22,9 +22,11 @@ public class PetSearch implements Parcelable {
     private String story;
     private String shelterID;
     private String recommend;
+    private String addDataTime;
 
     public PetSearch(String ID, String name, String type, String colour, String sex, String age, String breed, String size, String url,
-                     String weight, String character, String marking, String health, String foundLoc, String status, String story, String shelterID, String recommend) {
+                     String weight, String character, String marking, String health, String foundLoc, String status, String story,
+                     String shelterID, String recommend, String addDataTime) {
         this.ID = ID;
         this.name = name;
         this.type = type;
@@ -43,6 +45,7 @@ public class PetSearch implements Parcelable {
         this.story = story;
         this.shelterID = shelterID;
         this.recommend = recommend;
+        this.addDataTime = addDataTime;
     }
 
     protected PetSearch(Parcel in) {
@@ -64,6 +67,7 @@ public class PetSearch implements Parcelable {
         story = in.readString();
         shelterID = in.readString();
         recommend = in.readString();
+        addDataTime = in.readString();
     }
 
     public static final Creator<PetSearch> CREATOR = new Creator<PetSearch>() {
@@ -226,6 +230,14 @@ public class PetSearch implements Parcelable {
         this.recommend = recommend;
     }
 
+    public String getAddDataTime() {
+        return addDataTime;
+    }
+
+    public void setAddDataTime(String addDataTime) {
+        this.addDataTime = addDataTime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -251,5 +263,6 @@ public class PetSearch implements Parcelable {
         dest.writeString(story);
         dest.writeString(shelterID);
         dest.writeString(recommend);
+        dest.writeString(addDataTime);
     }
 }

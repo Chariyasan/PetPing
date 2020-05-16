@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -213,7 +214,7 @@ public class PetProfileGeneralFragment extends Fragment {
                     petProfileList.get(i).getAge(), petProfileList.get(i).getBreed(), petProfileList.get(i).getSize(), petProfileList.get(i).getUrl(),
                     petProfileList.get(i).getWeight(), petProfileList.get(i).getCharacter(), petProfileList.get(i).getMarking(),
                     petProfileList.get(i).getHealth(), petProfileList.get(i).getFoundLoc(), petProfileList.get(i).getStatus(),
-                    petProfileList.get(i).getStory(), petProfileList.get(i).getShelterID(), petProfileList.get(i).getRecommend());
+                    petProfileList.get(i).getStory(), petProfileList.get(i).getShelterID(), petProfileList.get(i).getRecommend(), petProfileList.get(i).getAddDataTime());
             petItem.add(petProfile);
 
             final int finalI = i;
@@ -343,6 +344,12 @@ public class PetProfileGeneralFragment extends Fragment {
                 .collection("Like")
                 .document(ID)
                 .set(dataToSave);
+
+
+
+        db.collection("LikeCount")
+                .document(ID)
+                .update("Count", FieldValue.increment(1));
     }
 
     private void deleteFromLike(String id) {
@@ -351,6 +358,11 @@ public class PetProfileGeneralFragment extends Fragment {
                 .collection("Like")
                 .document(id)
                 .delete();
+
+        db.collection("LikeCount")
+                .document(id)
+                .update("Count", FieldValue.increment(-1));
+
     }
 
 

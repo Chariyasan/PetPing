@@ -31,9 +31,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -279,6 +281,11 @@ public class AddPetShelterFragment extends Fragment {
                                             data.put("Weight", weight.getText().toString());
                                             data.put("Image", uri.toString());
                                             data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                                            long yourmilliseconds = System.currentTimeMillis();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                                            Date resultdate = new Date(yourmilliseconds);
+                                            data.put("AddDateTime", sdf.format(resultdate));
 
                                             builder = new AlertDialog.Builder(getContext());
                                             builder.setTitle("คุณต้องการเพิ่มข้อมูลสัตว์ใช่หรือไม่");

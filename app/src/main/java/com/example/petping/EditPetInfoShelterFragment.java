@@ -70,7 +70,7 @@ public class EditPetInfoShelterFragment extends Fragment {
     private Map<String, Object> data = new HashMap<>();
     private Map<String, Object> data1 = new HashMap<>();
     private Uri Uri;
-    private String url1;
+    private String url1, dateTime;
     private Spinner spinColor;
 
     private AlertDialog dialog;
@@ -108,6 +108,7 @@ public class EditPetInfoShelterFragment extends Fragment {
             ID = petInfoList.get(i).getID();
             type = petInfoList.get(i).getType();
             rec = petInfoList.get(i).getRecommend();
+            dateTime = petInfoList.get(i).getAddDataTime();
 //            size1 = petInfoList.get(i).getSize();
             url = petInfoList.get(i).getUrl();
             health = petInfoList.get(i).getHealth();
@@ -270,7 +271,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                                 breed.getText().toString(), size1, uri.toString(), weight.getText().toString(),
                                                                 character.getText().toString(), marking.getText().toString(),
                                                                 health, foundLoc.getText().toString(), status.getText().toString(),
-                                                                story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec);
+                                                                story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec, dateTime);
                                                         petList.add(pet);
                                                         PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                                         Bundle bundle = new Bundle();
@@ -334,7 +335,7 @@ public class EditPetInfoShelterFragment extends Fragment {
                                                     breed.getText().toString(), size1, url1, weight.getText().toString(),
                                                     character.getText().toString(), marking.getText().toString(),
                                                     health, foundLoc.getText().toString(), status.getText().toString(),
-                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec);
+                                                    story.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), rec, dateTime);
                                             petList.add(pet);
                                             PetInfoShelterFragment petInfoShelterFragment = new PetInfoShelterFragment();
                                             Bundle bundle = new Bundle();

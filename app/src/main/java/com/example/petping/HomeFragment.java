@@ -3,6 +3,7 @@ package com.example.petping;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -45,6 +47,8 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import org.tensorflow.lite.Interpreter;
+
+import static android.os.Build.ID;
 
 public class HomeFragment extends Fragment {
     private ViewFlipper flipper;
@@ -185,14 +189,22 @@ public class HomeFragment extends Fragment {
                                 recommend.add(recID);
                             }
 
-                            int index = 0;
-                            for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-                                if(recommend.equals(entry.getValue())){
-                                    index = entry.getKey();
-                                    Log.d("Index1", String.valueOf(index));
-                                }
+                            if(recommend.isEmpty()){
+                                randomWeightPet();
                             }
-                            recommendPet(index);
+                            else{
+                                int index = 0;
+                                for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+                                    if(recommend.equals(entry.getValue())){
+                                        index = entry.getKey();
+                                        recommendPet(index);
+                                        Log.d("Index1", String.valueOf(index));
+                                        break;
+                                    }
+                                }
+
+                            }
+
 
 
 //                            for(int i=0; i< recommend.size(); i++){
@@ -249,6 +261,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
 
 //
 //    private void recommend(final float[][] out) {
@@ -428,13 +441,14 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("PetID", document.getId());
+//                                    Log.d("PetID", document.getId());
+
                                 PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                         document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
                                         document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
                                         document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
                                         document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                        document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString());
+                                        document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString(), document.get("AddDateTime").toString());
                                 petList.add(petSearch);
                             }
                             showRecommendPet(pet, petList);
@@ -483,11 +497,50 @@ public class HomeFragment extends Fragment {
 //        }
 
     }
+    private void randomWeightPet(){
+        db.collection("LikeCount")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            }
+                        }
+                    }
+                });
+        Log.d("IndexP", "Not Match");
+        db.collection("Pet")
+                .whereEqualTo("Status", "กำลังหาบ้าน")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("PetID", document.getId());
+                                PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+                                        document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString(), document.get("AddDateTime").toString());
+                                petList.add(petSearch);
+                            }
+                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
+                            pet_rec.setAdapter(homeAdapter);
+
+
+                        }
+                    }
+                });
+    }
 
     private void showRecommendPet(String[] pet, ArrayList<PetSearch> petList) {
         Log.d("petLength", String.valueOf(pet.length));
         for(int i=0; i<pet.length; i++){
-            Log.d("Pet[i]", pet[i]);
+//            Log.d("Pet[i]", pet[i]);
             for(int j=0; j<petList.size(); j++){
                 if(pet[i].equals(petList.get(j).getRecommend())){
                     petRec.add(petList.get(j));

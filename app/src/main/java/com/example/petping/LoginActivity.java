@@ -20,6 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
     private TextView textRegist;
     private EditText emailL, passL;
@@ -71,6 +73,20 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            HashMap<String, Object> data = new HashMap<>();
+                            data.put("Image","");
+                            FirebaseFirestore.getInstance().collection("User")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .collection("Information")
+                                    .document("Information")
+                                    .update(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            //showMessage("Can!!");
+                                        }
+                                    });
                             Intent Menu = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(Menu);
                             finish();
@@ -81,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
     }
     private void showMessage(String show){
         //show message on application

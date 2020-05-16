@@ -52,11 +52,13 @@ public class MenuFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            Glide.with(getContext())
-                                    .load(documentSnapshot.get("Image").toString())
-                                    .into(image);
-                            name.setText(documentSnapshot.get("UserName").toString());
+                        if(documentSnapshot != null){
+                            if (documentSnapshot.exists()) {
+                                Glide.with(getContext())
+                                        .load(documentSnapshot.get("Image").toString())
+                                        .into(image);
+                                name.setText(documentSnapshot.get("UserName").toString());
+                            }
                         }
                     }
                 });

@@ -190,26 +190,24 @@ public class PetProfileGeneralFragment extends Fragment {
             }
 
             toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
-//            final int finalI = i;
-//            toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                    if(isChecked){
-//                        toggleButtonFav.setChecked(true);
-//                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
-//                        isStateSaved();
-//                        saveIntoLike(petProfileList.get(finalI).getID());
-//
-//                    }
-//                    else if (!isChecked){
-//                        toggleButtonFav.setChecked(false);
-//                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
-//                        isStateSaved();
-//                    }
-//
-//                }
-//            });
+            final int finalI1 = i;
+            toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if(isChecked){
+                        toggleButtonFav.setChecked(true);
+                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
+                        saveIntoLike(petProfileList.get(finalI1).getID(), petProfileList.get(finalI1).getRecommend());
 
+                    }
+                    else if (!isChecked){
+                        toggleButtonFav.setChecked(false);
+                        toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_border_black_24dp);
+                        deleteFromLike(petProfileList.get(finalI1).getID());
+                    }
+
+                }
+            });
             PetSearch petProfile = new PetSearch(petProfileList.get(i).getID(), petProfileList.get(i).getName(),
                     petProfileList.get(i).getType(), petProfileList.get(i).getColour(), petProfileList.get(i).getSex(),
                     petProfileList.get(i).getAge(), petProfileList.get(i).getBreed(), petProfileList.get(i).getSize(), petProfileList.get(i).getUrl(),
@@ -234,22 +232,7 @@ public class PetProfileGeneralFragment extends Fragment {
 //                                        imageFav.setImageResource(R.drawable.ic_favorite_red_24dp);
                                         toggleButtonFav.setButtonDrawable(R.drawable.ic_favorite_red_24dp);
                                     }
-//                                    imageFav.setOnClickListener(new View.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(View v) {
-//                                            Log.d("PetProfile", petProfileList.get(finalI).getID());
-//
-//                                            if(!petProfileList.get(finalI).getID().equals(ID)){
-//                                                Log.d("1", "1");
-////                                                saveIntoLike(petProfileList.get(finalI).getID());
-//                                                imageFav.setImageResource(R.drawable.ic_favorite_red_24dp);
-//                                            }
-//                                            else {
-//                                                Log.d("3", "3");
-//                                                imageFav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-//                                            }
-//                                        }
-//                                    });
+
                                     toggleButtonFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                         @Override
                                         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

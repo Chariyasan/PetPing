@@ -91,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                             data.put("TelNo","");
                             data.put("Job","");
                             data.put("Address","");
+                            data.put("Image","");
                             db.collection("User")
                                     .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .collection("Information")

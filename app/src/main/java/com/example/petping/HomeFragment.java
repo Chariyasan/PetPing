@@ -63,7 +63,6 @@ public class HomeFragment extends Fragment {
     private String text;
     private int rows ;
     private int cols ;
-    int count = -1;
     private String[] pet;
 
     @Nullable
@@ -183,29 +182,17 @@ public class HomeFragment extends Fragment {
                             ArrayList<String> recommend =  new ArrayList<>();
                             for(final QueryDocumentSnapshot document : task.getResult()){
                                 String recID =  document.get("Rec").toString();
-//                                String[] parts = recID.split("_");
-//                                String part = parts[1];
-//                                Log.d("Part", part);
                                 recommend.add(recID);
                             }
 
-
-
-                            int index=0;
+                            int index = 0;
                             for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
                                 if(recommend.equals(entry.getValue())){
                                     index = entry.getKey();
                                     Log.d("Index1", String.valueOf(index));
                                 }
-//                                for(String o : entry.getValue()){
-//                                    Log.d("value3",String.valueOf(entry.getKey())+" "+o);
-//                                }
                             }
-
                             recommendPet(index);
-
-
-
 
 
 //                            for(int i=0; i< recommend.size(); i++){
@@ -424,7 +411,6 @@ public class HomeFragment extends Fragment {
             for(int i=0; i<pet.length; i++){
                 str = cell1[i].getContents();
                 pet[i] = str;
-//                Log.d("Pet1", pet[i]);
             }
 
         }  catch (
@@ -434,9 +420,6 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
-        final String[] finalPet1 = pet;
         db.collection("Pet")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
                 .get()
@@ -502,7 +485,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showRecommendPet(String[] pet, ArrayList<PetSearch> petList) {
-        Log.d("petLenght", String.valueOf(pet.length));
+        Log.d("petLength", String.valueOf(pet.length));
         for(int i=0; i<pet.length; i++){
             Log.d("Pet[i]", pet[i]);
             for(int j=0; j<petList.size(); j++){

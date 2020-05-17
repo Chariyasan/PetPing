@@ -17,6 +17,8 @@ import jxl.Cell;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +36,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         this.id = id;
     }
 
+    public void sortWeightPet(){
+        Collections.sort(petList, new Comparator<PetSearch>() {
+            @Override
+            public int compare(PetSearch o1, PetSearch o2) {
+                try {
+                    return new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o1.getAddDataTime()).compareTo(new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(o2.getAddDataTime()));
+                } catch (ParseException e) {
+                    return 0;
+                }
+            }
+        });
+        notifyDataSetChanged();
+    }
 //    @Override
 //    public int getCount() {
 //        return petList.size();

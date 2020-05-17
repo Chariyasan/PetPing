@@ -3,7 +3,6 @@ package com.example.petping;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,9 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -32,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,8 +44,6 @@ import jxl.read.biff.BiffException;
 
 import org.tensorflow.lite.Interpreter;
 
-import static android.os.Build.ID;
-
 public class HomeFragment extends Fragment {
     private ViewFlipper flipper;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -66,7 +58,6 @@ public class HomeFragment extends Fragment {
 
     private Interpreter tflite;
     private String modelFile2 = "ranking_v1.xls";
-    private String text;
     private int rows ;
     private int cols ;
     private String[] pet;
@@ -85,34 +76,6 @@ public class HomeFragment extends Fragment {
         }
         final float[][][][] inp = new float[1][224][224][3];
         final float[][] out = new float[1][1000];
-
-//        Random rand = new Random();
-//        for(int i=0; i<1; i++){
-//            for(int j=0; j<10; j++){
-//                for(int k=0; k<10; k++){
-//                    for(int l=0; l<3; l++){
-//                        inp[i][j][k][l] = rand.nextInt(50);
-////                        Log.d("Input", String.valueOf(inp[i][j][k][l]));
-//                    }
-//                }
-//            }
-//        }
-//        Log.d("Inp", String.valueOf(inp));
-
-//        for(int i=0; i<1 ;i++){
-//            for(int j=0; j<1000; j++){
-//                out[i][j] = rand.nextInt(50);
-////                Log.d("Output", String.valueOf(out[i][j]));
-//            }
-//        }
-
-
-//        for(int i=0; i<1 ;i++){
-//            for(int j=0; j<1000; j++){
-//                Log.d("OutputReal", String.valueOf(out[i][j]));
-//            }
-//        }
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         pet_rec = view.findViewById(R.id.pet_rec);
@@ -153,29 +116,6 @@ public class HomeFragment extends Fragment {
                 });
 
 
-//        db.collection("Pet")
-//                .whereEqualTo("Status", "กำลังหาบ้าน")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-//                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-//                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-//                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-//                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-//                                        document.get("Story").toString(), document.get("ShelterID").toString());
-//                                petList.add(petSearch);
-//                            }
-//                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
-//                            pet_rec.setAdapter(homeAdapter);
-//                        }
-//                    }
-//                });
-
-
         db.collection("User")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("Like")
@@ -207,43 +147,6 @@ public class HomeFragment extends Fragment {
 
                             }
 
-
-
-//                            for(int i=0; i< recommend.size(); i++){
-//                                for(ArrayList<String> j: map.values()){
-//                                    Log.d("TesP", j.get(i));
-//                                    if(recommend.get(i).equals(j.get(i))){
-//                                        Log.d("Testt", j.get(i));
-//                                    }
-//                                }
-//                            }
-
-//                            tflite.resizeInput(0, new int[]{1, 96, 96, 3});
-//                            ArrayList<Float> inputList = new ArrayList<>();
-//                            int count = 0;
-//                            for(final QueryDocumentSnapshot document : task.getResult()){
-//                                count++;
-//                                inputList.add(Float.valueOf(document.get("Rec").toString()));
-//                            }
-//
-//                            Random rand = new Random();
-//
-//
-//                            for(int in=0; in<inputList.size(); in++){
-//                                for(int i=0; i<1; i++) {
-//                                    for (int j = 0; j < 224; j++) {
-//                                        for (int k = 0; k < 224; k++) {
-//                                            for (int l = 0; l < 3; l++) {
-//                                                inp[i][j][k][l] = rand.nextInt(2);
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//
-//                            tflite.run(inp, out);
-//
-//                            recommend(out);
                         }
                     }
                 });
@@ -362,7 +265,7 @@ public class HomeFragment extends Fragment {
 
             for(int i=0; i<rows; i++){
                 ArrayList<String> value =  new ArrayList<>();
-               Log.d("RowL", String.valueOf(sheet.getRow(i).length));
+//               Log.d("RowL", String.valueOf(sheet.getRow(i).length));
                for(int j=0; j<cols; j++){
                    Cell cell = sheet.getCell(j,i);
                    str = cell.getContents();
@@ -398,13 +301,9 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-            entry.getValue().removeAll(Collections.singleton(null));
-//            for(String o : entry.getValue()){
-                Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
-//            }
-
-        }
+//        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+//            Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
+//        }
 
         return map;
 
@@ -524,7 +423,7 @@ public class HomeFragment extends Fragment {
 
                             list = list.subList(0,20);
                             for (Map.Entry<String, Integer> entry : list) {
-                                Log.d("Count", entry.getKey()+" "+entry.getValue());
+//                                Log.d("Count", entry.getKey()+" "+entry.getValue());
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if(document.getId().equals(entry.getKey())){
                                         PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
@@ -537,6 +436,7 @@ public class HomeFragment extends Fragment {
                                     }
                                 }
                                 homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
+                                homeAdapter.sortWeightPet();
                                 pet_rec.setAdapter(homeAdapter);
                             }
                         }

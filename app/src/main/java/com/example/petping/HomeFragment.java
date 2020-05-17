@@ -343,7 +343,6 @@ public class HomeFragment extends Fragment {
                         if(task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                    Log.d("PetID", document.getId());
-
                                 PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
                                         document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
                                         document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),

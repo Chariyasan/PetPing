@@ -281,6 +281,7 @@ public class AddPetShelterFragment extends Fragment {
                                             data.put("Weight", weight.getText().toString());
                                             data.put("Image", uri.toString());
                                             data.put("ShelterID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                            data.put("LikeCount", 0);
 
                                             long yourmilliseconds = System.currentTimeMillis();
                                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");

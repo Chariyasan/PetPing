@@ -347,9 +347,9 @@ public class PetProfileGeneralFragment extends Fragment {
 
 
 
-        db.collection("LikeCount")
+        db.collection("Pet")
                 .document(ID)
-                .update("Count", FieldValue.increment(1));
+                .update("LikeCount", FieldValue.increment(1));
     }
 
     private void deleteFromLike(String id) {
@@ -359,9 +359,9 @@ public class PetProfileGeneralFragment extends Fragment {
                 .document(id)
                 .delete();
 
-        db.collection("LikeCount")
+        db.collection("Pet")
                 .document(id)
-                .update("Count", FieldValue.increment(-1));
+                .update("LikeCount", FieldValue.increment(-1));
 
     }
 

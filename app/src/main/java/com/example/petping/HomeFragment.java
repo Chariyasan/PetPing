@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -32,6 +33,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -498,18 +500,6 @@ public class HomeFragment extends Fragment {
 
     }
     private void randomWeightPet(){
-        db.collection("LikeCount")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                            }
-                        }
-                    }
-                });
         Log.d("IndexP", "Not Match");
         db.collection("Pet")
                 .whereEqualTo("Status", "กำลังหาบ้าน")
@@ -518,20 +508,37 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
+                            Map<String, Integer> map =  new HashMap<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Log.d("PetID", document.getId());
-                                PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
-                                        document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
-                                        document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
-                                        document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
-                                        document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
-                                        document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString(), document.get("AddDateTime").toString());
-                                petList.add(petSearch);
+                                map.put(document.getId(), Integer.parseInt(document.get("LikeCount").toString()));
                             }
-                            homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
-                            pet_rec.setAdapter(homeAdapter);
+                            Set<Map.Entry<String, Integer>> set = map.entrySet();
+                            List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
 
+                            Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+                                public int compare(Map.Entry<String, Integer> o1,
+                                                   Map.Entry<String, Integer> o2) {
+                                    return o2.getValue().compareTo(o1.getValue());
+                                }
+                            });
 
+                            list = list.subList(0,20);
+                            for (Map.Entry<String, Integer> entry : list) {
+                                Log.d("Count", entry.getKey()+" "+entry.getValue());
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.getId().equals(entry.getKey())){
+                                        PetSearch petSearch = new PetSearch(document.getId(), document.get("Name").toString(), document.get("Type").toString(),
+                                                document.get("Color").toString(), document.get("Sex").toString(), document.get("Age").toString(),
+                                                document.get("Breed").toString(), document.get("Size").toString(), document.get("Image").toString(),
+                                                document.get("Weight").toString(), document.get("Character").toString(), document.get("Marking").toString(),
+                                                document.get("Health").toString(), document.get("OriginalLocation").toString(), document.get("Status").toString(),
+                                                document.get("Story").toString(), document.get("ShelterID").toString(), document.get("Rec").toString(), document.get("AddDateTime").toString());
+                                        petList.add(petSearch);
+                                    }
+                                }
+                                homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
+                                pet_rec.setAdapter(homeAdapter);
+                            }
                         }
                     }
                 });

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +62,7 @@ public class HomeFragment extends Fragment {
     private int rows ;
     private int cols ;
     private String[] pet;
+    private int index;
 
     @Nullable
     @Override
@@ -124,7 +126,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            Map<Integer, ArrayList<String>> map = readfile();
+
                             ArrayList<String> recommend =  new ArrayList<>();
                             for(final QueryDocumentSnapshot document : task.getResult()){
                                 String recID =  document.get("Rec").toString();
@@ -135,15 +137,18 @@ public class HomeFragment extends Fragment {
                                 randomWeightPet();
                             }
                             else{
-                                int index = 0;
-                                for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-                                    if(recommend.equals(entry.getValue())){
-                                        index = entry.getKey();
-                                        recommendPet(index);
-                                        Log.d("Index1", String.valueOf(index));
-                                        break;
-                                    }
-                                }
+                                recommendPet(recommend);
+//                                int index = 0;
+//                                for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+//                                    if(entry.getValue().equals(recommend)){
+//                                        index = entry.getKey();
+//                                        recommendPet(index);
+//                                        Log.d("Index1", String.valueOf(index)+""+entry.getValue());
+////                                        break;
+//                                    }
+
+
+//                                }
 
                             }
 
@@ -301,18 +306,27 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-//        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
-//            Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
-//        }
+        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+            Log.d("value",String.valueOf(entry.getKey())+" "+entry.getValue());
+        }
 
         return map;
 
     }
 
 
-    private void recommendPet(Integer index) {
+    private void recommendPet(ArrayList<String> likeList) {
+//        int index = 0;
+//        for (Map.Entry<Integer, ArrayList<String>> entry : map.entrySet()) {
+//            if(entry.getValue().equals(likeList)){
+//                index = 201;
+//                Log.d("Ind", String.valueOf(index)+" "+entry.getValue());
+//            }
+//            Log.d("Inde", String.valueOf(index)+" "+entry.getValue());
+//        }
+
+
         String str = "";
-        Log.d("IndexP", String.valueOf(index));
         try {
             AssetManager assetManager = getActivity().getAssets();
             InputStream inputStream = assetManager.open(modelFile2);
@@ -321,10 +335,45 @@ public class HomeFragment extends Fragment {
             rows = sheet.getRows();
             cols = sheet.getColumns();
             pet = new String[cols];
-            Cell[] cell1 = sheet.getRow(index);
-            for(int i=0; i<pet.length; i++){
-                str = cell1[i].getContents();
-                pet[i] = str;
+
+            boolean matched;
+            int i;
+            Map<Integer, ArrayList<String>> map = readfile();
+            for (int key : map.keySet()) {
+                matched = true;
+                ArrayList<String> list = map.get(key);
+
+                for(i = 0; i < list.size() && i < likeList.size(); i++) {
+                    if(!list.get(i).equals(likeList.get(i))){
+                        matched = false;
+                        break;
+                    }
+                    else{
+                        index = key;
+                    }
+                }
+//                if (matched && i == list.size() && i == likeList.size()) {
+//
+//                    Log.d("IndexN", String.valueOf(key));
+//                }
+            }
+
+//            Map<Integer, ArrayList<String>> map = readfile();
+//            List<Integer> indices = new ArrayList<>();
+//            for (int key : map.keySet()) {
+//                if (map.get(key).equals(likeList)) {
+//                    indices.add(key);
+//                }
+//            }
+
+
+            Log.d("Indenn", String.valueOf(index));
+
+
+            for(int j=0; j<pet.length; j++){
+                Cell[] cell1 = sheet.getRow(index);
+                str = cell1[j].getContents();
+                pet[j] = str;
             }
 
         }  catch (
@@ -446,7 +495,7 @@ public class HomeFragment extends Fragment {
     private void showRecommendPet(String[] pet, ArrayList<PetSearch> petList) {
         Log.d("petLength", String.valueOf(pet.length));
         for(int i=0; i<pet.length; i++){
-//            Log.d("Pet[i]", pet[i]);
+            Log.d("Pet[i]", pet[i]);
             for(int j=0; j<petList.size(); j++){
                 if(pet[i].equals(petList.get(j).getRecommend())){
                     petRec.add(petList.get(j));

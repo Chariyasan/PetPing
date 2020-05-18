@@ -97,7 +97,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return petList.size();
+        return 10;
     }
 
     public void sortReccomendPet(){

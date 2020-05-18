@@ -271,14 +271,14 @@ public class HomeFragment extends Fragment {
             for(int i=0; i<rows; i++){
                 ArrayList<String> value =  new ArrayList<>();
 //               Log.d("RowL", String.valueOf(sheet.getRow(i).length));
-               for(int j=0; j<cols; j++){
-                   Cell cell = sheet.getCell(j,i);
-                   str = cell.getContents();
-                   item[i][j] = str;
-                   if(!item[i][j] .isEmpty()){
-                       value.add(item[i][j]);
-                   }
-               }
+                for(int j=0; j<cols; j++){
+                    Cell cell = sheet.getCell(j,i);
+                    str = cell.getContents();
+                    item[i][j] = str;
+                    if(!item[i][j] .isEmpty()){
+                        value.add(item[i][j]);
+                    }
+                }
                 map.put(i, value);
             }
 

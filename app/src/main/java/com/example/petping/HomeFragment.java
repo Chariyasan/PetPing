@@ -156,18 +156,6 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        seePet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecommendPetFragment pet = new RecommendPetFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("recommendPet", petList);
-                pet.setArguments(bundle);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(getId(), pet);
-                ft.addToBackStack(null).commit();
-            }
-        });
 
         return view;
     }
@@ -336,6 +324,7 @@ public class HomeFragment extends Fragment {
             cols = sheet.getColumns();
             pet = new String[cols];
 
+
             boolean matched;
             int i;
             Map<Integer, ArrayList<String>> map = readfile();
@@ -344,16 +333,21 @@ public class HomeFragment extends Fragment {
                 ArrayList<String> list = map.get(key);
 
                 for(i = 0; i < list.size() && i < likeList.size(); i++) {
+//                    if (list.get(i).equals(likeList.get(i))) {
+//                        index = key;
+//                        Log.d("IndexN", String.valueOf(key));
+//                    }
                     if(!list.get(i).equals(likeList.get(i))){
                         matched = false;
                         break;
                     }
-                    else{
-                        index = key;
-                    }
                 }
+                if(matched){
+                    index = key;
+                }
+
 //                if (matched && i == list.size() && i == likeList.size()) {
-//
+//                    index = key;
 //                    Log.d("IndexN", String.valueOf(key));
 //                }
             }
@@ -486,6 +480,18 @@ public class HomeFragment extends Fragment {
                                 homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petList);
                                 homeAdapter.sortWeightPet();
                                 pet_rec.setAdapter(homeAdapter);
+                                seePet.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        RecommendPetFragment pet = new RecommendPetFragment();
+                                        Bundle bundle = new Bundle();
+                                        bundle.putParcelableArrayList("recommendPet", petList);
+                                        pet.setArguments(bundle);
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.replace(getId(), pet);
+                                        ft.addToBackStack(null).commit();
+                                    }
+                                });
                             }
                         }
                     }
@@ -504,6 +510,19 @@ public class HomeFragment extends Fragment {
         }
         homeAdapter = new HomeAdapter(getFragmentManager(), getId(), getContext(), petRec);
         pet_rec.setAdapter(homeAdapter);
+
+        seePet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecommendPetFragment pet = new RecommendPetFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("recommendPet", petRec);
+                pet.setArguments(bundle);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(getId(), pet);
+                ft.addToBackStack(null).commit();
+            }
+        });
     }
 
 

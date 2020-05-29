@@ -53,9 +53,9 @@ public class RecommendPetAdapter extends BaseAdapter {
         breed = convertView.findViewById(R.id.breed);
         age = convertView.findViewById(R.id.age);
         sex = convertView.findViewById(R.id.sex);
-        rank = convertView.findViewById(R.id.rank);
+//        rank = convertView.findViewById(R.id.rank);
 
-        rank.setText(String.valueOf(position+1));
+//        rank.setText(String.valueOf(position+1));
 
         Glide.with(context)
                 .load(petList.get(position).getUrl())
